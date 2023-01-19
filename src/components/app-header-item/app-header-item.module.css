@@ -1,0 +1,23 @@
+.block {
+    display: flex;
+}
+
+.block a {
+    text-decoration: none;
+}
+
+.notActive .image svg {
+    fill: #8585AD;
+}
+
+.active .image svg {
+    fill: #fff;
+}
+
+.notActive a {
+    color: #8585AD;
+}
+
+.active a {
+    color: #fff;
+}

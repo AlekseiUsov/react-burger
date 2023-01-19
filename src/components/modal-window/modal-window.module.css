@@ -1,0 +1,20 @@
+.window {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 30px;
+    background-color: #1C1C21;
+    padding: 40px 60px 40px 40px;
+    z-index: 3;
+}
+
+.header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.text {
+    font-size: 36px;
+}

@@ -1,0 +1,6 @@
+.cardsContainer {
+    padding-right: 20px;
+    max-height: 275px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
