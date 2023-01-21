@@ -6,15 +6,15 @@ import PropTypes from 'prop-types';
 import OrderDetails from '../order-details/order-details';
 
 
-const BurgerConstructorTotal = (props) => {
+const BurgerConstructorTotal = ({ text, icon }) => {
     const [isModalOpen, setIsOpenModal] = React.useState(false);
 
     return (
         <>
             <div onClick={() => setIsOpenModal(true)} className={`${styles.wrapper} pt-10 mr-10`}>
                 <div className={`${styles.counter} mr-10`} >
-                    <span className={`${styles.text}`} >{props.text}</span>
-                    <span className={`${styles.icon}`}>{props.icon}</span>
+                    <span className={`${styles.text}`} >{text}</span>
+                    <span className={`${styles.icon}`}>{icon}</span>
                 </div>
                 <Button htmlType="button" type="primary" size="large">
                     Оформить заказ
@@ -32,13 +32,9 @@ const BurgerConstructorTotal = (props) => {
     )
 }
 
-BurgerConstructorTotal.propTypes = PropTypes.shape({
-    className: PropTypes.string.isRequired,
+BurgerConstructorTotal.propTypes = {
     text: PropTypes.string.isRequired,
-    icon: PropTypes.elementType.isRequired,
-    onClick: PropTypes.func.isRequired,
-    setIsModalOpen: PropTypes.func.isRequired,
-});
-
+    icon: PropTypes.object.isRequired,
+};
 
 export default BurgerConstructorTotal;

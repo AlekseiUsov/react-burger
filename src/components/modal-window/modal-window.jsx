@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { Children } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './modal-window.module.css'
+
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import ModalOverlay from '../modal-overlay/modal-window'
+import ModalOverlay from '../modal-overlay/modal-overlay'
+import IngredientDetailsCard from '../ingredient-details-card/ingredient-details-card';
+
 import PropTypes from 'prop-types';
+import cardTypes from '../../utils/propsType';
 
 
 const modalRoot = document.getElementById("react-modals");
 
 
-const Modal = ({ setIsModalOpen, ...props }) => {
+const Modal = ({ setIsModalOpen, title, children }) => {
 
     React.useEffect(() => {
         const handleEsc = (e) => {
@@ -26,13 +30,13 @@ const Modal = ({ setIsModalOpen, ...props }) => {
         <>
             <div className={styles.window} >
                 <div className={styles.header}>
-                    <p className={styles.text}>{props.title}</p>
+                    <p className={styles.text}>{title}</p>
                     <CloseIcon
                         onClick={setIsModalOpen}
                         styles={{ width: '18px', height: '18px' }}
                     />
                 </div>
-                {props.children}
+                {children}
             </div>
             <ModalOverlay setIsModalOpen={setIsModalOpen} />
         </>,
@@ -40,11 +44,10 @@ const Modal = ({ setIsModalOpen, ...props }) => {
 }
 
 
-Modal.propTypes = PropTypes.shape({
-    className: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
+Modal.propTypes = {
+    title: PropTypes.string,
     setIsModalOpen: PropTypes.func.isRequired,
-    children: PropTypes.elementType,
-});
+    children: PropTypes.object.isRequired
+};
 
 export default Modal;

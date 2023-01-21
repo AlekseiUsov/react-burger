@@ -1,4 +1,4 @@
-import styles from './modal-window.module.css';
+import styles from './modal-overlay.module.css';
 import PropTypes from 'prop-types';
 
 const ModalOverlay = ({ setIsModalOpen }) => {
@@ -7,9 +7,8 @@ const ModalOverlay = ({ setIsModalOpen }) => {
     );
 }
 
-ModalOverlay.propTypes = PropTypes.shape({
-    className: PropTypes.string.isRequired,
-    onClick: PropTypes.string.isRequired,
-});
+ModalOverlay.propTypes = {
+    setIsModalOpen: PropTypes.func.isRequired,
+};
 
 export default ModalOverlay;

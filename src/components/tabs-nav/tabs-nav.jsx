@@ -1,7 +1,6 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './tabs-nav.module.css';
 import React from "react";
-import PropTypes from 'prop-types';
 
 function Tabs() {
     const [current, setCurrent] = React.useState('Булки')
@@ -15,8 +14,5 @@ function Tabs() {
     );
 }
 
-Tabs.propTypes = PropTypes.shape({
-    className: PropTypes.string.isRequired,
-});
 
 export default Tabs;
