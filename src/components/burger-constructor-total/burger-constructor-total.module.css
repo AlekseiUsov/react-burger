@@ -2,6 +2,13 @@
     display: flex;
     align-items: center;
     justify-content: end;
+    position: relative;
+}
+
+.popUp {
+    position: absolute;
+    top: -5px;
+    right: 10px;
 }
 
 .text {
@@ -19,4 +26,9 @@
 .counter {
     display: flex;
     align-items: center;
+}
+
+.button {
+    display: flex;
+    padding-top: 50px;
 }

@@ -8,7 +8,7 @@ const ModalOverlay = ({ setIsModalOpen }) => {
 }
 
 ModalOverlay.propTypes = {
-    setIsModalOpen: PropTypes.func.isRequired,
+    setIsModalOpen: PropTypes.func
 };
 
 export default ModalOverlay;

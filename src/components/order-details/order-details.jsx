@@ -2,12 +2,12 @@ import styles from './order-details.module.css';
 import PropTypes from 'prop-types';
 import done from '../../images/done.svg';
 
-const OrderDetails = ({ title }) => {
+const OrderDetails = ({ title, number }) => {
 
     return (
         <div className={`${styles.wrapper} mt-5 mb-10`}>
-            <h1 className={`${styles.title} mt-15`}>{title}</h1>
-            <h2 className={`${styles.subtitle} mt-8`}>идентификатор заказа</h2>
+            <h1 className={`${styles.title} mt-15`}>{number}</h1>
+            <h2 className={`${styles.subtitle} mt-8`}>{title}</h2>
             <div className='mt-15'>
                 <img src={done} />
             </div>
@@ -18,7 +18,8 @@ const OrderDetails = ({ title }) => {
 }
 
 OrderDetails.propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    number: PropTypes.number,
 };
 
 export default OrderDetails;

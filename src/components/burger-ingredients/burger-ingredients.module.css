@@ -9,6 +9,11 @@
     margin: 0;
 }
 
+.tabs {
+    display: flex;
+    justify-content: center;
+}
+
 .cardsContainer {
     max-width: 100%;
     max-height: 500px;

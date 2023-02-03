@@ -1,14 +1,13 @@
 import styles from './burger-ingredients-group.module.css';
 import cardTypes from '../../utils/propsType';
 import PropTypes from 'prop-types';
-
 import BurgerIngredientCard from '../burger-ingredient-card/burger-ingredient-card';
 
-function BurgerIngredientsGroup({ title, ingridients }) {
+const BurgerIngredientsGroup = ({ title, ingridients, name }) => {
 
     return (
-        <div className='pt-10'>
-            <h1 className={styles.title}>{title}</h1>
+        <div className='pt-10' name={name}>
+            <h1 className={styles.title} >{title}</h1>
             <div className={styles.cards}>
                 {ingridients
                     .map((ingridient) => (
@@ -34,6 +33,7 @@ function BurgerIngredientsGroup({ title, ingridients }) {
 
 BurgerIngredientsGroup.propTypes = {
     title: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     ingridients: PropTypes.arrayOf(cardTypes.isRequired).isRequired
 };
 
