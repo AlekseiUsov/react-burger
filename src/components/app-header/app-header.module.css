@@ -1,15 +1,13 @@
 .header {
     background-color: #1C1C21;
+    padding: 16px 110px;
 }
 
 .wrapper {
     display: flex;
     align-items: center;
-    padding: 16px 110px;
 }
 
 .logo {
     flex-grow: 1;
-    display: flex;
-    justify-content: center;
 }

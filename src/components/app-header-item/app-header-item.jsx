@@ -4,12 +4,15 @@ import PropTypes from 'prop-types';
 const AppHeaderItem = ({ isActive, onClick, text, icon }) => {
 
   return (
-    <div className={`${isActive ? styles.active : styles.notActive} ${styles.block} p-4`}
-      onClick={onClick}
-    >
+    <div className={`
+      ${styles.block} 
+      p-4 
+      ${isActive ? styles['active'] : styles['notActive']}  
+      `}
+      onClick={onClick}>
       <span className={`${styles.image} pl-2`}>{icon}</span>
-      <a className='pl-2'>{text}</a>
-    </div >
+      <p className='pl-2'>{text}</p>
+    </div>
   )
 }
 

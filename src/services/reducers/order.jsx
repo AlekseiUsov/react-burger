@@ -1,4 +1,4 @@
-import { _REQUEST_ORDER, _SUCCESS_ORDER, _ERROR_ORDER } from '../actions/order';
+import { ORDER_REQUEST, ORDER_SUCCESS, ORDER_ERROR } from '../actions/order';
 
 const initialState = {
     isLoading: false,
@@ -13,13 +13,13 @@ export const orderReducer = (state = initialState, action) => {
     const { type, ...rest } = action;
 
     switch (action.type) {
-        case _REQUEST_ORDER: {
+        case ORDER_REQUEST: {
             return {
                 ...state,
                 isLoading: true,
             };
         }
-        case _SUCCESS_ORDER: {
+        case ORDER_SUCCESS: {
             return {
                 ...state,
                 isLoading: false,
@@ -30,7 +30,7 @@ export const orderReducer = (state = initialState, action) => {
                 success: true,
             };
         }
-        case _ERROR_ORDER: {
+        case ORDER_ERROR: {
             return {
                 ...state,
                 name: null,

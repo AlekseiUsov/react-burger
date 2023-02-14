@@ -1,38 +1,32 @@
 import './App.css';
-import { useEffect } from 'react';
-import AppHeader from './components/app-header/app-header'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AppHeader from './components/app-header/app-header';
 
-import BurgerIngredients from './components/burger-ingredients/burger-ingredients'
-import BurgerConstructor from './components/burger-constructor/burger-constructor'
+import { HomePage } from './pages/home-page/home-page';
+import { LoginPage } from './pages/login-page/login-page';
+import { RegisterPage } from './pages/register-page/register-page';
+import { ResetPasswordPage } from './pages/reset-password-page/reset-password-page';
+import { ForgotPasswordPage } from './pages/forgot-password-page/forgot-password-page';
+import { ProfilePage } from './pages/profile/profile';
 
-import { getIngredients } from './services/actions/ingridients'
-import { useSelector, useDispatch } from 'react-redux';
-
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 
 const App = () => {
-  const dispatch = useDispatch();
-  const { ingridients, isLoading } = useSelector(store => store.ingridients);
-
-  useEffect(() => {
-    dispatch(getIngredients())
-  }, [dispatch]);
-
 
   return (
     <div className="App" >
-      <AppHeader />
-      {isLoading ? (
-        <h1>Пожайлуста, подождите ...</h1>
-      ) : (
-        < div style={{ display: 'flex', justifyContent: 'space-around', padding: '0 100px', }}>
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients title={'Соберите бургер'} ingridients={ingridients} />
-            <BurgerConstructor />
-          </DndProvider>
-        </div >
-      )}
+      <BrowserRouter>
+        <AppHeader />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+
+
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
