@@ -5,15 +5,22 @@ import styles from './burger-ingredient-card.module.css';
 import Modal from '../modal-window/modal-window';
 import IngredientDetailsCard from '../ingredient-details-card/ingredient-details-card';
 import cardTypes from '../../utils/propsType';
+import { Link, useParams } from 'react-router-dom';
+
 
 import { useDrag } from "react-dnd";
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_CURRENT_INGRIDIENT, REMOVE_CURRENT_INGRIDIENT } from '../../services/actions/current-ingridient'
+import { useLocation, useNavigate } from 'react-router-dom';
+
 
 const BurgerIngredientCard = (ingridient) => {
-    const [isModalOpen, setIsOpenModal] = React.useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+
     const { currentIngridient } = useSelector(state => state.currentIngridient);
     const { bun, constructorIngridients } = useSelector(state => state.burgerConstrucor);
+
 
     const count = React.useMemo(() => {
         const result = ingridient.type === 'bun'
@@ -23,11 +30,13 @@ const BurgerIngredientCard = (ingridient) => {
     }, [ingridient, bun, constructorIngridients])
 
 
-    const updateupdateconstructorIngridients = () => {
+
+    const updateConstrctorIngridients = () => {
         if (currentIngridient) {
             dispatch({ type: REMOVE_CURRENT_INGRIDIENT, ingridient })
         } else {
             dispatch({ type: GET_CURRENT_INGRIDIENT, ingridient })
+            navigate(`/ingridients/${ingridient._id}`, { state: { background: location } })
         }
     }
 
@@ -42,41 +51,20 @@ const BurgerIngredientCard = (ingridient) => {
     });
 
     return (
-        <>
-            <div className={styles.container} >
-                <div
-                    className={`${styles.wrapper} pt-6`}
-                    onClick={() => { setIsOpenModal(true); updateupdateconstructorIngridients() }}
-
-                >
-                    <div ref={dragRef}>
-                        <img src={ingridient.image} />
-                    </div>
-                    <div className={styles.inner}>
-                        <span>{ingridient.price}</span>
-                        <CurrencyIcon type="primary" />
-                    </div>
-                    <p>{ingridient.name}</p>
-                </div>
-                <Counter count={count} style={{ position: 'absolute', top: '0', right: '20px' }} />
+        <div
+            className={styles.container}
+            onClick={() => updateConstrctorIngridients()}
+        >
+            <div ref={dragRef}>
+                <img src={ingridient.image} />
             </div>
-            {
-                isModalOpen && <Modal
-                    children={ingridient}
-                    setIsOpenModal={() => { setIsOpenModal(false); updateupdateconstructorIngridients() }}
-                    title={'Детали ингридиента'}>
-                    <IngredientDetailsCard
-                        _id={ingridient._id}
-                        name={ingridient.name}
-                        image_large={ingridient.image_large}
-                        proteins={ingridient.proteins}
-                        calories={ingridient.calories}
-                        fat={ingridient.fat}
-                        carbohydrates={ingridient.carbohydrates}
-                    />
-                </Modal>
-            }
-        </>
+            <div className={styles.price}>
+                <span>{ingridient.price}</span>
+                <CurrencyIcon type="primary" />
+            </div>
+            <p>{ingridient.name}</p>
+            <Counter count={count} />
+        </div>
     )
 }
 

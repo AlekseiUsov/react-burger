@@ -6,24 +6,15 @@ import BurgerIngredientCard from '../burger-ingredient-card/burger-ingredient-ca
 const BurgerIngredientsGroup = ({ title, ingridients, name }) => {
 
     return (
-        <div className='pt-10' name={name}>
+        <div className='mt-10' name={name}>
             <h1 className={styles.title} >{title}</h1>
+
             <div className={styles.cards}>
                 {ingridients
                     .map((ingridient) => (
                         <BurgerIngredientCard
                             key={ingridient._id}
-                            _id={ingridient._id}
-                            type={ingridient.type}
-                            name={ingridient.name}
-                            image={ingridient.image}
-                            image_large={ingridient.image_large}
-                            image_mobile={ingridient.image_mobile}
-                            calories={ingridient.calories}
-                            carbohydrates={ingridient.carbohydrates}
-                            fat={ingridient.fat}
-                            proteins={ingridient.proteins}
-                            price={ingridient.price}
+                            {...ingridient}
                         />
                     ))}
             </div>

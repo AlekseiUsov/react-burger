@@ -7,8 +7,7 @@ import { Link } from 'react-router-dom';
 
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 
 export const ForgotPasswordPage = () => {
@@ -21,7 +20,7 @@ export const ForgotPasswordPage = () => {
             return;
         } else {
             dispatch(forgotPassword(mail))
-            navigate('/reset-password')
+            navigate('/reset-password', { state: { resetPassword: true } })
         }
     }
 

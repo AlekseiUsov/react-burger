@@ -1,23 +1,26 @@
 import styles from './profile-link.module.css';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
-const ProfileLink = ({ isActive, onClick, text }) => {
+const ProfileLink = ({ onClick, text, path }) => {
 
     return (
-        <div className={`
-      ${styles.link} 
-      p-4 
-      ${isActive ? styles['active'] : styles['']}  
-      `}
-            onClick={onClick}>
+        <NavLink
+            end
+            to={path}
+            onClick={onClick}
+            style={{ textDecoration: 'none' }}
+            className={({ isActive }) =>
+                `${styles.link} p-4 ${isActive ? styles.active : ''}`
+            }>
             <p>{text}</p>
-        </div>
+        </NavLink>
     )
 }
 
 ProfileLink.propTypes = {
-    isActive: PropTypes.bool.isRequired,
-    onClick: PropTypes.func.isRequired,
+    path: PropTypes.string.isRequired,
+    onClick: PropTypes.func,
     text: PropTypes.string.isRequired,
 };
 

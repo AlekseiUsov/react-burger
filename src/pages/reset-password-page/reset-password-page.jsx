@@ -5,9 +5,9 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 
 import { resetPassword } from '../../services/actions/routers/reset-password'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export const ResetPasswordPage = () => {
     const [password, setPassword] = useState('');
@@ -15,8 +15,9 @@ export const ResetPasswordPage = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const handleEmail = (mail) => {
+    const handleEmail = () => {
         if (password === '' || token === '') {
             return;
         } else {
@@ -24,7 +25,14 @@ export const ResetPasswordPage = () => {
         }
     }
 
-    console.log(password, token)
+    useEffect(() => {
+
+        if (!location.state?.resetPassword) {
+            navigate('/forgot-password', { state: { resetPassword: false } })
+        }
+
+    }, [location.state, navigate])
+
 
     return (
         <div className={`${styles.wrapper} pl-2`}>

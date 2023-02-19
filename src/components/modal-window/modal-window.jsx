@@ -4,6 +4,7 @@ import styles from './modal-window.module.css'
 
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay'
+import { useNavigate } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
@@ -12,17 +13,17 @@ const modalRoot = document.getElementById("react-modals");
 
 
 const Modal = ({ setIsOpenModal, title, children }) => {
+    const navigate = useNavigate();
 
     React.useEffect(() => {
         const handleEsc = (e) => {
             e.key === "Escape" && setIsOpenModal();
         };
-
         document.addEventListener("keydown", handleEsc);
         return () => {
             document.removeEventListener("keydown", handleEsc);
         };
-    }, [setIsOpenModal]);
+    }, [setIsOpenModal, navigate]);
 
     return ReactDOM.createPortal(
         <>
@@ -36,7 +37,7 @@ const Modal = ({ setIsOpenModal, title, children }) => {
                 </div>
                 {children}
             </div>
-            <ModalOverlay setIsOpenModal={setIsOpenModal} />
+            <ModalOverlay setIsOpenModal={() => { setIsOpenModal(); navigate('/') }} />
         </>,
         modalRoot);
 }

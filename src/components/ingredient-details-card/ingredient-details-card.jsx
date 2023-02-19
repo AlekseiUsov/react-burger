@@ -1,7 +1,16 @@
 import styles from './ingredient-details-card.module.css';
 import cardTypes from '../../utils/propsType';
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 
 const IngredientDetailsCard = (ingredient) => {
+    // const location = useLocation();
+    // const navigate = useNavigate();
+
+    // React.useEffect(() => {
+
+    // }, [navigate])
 
     return (
         <div className={`${styles.wrapper} mt-4`}>
@@ -33,4 +42,4 @@ const IngredientDetailsCard = (ingredient) => {
 
 IngredientDetailsCard.propTypes = { cardTypes };
 
-export default IngredientDetailsCard;
+export default IngredientDetailsCard

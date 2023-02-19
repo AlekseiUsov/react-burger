@@ -1,4 +1,4 @@
-import { loginRequest, setCookie, getCookie } from '../../../utils/burger-api';
+import { loginRequest, setCookie } from '../../../utils/burger-api';
 
 export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
@@ -11,28 +11,18 @@ export const userLogin = (email, password) => {
             isLoading: true,
         })
         loginRequest(email, password).then(res => {
-            if (res && res.success) {
+            let accessToken = res.accessToken.split('Bearer ')[1];
+            let refreshToken = res.refreshToken;
 
-                let accessToken = res.accessToken.split('Bearer ')[1];
-                let refreshToken = res.refreshToken;
-
-                setCookie('accessToken', accessToken)
-                localStorage.setItem('refreshToken', refreshToken);
-
-                dispatch({
-                    type: USER_LOGIN_SUCCESS,
-                    success: res.success,
-                    isLoading: false,
-                    user: {
-                        email: res.user.email,
-                        name: res.user.name,
-                    },
-                })
-            } else {
-                dispatch({
-                    type: USER_LOGIN_ERROR,
-                })
-            }
+            setCookie('accessToken', accessToken)
+            localStorage.setItem('refreshToken', refreshToken);
+            dispatch({
+                type: USER_LOGIN_SUCCESS,
+                user: {
+                    email: res.user.email,
+                    name: res.user.name,
+                },
+            })
         }).catch(err => {
             dispatch({
                 type: USER_LOGIN_ERROR,

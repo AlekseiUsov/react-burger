@@ -1,24 +1,22 @@
 import styles from './app-header-item.module.css';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
-const AppHeaderItem = ({ isActive, onClick, text, icon }) => {
+const AppHeaderItem = ({ onClick, text, icon, path }) => {
 
   return (
-    <div className={`
-      ${styles.block} 
-      p-4 
-      ${isActive ? styles['active'] : styles['notActive']}  
-      `}
-      onClick={onClick}>
-      <span className={`${styles.image} pl-2`}>{icon}</span>
+    <NavLink to={path} style={{ textDecoration: 'none' }}
+      className={({ isActive }) =>
+        `${styles.block} p-4 ${isActive ? styles.active : ''}`
+      }>
+      {icon}
       <p className='pl-2'>{text}</p>
-    </div>
+    </NavLink>
   )
 }
 
 AppHeaderItem.propTypes = {
-  isActive: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
+  path: PropTypes.string.isRequired,
   icon: PropTypes.object.isRequired,
   text: PropTypes.string.isRequired,
 };

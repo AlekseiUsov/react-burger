@@ -1,13 +1,12 @@
 import styles from './login-page.module.css';
 import { userLogin } from '../../services/actions/routers/user-login'
 
-import { Input, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-
 
 
 export const LoginPage = () => {
@@ -28,20 +27,22 @@ export const LoginPage = () => {
     return (
         <div className={`${styles.wrapper} pl-2`}>
             <h1>Вход</h1>
-            <EmailInput
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder={'Укажите e-mail'}
-                extraClass="mt-6"
-            />
-            <Input
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                placeholder={'Пароль'}
-                extraClass="mt-6"
-                icon={'ShowIcon'}
-            />
-            <Button onClick={handleEmail} htmlType="button" size="medium" extraClass="mt-6">Войти</Button>
+            <form>
+                <EmailInput
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    placeholder={'Укажите e-mail'}
+                    extraClass="mt-6"
+                />
+                <PasswordInput
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    placeholder={'Пароль'}
+                    extraClass="mt-6"
+                    icon={'ShowIcon'}
+                />
+                <Button onClick={handleEmail} htmlType="button" size="medium" extraClass="mt-6">Войти</Button>
+            </form>
             <div className={styles.block}>
                 <div className={`${styles.inner} mt-4`} >
                     <p className={styles.text} >Вы — новый пользователь?</p>

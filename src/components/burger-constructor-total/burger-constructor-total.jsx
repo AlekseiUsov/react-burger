@@ -5,6 +5,8 @@ import Modal from '../modal-window/modal-window';
 import PropTypes from 'prop-types';
 import OrderDetails from '../order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+
 import { getOrderDetails } from '../../services/actions/order';
 
 
@@ -15,9 +17,12 @@ const BurgerConstructorTotal = ({ text, icon }) => {
 
     const orderDetails = useSelector(state => state.orderDetails)
     const { bun, constructorIngridients } = useSelector(state => state.burgerConstrucor);
+    const user = useSelector(state => state.auth.user);
+
     const ingridientsIds = (constructorIngridients).map((ingridient) => ingridient._id);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const getOrder = () => {
         if (bun === null || ingridientsIds.length === 0) {
@@ -25,8 +30,13 @@ const BurgerConstructorTotal = ({ text, icon }) => {
             setTimeout(() => setIsPopUpOpen(false), 3000)
 
         } else {
-            dispatch(getOrderDetails([...ingridientsIds, bun._id]))
-            setIsOpenModal(!isModalOpen)
+            if (user.name !== null) {
+                dispatch(getOrderDetails([...ingridientsIds, bun._id]))
+                setIsOpenModal(!isModalOpen)
+            } else {
+                navigate('/login')
+            }
+
         }
     }
 

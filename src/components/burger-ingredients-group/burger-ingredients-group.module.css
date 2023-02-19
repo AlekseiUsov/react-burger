@@ -1,10 +1,10 @@
 .title {
-    margin: 0;
+    margin: 0 0 24px 0;
     text-align: start;
 }
 
 .cards {
-    display: flex;
-    flex-wrap: wrap;
-    flex-basis: 100%;
+    display: grid;
+    padding: 0 16px;
+    grid-template-columns: 1fr 1fr;
 }

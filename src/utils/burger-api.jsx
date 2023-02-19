@@ -46,9 +46,14 @@ export function getUser() {
     }).then(checkReponse)
 }
 
-export function updateUser() {
+export function updateUser(name, email, password) {
     return fetch(`${NORMA_API}/auth/user`, {
-        method: 'PATH',
+        method: 'PATCH',
+        body: JSON.stringify({
+            name,
+            email,
+            password
+        }),
         headers: {
             'Content-Type': 'application/json',
             Authorization: 'Bearer ' + getCookie('accessToken')
@@ -69,19 +74,20 @@ export function loginRequest(email, password) {
     }).then(checkReponse)
 }
 
-export function logoutRequest(refreshToken) {
+export function logoutRequest() {
+    const token = localStorage.getItem('refreshToken');
+    console.log(token)
+
     return fetch(`${NORMA_API}/auth/logout`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            refreshToken
+            token
         }),
     }).then(checkReponse)
 }
-
-
 
 export function passwordReset(email) {
     return fetch(`${NORMA_API}/password-reset`, {
@@ -110,39 +116,49 @@ export function passwordRecovery(password, token) {
 }
 
 
-export function updateAccessToken(refreshToken) {
+export function refreshTokens() {
+    const token = localStorage.getItem('refreshToken');
+
     return fetch(`${NORMA_API}/auth/token`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            'token': refreshToken
+            token
         }),
-    }).then(checkReponse)
+    }).then(checkReponse).then(res => {
+        let accessToken = res.accessToken.split('Bearer ')[1];
+        let refreshToken = res.refreshToken;
+
+        setCookie('accessToken', accessToken)
+        localStorage.setItem('refreshToken', refreshToken);
+        return res
+    }).catch((err) => console.log(err))
 }
 
 
-export function setCookie(name, value, props) {
-    props = props || {};
-    let exp = props.expires;
-    if (typeof exp == 'number' && exp) {
-        const d = new Date();
-        d.setTime(d.getTime() + exp * 1000);
-        exp = props.expires = d;
+export function setCookie(name, value, options = {}) {
+
+    options = {
+        path: '/',
+        ...options
+    };
+
+    if (options.expires instanceof Date) {
+        options.expires = options.expires.toUTCString();
     }
-    if (exp && exp.toUTCString) {
-        props.expires = exp.toUTCString();
-    }
-    value = encodeURIComponent(value);
-    let updatedCookie = name + '=' + value;
-    for (const propName in props) {
-        updatedCookie += '; ' + propName;
-        const propValue = props[propName];
-        if (propValue !== true) {
-            updatedCookie += '=' + propValue;
+
+    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+    for (let optionKey in options) {
+        updatedCookie += "; " + optionKey;
+        let optionValue = options[optionKey];
+        if (optionValue !== true) {
+            updatedCookie += "=" + optionValue;
         }
     }
+
     document.cookie = updatedCookie;
 }
 
@@ -151,4 +167,10 @@ export function getCookie(name) {
         new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
     );
     return matches ? decodeURIComponent(matches[1]) : undefined;
-} 
+}
+
+export function deleteCookie(name) {
+    setCookie(name, "", {
+        'max-age': -1
+    })
+}

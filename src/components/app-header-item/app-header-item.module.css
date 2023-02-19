@@ -1,24 +1,17 @@
 .block {
     display: flex;
-}
-
-.block p {
     color: #8585AD;
     text-decoration: none;
 }
 
-.notActive .image svg {
+.block svg {
     fill: #8585AD;
 }
 
-.active .image svg {
-    fill: #fff;
-}
-
-.notActive a {
-    color: #8585AD;
-}
-
-.active p {
+.block.active {
     color: #fff;
+}
+
+.active svg {
+    fill: #fff;
 }
