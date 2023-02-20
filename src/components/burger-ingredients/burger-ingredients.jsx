@@ -29,11 +29,11 @@ const BurgerIngredients = ({ title, ingridients }) => {
           onSetActive={() => setCurrent('Булки')}>
           <Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>Булки</Tab>
         </Link>
-        <Link to="main" spy={true} smooth={true} offset={20} duration={800} containerId="containerElement"
+        <Link to="main" spy={true} smooth={true} offset={-20} duration={800} containerId="containerElement"
           onSetActive={() => setCurrent('Начинки')}>
           <Tab value="Начинки" active={current === 'Начинки'} onClick={setCurrent}>Начинки</Tab>
         </Link>
-        <Link to="sauces" spy={true} smooth={true} offset={-30} duration={800} containerId="containerElement"
+        <Link to="sauces" spy={true} smooth={true} offset={-100} duration={800} containerId="containerElement"
           onSetActive={() => setCurrent('Соусы')}>
           <Tab value="Соусы" active={current === 'Соусы'} onClick={setCurrent}>Соусы</Tab>
         </Link>

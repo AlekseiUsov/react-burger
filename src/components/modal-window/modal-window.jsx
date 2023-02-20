@@ -12,18 +12,22 @@ import PropTypes from 'prop-types';
 const modalRoot = document.getElementById("react-modals");
 
 
-const Modal = ({ setIsOpenModal, title, children }) => {
+const Modal = ({ title, children }) => {
     const navigate = useNavigate();
+
+    const closeModal = () => {
+        navigate('/')
+    }
 
     React.useEffect(() => {
         const handleEsc = (e) => {
-            e.key === "Escape" && setIsOpenModal();
+            e.key === "Escape" && closeModal();
         };
         document.addEventListener("keydown", handleEsc);
         return () => {
             document.removeEventListener("keydown", handleEsc);
         };
-    }, [setIsOpenModal, navigate]);
+    }, [navigate]);
 
     return ReactDOM.createPortal(
         <>
@@ -31,13 +35,13 @@ const Modal = ({ setIsOpenModal, title, children }) => {
                 <div className={styles.header}>
                     <p className={styles.text}>{title}</p>
                     <CloseIcon
-                        onClick={setIsOpenModal}
+                        onClick={closeModal}
                         styles={{ width: '18px', height: '18px' }}
                     />
                 </div>
                 {children}
             </div>
-            <ModalOverlay setIsOpenModal={() => { setIsOpenModal(); navigate('/') }} />
+            <ModalOverlay closeModal={closeModal} />
         </>,
         modalRoot);
 }
@@ -45,7 +49,6 @@ const Modal = ({ setIsOpenModal, title, children }) => {
 
 Modal.propTypes = {
     title: PropTypes.string,
-    setIsOpenModal: PropTypes.func.isRequired,
     children: PropTypes.object.isRequired
 };
 

@@ -1,21 +1,15 @@
 import styles from './burger-constructor-total.module.css';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
-import Modal from '../modal-window/modal-window';
 import PropTypes from 'prop-types';
-import OrderDetails from '../order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
 import { getOrderDetails } from '../../services/actions/order';
 
 
-
 const BurgerConstructorTotal = ({ text, icon }) => {
-    const [isModalOpen, setIsOpenModal] = React.useState(false);
     const [isPopUpOpen, setIsPopUpOpen] = React.useState(false);
 
-    const orderDetails = useSelector(state => state.orderDetails)
     const { bun, constructorIngridients } = useSelector(state => state.burgerConstrucor);
     const user = useSelector(state => state.auth.user);
 
@@ -23,27 +17,27 @@ const BurgerConstructorTotal = ({ text, icon }) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const getOrder = () => {
         if (bun === null || ingridientsIds.length === 0) {
             setIsPopUpOpen(true)
             setTimeout(() => setIsPopUpOpen(false), 3000)
-
         } else {
-            if (user.name !== null) {
+            if (user.isLogedIn) {
+                navigate('/order', { state: { background: location } })
                 dispatch(getOrderDetails([...ingridientsIds, bun._id]))
-                setIsOpenModal(!isModalOpen)
             } else {
                 navigate('/login')
             }
-
         }
     }
+
 
     return (
         <>
             <div className={`${styles.wrapper} pt-10 mr-10`}>
-                {isPopUpOpen && !isModalOpen &&
+                {isPopUpOpen &&
                     <p className={styles.popUp}>Выберите булки и хотя бы 1 ингридиент</p>
                 }
                 <div className={`${styles.counter} mr-10`} >
@@ -55,15 +49,7 @@ const BurgerConstructorTotal = ({ text, icon }) => {
                     Оформить заказ
                 </Button>
             </div >
-            {
-                isModalOpen && <Modal
-                    setIsOpenModal={() => setIsOpenModal(false)}
-                >
-                    <OrderDetails title={orderDetails.name} number={orderDetails.order.number} />
-                </Modal>
-            }
         </>
-
     )
 }
 

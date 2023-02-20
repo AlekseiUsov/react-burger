@@ -81,7 +81,8 @@ const BurgerConstructorItem = ({ children, index }) => {
 }
 
 BurgerConstructorItem.propTypes = {
-    children: PropTypes.arrayOf(PropTypes.element).isRequired
+    children: PropTypes.arrayOf(PropTypes.element).isRequired,
+    index: PropTypes.number.isRequired
 };
 
 

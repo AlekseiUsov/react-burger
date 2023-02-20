@@ -8,7 +8,6 @@ import { useEffect } from 'react';
 export const UnProtectedRouteElement = ({ element }) => {
     const dispatch = useDispatch();
     const location = useLocation();
-    console.log(location)
 
     const { isLoading, user: { isLogedIn } } = useSelector(state => state.auth);
 

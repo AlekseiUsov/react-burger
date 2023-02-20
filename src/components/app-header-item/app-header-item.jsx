@@ -2,7 +2,7 @@ import styles from './app-header-item.module.css';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-const AppHeaderItem = ({ onClick, text, icon, path }) => {
+const AppHeaderItem = ({ text, icon, path }) => {
 
   return (
     <NavLink to={path} style={{ textDecoration: 'none' }}

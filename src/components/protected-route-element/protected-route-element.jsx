@@ -18,4 +18,7 @@ export const ProtectedRouteElement = ({ element }) => {
     if (isLoading) return <h1>Пожайлуста, подождите ...</h1>
     if (hasError || (!isLoading && !isLogedIn)) return <Navigate to="/login" state={{ path: location }} replace />
     return element;
-} 
+}
+
+ProtectedRouteElement.propTypes = {
+};

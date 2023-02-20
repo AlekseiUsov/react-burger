@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import AppHeader from './components/app-header/app-header';
 
 import { HomePage } from './pages/home-page/home-page';
@@ -12,24 +12,27 @@ import { ProfileOrdersPage } from './pages/profile/profile-orders/profile-orders
 
 import { OrdersPage } from './pages/orders-page/orders-page';
 import IngredientDetailsCard from './components/ingredient-details-card/ingredient-details-card';
-import BurgerIngredientCard from './components/ingredient-details-card/ingredient-details-card';
 import { ProtectedRouteElement } from './components/protected-route-element/protected-route-element';
 import { UnProtectedRouteElement } from './components/unprotected-route-element/unprotected-route-element';
 import ProfileInfo from './pages/profile/profile-info/profile-info';
 import Modal from './components/modal-window/modal-window';
+import OrderDetails from './components/order-details/order-details';
 
 const App = () => {
   const location = useLocation();
   const background = location.state && location.state.background;
-  // console.log(`background ${background}`)
-  console.log(background)
 
   return (
     <div className="App">
       <AppHeader />
       <Routes location={background || location}>
         <Route path="/" element={<HomePage />} />
-        <Route path="ingridients/:id" element={<BurgerIngredientCard />} />
+        <Route path="ingridients/:id" element={<IngredientDetailsCard />} />
+        <Route path="/order" element={<ProtectedRouteElement element={<Modal>
+          <OrderDetails />
+        </Modal>
+        } />}
+        />
 
         <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />} />}>
           <Route path="/profile" element={<ProfileInfo />} />
@@ -45,7 +48,12 @@ const App = () => {
       </Routes>
       {background &&
         <Routes>
-          <Route path="/ingridients/:id" element={<Modal>
+          <Route path="/order" element={<ProtectedRouteElement element={<Modal>
+            <OrderDetails />
+          </Modal>
+          } />}
+          />
+          <Route path="ingridients/:id" element={<Modal title={'Детали ингридиента'}>
             <IngredientDetailsCard />
           </Modal>}
           />

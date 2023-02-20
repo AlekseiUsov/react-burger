@@ -3,22 +3,17 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import styles from './burger-ingredient-card.module.css';
 
 import Modal from '../modal-window/modal-window';
-import IngredientDetailsCard from '../ingredient-details-card/ingredient-details-card';
 import cardTypes from '../../utils/propsType';
-import { Link, useParams } from 'react-router-dom';
 
 
 import { useDrag } from "react-dnd";
-import { useDispatch, useSelector } from 'react-redux';
-import { GET_CURRENT_INGRIDIENT, REMOVE_CURRENT_INGRIDIENT } from '../../services/actions/current-ingridient'
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 
 
 const BurgerIngredientCard = (ingridient) => {
-    const navigate = useNavigate();
     const location = useLocation();
 
-    const { currentIngridient } = useSelector(state => state.currentIngridient);
     const { bun, constructorIngridients } = useSelector(state => state.burgerConstrucor);
 
 
@@ -30,18 +25,6 @@ const BurgerIngredientCard = (ingridient) => {
     }, [ingridient, bun, constructorIngridients])
 
 
-
-    const updateConstrctorIngridients = () => {
-        if (currentIngridient) {
-            dispatch({ type: REMOVE_CURRENT_INGRIDIENT, ingridient })
-        } else {
-            dispatch({ type: GET_CURRENT_INGRIDIENT, ingridient })
-            navigate(`/ingridients/${ingridient._id}`, { state: { background: location } })
-        }
-    }
-
-    const dispatch = useDispatch();
-
     const [, dragRef] = useDrag({
         type: 'ingridient',
         item: { ingridient },
@@ -51,9 +34,10 @@ const BurgerIngredientCard = (ingridient) => {
     });
 
     return (
-        <div
+        <Link
+            to={`/ingridients/${ingridient._id}`}
+            state={{ background: location }}
             className={styles.container}
-            onClick={() => updateConstrctorIngridients()}
         >
             <div ref={dragRef}>
                 <img src={ingridient.image} />
@@ -64,7 +48,7 @@ const BurgerIngredientCard = (ingridient) => {
             </div>
             <p>{ingridient.name}</p>
             <Counter count={count} />
-        </div>
+        </Link>
     )
 }
 
