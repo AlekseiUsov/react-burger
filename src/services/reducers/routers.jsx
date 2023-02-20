@@ -53,7 +53,6 @@ const initialState = {
 }
 
 export const routerReducer = (state = initialState, action) => {
-
     const { type, ...rest } = action;
 
     switch (action.type) {
@@ -119,7 +118,6 @@ export const routerReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: true,
-
             };
         }
         case USER_LOGOUT_SUCCESS: {

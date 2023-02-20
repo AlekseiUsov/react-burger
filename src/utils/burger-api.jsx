@@ -37,6 +37,7 @@ export function registrationRequest(email, password, name) {
 
 
 export function getUser() {
+    //console.log('Bearer ' + getCookie('accessToken'))
     return fetch(`${NORMA_API}/auth/user`, {
         method: 'GET',
         headers: {
@@ -76,7 +77,6 @@ export function loginRequest(email, password) {
 
 export function logoutRequest() {
     const token = localStorage.getItem('refreshToken');
-    console.log(token)
 
     return fetch(`${NORMA_API}/auth/logout`, {
         method: 'POST',

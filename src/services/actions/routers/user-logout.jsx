@@ -8,12 +8,9 @@ export const userLogout = () => {
     return function (dispatch) {
         dispatch({
             type: USER_LOGOUT_REQUEST,
-            isLoading: true,
+
         })
         logoutRequest().then(res => {
-            deleteCookie('accessToken')
-            localStorage.removeItem('refreshToken')
-
             dispatch({
                 type: USER_LOGOUT_SUCCESS,
             })
@@ -22,5 +19,7 @@ export const userLogout = () => {
                 type: USER_LOGOUT_ERROR,
             })
         })
+        deleteCookie('accessToken')
+        localStorage.removeItem('refreshToken')
     }
 }

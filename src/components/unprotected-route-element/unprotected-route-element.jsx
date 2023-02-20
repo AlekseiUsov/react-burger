@@ -16,6 +16,7 @@ export const UnProtectedRouteElement = ({ element }) => {
         dispatch(getUserData())
     }, [dispatch]);
 
+
     if (isLoading) return <h1>Пожайлуста, подождите ...</h1>
     if (!isLoading && isLogedIn) return <Navigate to={location.state?.path || '/'} replace />
     return element;
