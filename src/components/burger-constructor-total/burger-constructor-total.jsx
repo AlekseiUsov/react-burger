@@ -4,27 +4,52 @@ import React from 'react';
 import Modal from '../modal-window/modal-window';
 import PropTypes from 'prop-types';
 import OrderDetails from '../order-details/order-details';
+import { useDispatch, useSelector } from 'react-redux';
+import { getOrderDetails } from '../../services/actions/order';
+
 
 
 const BurgerConstructorTotal = ({ text, icon }) => {
     const [isModalOpen, setIsOpenModal] = React.useState(false);
+    const [isPopUpOpen, setIsPopUpOpen] = React.useState(false);
+
+    const orderDetails = useSelector(state => state.orderDetails)
+    const { bun, constructorIngridients } = useSelector(state => state.burgerConstrucor);
+    const ingridientsIds = (constructorIngridients).map((ingridient) => ingridient._id);
+
+    const dispatch = useDispatch();
+
+    const getOrder = () => {
+        if (bun === null || ingridientsIds.length === 0) {
+            setIsPopUpOpen(true)
+            setTimeout(() => setIsPopUpOpen(false), 3000)
+
+        } else {
+            dispatch(getOrderDetails([...ingridientsIds, bun._id]))
+            setIsOpenModal(!isModalOpen)
+        }
+    }
 
     return (
         <>
-            <div onClick={() => setIsOpenModal(true)} className={`${styles.wrapper} pt-10 mr-10`}>
+            <div className={`${styles.wrapper} pt-10 mr-10`}>
+                {isPopUpOpen && !isModalOpen &&
+                    <p className={styles.popUp}>Выберите булки и хотя бы 1 ингридиент</p>
+                }
                 <div className={`${styles.counter} mr-10`} >
                     <span className={`${styles.text}`} >{text}</span>
                     <span className={`${styles.icon}`}>{icon}</span>
                 </div>
-                <Button htmlType="button" type="primary" size="large">
+                <Button onClick={() => getOrder()}
+                    htmlType="button" type="primary" size="large">
                     Оформить заказ
                 </Button>
             </div >
             {
                 isModalOpen && <Modal
-                    setIsModalOpen={() => setIsOpenModal(false)}
+                    setIsOpenModal={() => setIsOpenModal(false)}
                 >
-                    <OrderDetails title={"034536"} />
+                    <OrderDetails title={orderDetails.name} number={orderDetails.order.number} />
                 </Modal>
             }
         </>

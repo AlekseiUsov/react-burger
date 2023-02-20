@@ -1,33 +1,39 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import AppHeader from './components/app-header/app-header'
 
 import BurgerIngredients from './components/burger-ingredients/burger-ingredients'
 import BurgerConstructor from './components/burger-constructor/burger-constructor'
 
-import { getIngredients } from './utils/burger-api';
+import { getIngredients } from './services/actions/ingridients'
+import { useSelector, useDispatch } from 'react-redux';
 
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const App = () => {
-  const [state, setState] = useState({
-    succes: false,
-    data: []
-  });
+  const dispatch = useDispatch();
+  const { ingridients, isLoading } = useSelector(store => store.ingridients);
 
   useEffect(() => {
-    getIngredients()
-      .then((json) => setState({ data: json.data, succes: true }))
-      .catch((err) => alert(err))
-  }, []);
+    dispatch(getIngredients())
+  }, [dispatch]);
+
 
   return (
     <div className="App" >
       <AppHeader />
-      <div style={{ display: 'flex', justifyContent: 'space-around', padding: '0 100px', }}>
-        <BurgerIngredients title={'Соберите бургер'} ingridients={state.data} />
-        <BurgerConstructor ingridients={state.data} />
-      </div >
-    </div >
+      {isLoading ? (
+        <h1>Пожайлуста, подождите ...</h1>
+      ) : (
+        < div style={{ display: 'flex', justifyContent: 'space-around', padding: '0 100px', }}>
+          <DndProvider backend={HTML5Backend}>
+            <BurgerIngredients title={'Соберите бургер'} ingridients={ingridients} />
+            <BurgerConstructor />
+          </DndProvider>
+        </div >
+      )}
+    </div>
   );
 }
 

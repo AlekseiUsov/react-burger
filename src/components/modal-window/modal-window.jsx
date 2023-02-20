@@ -1,30 +1,28 @@
-import React, { Children } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import styles from './modal-window.module.css'
 
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay'
-import IngredientDetailsCard from '../ingredient-details-card/ingredient-details-card';
 
 import PropTypes from 'prop-types';
-import cardTypes from '../../utils/propsType';
 
 
 const modalRoot = document.getElementById("react-modals");
 
 
-const Modal = ({ setIsModalOpen, title, children }) => {
+const Modal = ({ setIsOpenModal, title, children }) => {
 
     React.useEffect(() => {
         const handleEsc = (e) => {
-            e.key === "Escape" && setIsModalOpen();
+            e.key === "Escape" && setIsOpenModal();
         };
 
         document.addEventListener("keydown", handleEsc);
         return () => {
             document.removeEventListener("keydown", handleEsc);
         };
-    }, [setIsModalOpen]);
+    }, [setIsOpenModal]);
 
     return ReactDOM.createPortal(
         <>
@@ -32,13 +30,13 @@ const Modal = ({ setIsModalOpen, title, children }) => {
                 <div className={styles.header}>
                     <p className={styles.text}>{title}</p>
                     <CloseIcon
-                        onClick={setIsModalOpen}
+                        onClick={setIsOpenModal}
                         styles={{ width: '18px', height: '18px' }}
                     />
                 </div>
                 {children}
             </div>
-            <ModalOverlay setIsModalOpen={setIsModalOpen} />
+            <ModalOverlay setIsOpenModal={setIsOpenModal} />
         </>,
         modalRoot);
 }
@@ -46,7 +44,7 @@ const Modal = ({ setIsModalOpen, title, children }) => {
 
 Modal.propTypes = {
     title: PropTypes.string,
-    setIsModalOpen: PropTypes.func.isRequired,
+    setIsOpenModal: PropTypes.func.isRequired,
     children: PropTypes.object.isRequired
 };
 
