@@ -1,0 +1,10 @@
+.title {
+    margin: 0;
+    text-align: start;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+}

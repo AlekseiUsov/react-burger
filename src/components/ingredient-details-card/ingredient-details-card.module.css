@@ -1,0 +1,30 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.subtitle {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.block {
+    display: flex;
+    color: #8585AD;
+}
+
+.inner {
+    text-align: center;
+}
+
+.text {
+    margin: 0;
+}
+
+.num {
+    margin-top: 8px;
+    font-family: Iceland;
+    font-size: 28px;
+}
