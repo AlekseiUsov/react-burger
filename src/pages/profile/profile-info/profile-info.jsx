@@ -1,6 +1,6 @@
 import styles from './profile-info.module.css'
 import { useForm } from '../../../hooks/useForm'
-import { Input, EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, EmailInput, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
@@ -54,7 +54,7 @@ const ProfileInfo = () => {
                 extraClass="mt-6"
                 icon={'EditIcon'}
             />
-            <Input
+            <PasswordInput
                 name="password"
                 value={formValues.password}
                 onChange={(e) => changeInputs(e)}
