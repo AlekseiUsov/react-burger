@@ -26,7 +26,7 @@ const BurgerConstructorTotal = ({ text, icon }) => {
         } else {
             if (user.isLogedIn) {
                 navigate('/order', { state: { background: location } })
-                dispatch(getOrderDetails([...ingridientsIds, bun._id]))
+                dispatch(getOrderDetails([bun._id, ...ingridientsIds, bun._id]))
             } else {
                 navigate('/login')
             }

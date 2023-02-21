@@ -1,62 +1,68 @@
 import styles from './register-page.module.css';
 import { userRegistration } from '../../services/actions/routers/user-registration'
+import { useForm } from '../../hooks/useForm'
 
-import { EmailInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import { EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 
 export const RegisterPage = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const { formValues, handleInputsChange } = useForm({ name: "", email: "", password: "", });
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const handleEmail = () => {
-        if (email === '' || name === '' || password === '') {
+        if (
+            formValues.email === '' ||
+            formValues.name === '' ||
+            formValues.password === ''
+        ) {
             return;
         } else {
-            dispatch(userRegistration(email, name, password))
-            navigate('/')
+            dispatch(userRegistration(
+                formValues.email,
+                formValues.name,
+                formValues.password
+            ))
         }
     }
 
     return (
-        <div className={`${styles.wrapper} pl-2`}>
+        <form onSubmit={handleEmail} className={`${styles.wrapper} pl-2`}>
             <h1>Регистрация</h1>
             <Input
-                value={name}
-                onChange={e => setName(e.target.value)}
+                name="name"
+                value={formValues.name}
+                onChange={(e) => handleInputsChange(e)}
                 placeholder={'Имя'}
                 extraClass="mt-6"
             />
             <EmailInput
-                value={email}
-                onChange={e => setEmail(e.target.value)}
+                name="email"
+                value={formValues.email}
+                onChange={(e) => handleInputsChange(e)}
                 placeholder={'Укажите e-mail'}
                 extraClass="mt-6"
             />
-            <Input
-                value={password}
-                onChange={e => setPassword(e.target.value)}
+            <PasswordInput
+                name="password"
+                value={formValues.password}
+                onChange={(e) => handleInputsChange(e)}
                 placeholder={'Пароль'}
                 extraClass="mt-6"
                 icon={'ShowIcon'}
             />
-            <Button onClick={handleEmail} htmlType="button" size="medium" extraClass="mt-6">Войти</Button>
+            <Button htmlType="submit" size="medium" extraClass="mt-6">Войти</Button>
             <div className={styles.block}>
                 <div className={`${styles.inner} mt-4`} >
                     <p className={styles.text}>Уже зарегистрированы?</p>
                     <Link to="/login" className={styles.link}>Войти</Link>
                 </div>
             </div>
-        </div >
+        </form >
     )
 }
 

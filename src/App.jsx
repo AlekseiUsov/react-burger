@@ -28,7 +28,7 @@ const App = () => {
       <Routes location={background || location}>
         <Route path="/" element={<HomePage />} />
         <Route path="ingridients/:id" element={<IngredientDetailsCard />} />
-        <Route path="/order" element={<ProtectedRouteElement element={<Modal>
+        <Route element={<ProtectedRouteElement path="/order" element={<Modal>
           <OrderDetails />
         </Modal>
         } />}

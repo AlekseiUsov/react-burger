@@ -10,10 +10,12 @@ export function getIngredientsRequest() {
 }
 
 export function postOrder(ingredients) {
+    console.log(ingredients)
     return fetch(`${NORMA_API}/orders`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + getCookie('accessToken')
         },
         body: JSON.stringify({
             ingredients,

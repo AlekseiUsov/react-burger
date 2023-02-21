@@ -25,7 +25,7 @@ export const ForgotPasswordPage = () => {
     }
 
     return (
-        <div className={`${styles.wrapper} pl-2`}>
+        <form onSubmit={handleEmail} className={`${styles.wrapper} pl-2`}>
             <h1>Восстановление пароля</h1>
             <EmailInput
                 value={email}
@@ -34,13 +34,13 @@ export const ForgotPasswordPage = () => {
                 extraClass="mt-6"
                 isIcon={false}
             />
-            <Button onClick={() => handleEmail(email)} htmlType="button" size="medium" extraClass="mt-6">Воccтановить</Button>
+            <Button htmlType="submit" size="medium" extraClass="mt-6">Воccтановить</Button>
             <div className={styles.block}>
                 <div className={`${styles.inner} mt-4`} >
                     <p className={styles.text} >Вспонили пароль?</p>
                     <Link to="/login" className={styles.link}>Войти</Link>
                 </div>
             </div>
-        </div >
+        </form >
     )
 }

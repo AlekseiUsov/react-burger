@@ -1,5 +1,5 @@
 import styles from './profile-info.module.css'
-
+import { useForm } from '../../../hooks/useForm'
 import { Input, EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { useState } from 'react';
@@ -7,62 +7,77 @@ import { useDispatch, useSelector } from 'react-redux'
 import { changeUserData } from '../../../services/actions/routers/change-user-data';
 
 const ProfileInfo = () => {
-    const { email, name } = useSelector((state) => state.auth.user)
+    const [isBottonsOpen, setIsBottonsOpen] = useState(false);
 
-    const [newName, setName] = useState(name)
-    const [newEmail, setEmail] = useState(email)
-    const [newPassword, setPassword] = useState('');
-
-    const cancelInput = () => {
-        setName(name)
-        setEmail(email)
-        setPassword('')
-    }
+    const user = useSelector((state) => state.auth.user)
+    const { formValues, handleInputsChange, setFormValues } = useForm({ name: user.name, email: user.email, password: "", });
 
     const dispatch = useDispatch();
 
-    const updateInputsValue = () => {
-        dispatch(changeUserData(newName, newEmail, newPassword))
+    const cancelInput = () => {
+        setFormValues({
+            name: user.name,
+            email: user.email,
+            password: "",
+        })
+        setIsBottonsOpen(false)
     }
 
+    const updateInputsValue = () => {
+        dispatch(changeUserData(
+            formValues.name,
+            formValues.email,
+            formValues.password
+        ))
+    }
+
+    const changeInputs = (e) => {
+        handleInputsChange(e);
+        setIsBottonsOpen(true)
+    }
 
     return (
-        <div className={`${styles.inputs} ml-15`}>
+        <form onSubmit={updateInputsValue} className={`${styles.inputs} ml-15`}>
             <Input
-                value={newName}
-                onChange={(e) => setName(e.target.value)}
+                name="name"
+                value={formValues.name}
+                onChange={(e) => changeInputs(e)}
                 placeholder={'Имя'}
                 extraClass="mt-6"
                 icon={'EditIcon'}
             />
             <EmailInput
-                value={newEmail}
-                onChange={(e) => setEmail(e.target.value)}
+                name="email"
+                value={formValues.email}
+                onChange={(e) => changeInputs(e)}
                 placeholder={'e-mail'}
                 extraClass="mt-6"
                 icon={'EditIcon'}
             />
             <Input
-                value={newPassword}
-                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+                value={formValues.password}
+                onChange={(e) => changeInputs(e)}
                 placeholder={'Пароль'}
                 extraClass="mt-6"
                 icon={'EditIcon'}
             />
-            <div className={`${styles.inner} mt-8`}>
-                <Button
-                    onClick={() => cancelInput()}
-                    type="secondary"
-                    htmlType="button"
-                    size="medium"
-                >
-                    Отмена
-                </Button>
-                <Button onClick={() => updateInputsValue()} htmlType="button" size="medium">
-                    Coхранить
-                </Button>
-            </div>
-        </div>
+            {isBottonsOpen &&
+                <div className={`${styles.inner} mt-8`}>
+                    <Button
+                        onClick={cancelInput}
+                        type="secondary"
+                        htmlType="button"
+                        size="medium"
+                    >
+                        Отмена
+                    </Button>
+                    <Button htmlType="submit" size="medium">
+                        Coхранить
+                    </Button>
+                </div>
+            }
+        </form>
     )
 }
 

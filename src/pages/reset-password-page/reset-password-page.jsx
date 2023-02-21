@@ -35,7 +35,7 @@ export const ResetPasswordPage = () => {
 
 
     return (
-        <div className={`${styles.wrapper} pl-2`}>
+        <form onSubmit={handleEmail} className={`${styles.wrapper} pl-2`}>
             <h1>Восстановление пароля</h1>
             <Input
                 value={password}
@@ -50,14 +50,14 @@ export const ResetPasswordPage = () => {
                 placeholder={'Введите код из письма'}
                 extraClass="mt-6"
             />
-            <Button onClick={handleEmail} htmlType="button" size="medium" extraClass="mt-6">Сохранить</Button>
+            <Button htmlType="submit" size="medium" extraClass="mt-6">Сохранить</Button>
             <div className={styles.block}>
                 <div className={`${styles.inner} mt-4`} >
                     <p className={styles.text} >Вспонили пароль?</p>
                     <Link to="/login" className={styles.link}>Войти</Link>
                 </div>
             </div>
-        </div >
+        </form >
     )
 }
 

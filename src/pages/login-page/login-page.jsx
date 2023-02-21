@@ -27,7 +27,7 @@ export const LoginPage = () => {
     return (
         <div className={`${styles.wrapper} pl-2`}>
             <h1>Вход</h1>
-            <form>
+            <form onSubmit={handleEmail}>
                 <EmailInput
                     value={email}
                     onChange={e => setEmail(e.target.value)}
@@ -41,7 +41,7 @@ export const LoginPage = () => {
                     extraClass="mt-6"
                     icon={'ShowIcon'}
                 />
-                <Button onClick={handleEmail} htmlType="button" size="medium" extraClass="mt-6">Войти</Button>
+                <Button htmlType="submit" size="medium" extraClass="mt-6">Войти</Button>
             </form>
             <div className={styles.block}>
                 <div className={`${styles.inner} mt-4`} >
@@ -53,7 +53,7 @@ export const LoginPage = () => {
                     <Link to="/forgot-password" className={styles.link}>Восстановить пароль</Link>
                 </div>
             </div>
-        </div >
+        </div>
     )
 }
 

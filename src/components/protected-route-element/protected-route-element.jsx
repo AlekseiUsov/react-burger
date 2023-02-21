@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserData } from '../../services/actions/routers/get-profile-data';
 import { Navigate, useLocation } from 'react-router-dom'
+import PropTypes from 'prop-types';
 
 import { useEffect } from 'react';
 
@@ -21,4 +22,5 @@ export const ProtectedRouteElement = ({ element }) => {
 }
 
 ProtectedRouteElement.propTypes = {
+    element: PropTypes.element,
 };

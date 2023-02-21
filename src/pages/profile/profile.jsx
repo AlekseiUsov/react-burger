@@ -28,7 +28,7 @@ export const ProfilePage = () => {
                     <ProfileLink
                         path='/login'
                         text="Выход"
-                        onClick={() => logOut()}
+                        onClick={logOut}
                     />
                     <p className={`${styles.text} mt-30`}>
                         В этом разделе вы можете
