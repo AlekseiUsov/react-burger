@@ -1,4 +1,5 @@
-import { registrationRequest, setCookie, getCookie } from '../../../utils/burger-api';
+import { registrationRequest } from '../../../utils/burger-api';
+import { setCookie } from 'typescript-cookie'
 
 export const USER_REGISTRATION_REQUEST = 'USER_REGISTRATION_REQUEST';
 export const USER_REGISTRATION_SUCCESS = 'USER_REGISTRATION_SUCCESS';

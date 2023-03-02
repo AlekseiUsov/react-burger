@@ -11,7 +11,6 @@ export const getUserData = () => {
             isLoading: true,
         })
         getUser().then(res => {
-            //console.log(res)
             dispatch({
                 type: GET_PROFILE_DATA_SUCCESS,
                 user: {
@@ -20,7 +19,6 @@ export const getUserData = () => {
                 }
             })
         }).catch(err => {
-            //console.log(err.message)
             if (err.message === 'jwt expired') {
                 refreshTokens().then(() => dispatch(getUserData()))
             } else {

@@ -1,16 +1,21 @@
 import styles from './burger-constructor-item.module.css';
-import PropTypes from 'prop-types';
-import { useRef } from 'react';
+
+import { useRef, FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag } from "react-dnd";
 import { useDrop } from "react-dnd";
-import { SORT_INGRIDIENT } from '../../services/actions/burger-constructor'
+import { SORT_INGRIDIENT } from '../../services/actions/burger-constructor';
+
+interface IBurgerConstructorItem {
+    children: Array<React.ReactElement>;
+    index: Number;
+}
 
 
-const BurgerConstructorItem = ({ children, index }) => {
+const BurgerConstructorItem: FC<IBurgerConstructorItem> = ({ children, index }) => {
     const dispatch = useDispatch();
 
-    const ref = useRef(null);
+    const ref = useRef<HTMLDivElement>(null);
 
     const [{ handlerId }, drop] = useDrop({
         accept: 'innerIngridient',
@@ -19,7 +24,7 @@ const BurgerConstructorItem = ({ children, index }) => {
                 handlerId: monitor.getHandlerId()
             };
         },
-        hover(item, monitor) {
+        hover(item: any, monitor) {
             if (!ref.current) {
                 return;
             }
@@ -39,7 +44,7 @@ const BurgerConstructorItem = ({ children, index }) => {
             const hoverMiddleY =
                 (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
             // Получаем положение курсора
-            const clientOffset = monitor.getClientOffset();
+            const clientOffset: any = monitor.getClientOffset();
             // Получаем положение курсора относительно текущего элемента
             const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
@@ -79,11 +84,6 @@ const BurgerConstructorItem = ({ children, index }) => {
         </div>
     )
 }
-
-BurgerConstructorItem.propTypes = {
-    children: PropTypes.arrayOf(PropTypes.element).isRequired,
-    index: PropTypes.number.isRequired
-};
 
 
 export default BurgerConstructorItem;

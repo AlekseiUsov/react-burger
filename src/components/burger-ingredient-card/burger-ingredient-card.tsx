@@ -1,26 +1,23 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredient-card.module.css';
 
-import Modal from '../modal-window/modal-window';
-import cardTypes from '../../utils/propsType';
-
+import { ICardTypes } from '../../utils/propsType';
 
 import { useDrag } from "react-dnd";
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
 
-const BurgerIngredientCard = (ingridient) => {
+const BurgerIngredientCard: FC<ICardTypes> = (ingridient) => {
     const location = useLocation();
 
-    const { bun, constructorIngridients } = useSelector(state => state.burgerConstrucor);
-
+    const { bun, constructorIngridients } = useSelector((state: any) => state.burgerConstrucor);
 
     const count = React.useMemo(() => {
-        const result = ingridient.type === 'bun'
+        const result: number = ingridient.type === 'bun'
             ? bun?._id === ingridient._id ? 2 : 0
-            : constructorIngridients.filter((item) => item._id === ingridient._id).length
+            : constructorIngridients.filter((item: ICardTypes) => item._id === ingridient._id).length
         return result;
     }, [ingridient, bun, constructorIngridients])
 
@@ -52,6 +49,6 @@ const BurgerIngredientCard = (ingridient) => {
     )
 }
 
-BurgerIngredientCard.propTypes = { cardTypes };
+
 
 export default BurgerIngredientCard;

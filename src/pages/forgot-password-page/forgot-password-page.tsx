@@ -11,17 +11,13 @@ import { useNavigate } from "react-router-dom";
 
 
 export const ForgotPasswordPage = () => {
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState<string>('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleEmail = (mail) => {
-        if (mail === '') {
-            return;
-        } else {
-            dispatch(forgotPassword(mail))
-            navigate('/reset-password', { state: { resetPassword: true } })
-        }
+    const handleEmail = () => {
+        dispatch<any>(forgotPassword(email))
+        navigate('/reset-password', { state: { resetPassword: true } })
     }
 
     return (
@@ -34,7 +30,7 @@ export const ForgotPasswordPage = () => {
                 extraClass="mt-6"
                 isIcon={false}
             />
-            <Button htmlType="submit" size="medium" extraClass="mt-6">Воccтановить</Button>
+            <Button htmlType="submit" disabled={!email} size="medium" extraClass="mt-6">Воccтановить</Button>
             <div className={styles.block}>
                 <div className={`${styles.inner} mt-4`} >
                     <p className={styles.text} >Вспонили пароль?</p>

@@ -1,4 +1,5 @@
-import { logoutRequest, deleteCookie } from '../../../utils/burger-api';
+import { logoutRequest } from '../../../utils/burger-api';
+import { removeCookie } from 'typescript-cookie'
 
 export const USER_LOGOUT_REQUEST = 'USER_LOGOUT_REQUEST';
 export const USER_LOGOUT_SUCCESS = 'USER_LOGOUT_SUCCESS';
@@ -19,7 +20,7 @@ export const userLogout = () => {
                 type: USER_LOGOUT_ERROR,
             })
         })
-        deleteCookie('accessToken')
+        removeCookie('accessToken')
         localStorage.removeItem('refreshToken')
     }
 }

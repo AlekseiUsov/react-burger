@@ -1,8 +1,14 @@
 import styles from './app-header-item.module.css';
-import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import { FC } from 'react';
 
-const AppHeaderItem = ({ text, icon, path }) => {
+
+interface IAppHeaderItem {
+  text: string;
+  icon: React.ReactElement;
+  path: string;
+}
+const AppHeaderItem: FC<IAppHeaderItem> = ({ text, icon, path }) => {
 
   return (
     <NavLink to={path} style={{ textDecoration: 'none' }}
@@ -15,10 +21,5 @@ const AppHeaderItem = ({ text, icon, path }) => {
   )
 }
 
-AppHeaderItem.propTypes = {
-  path: PropTypes.string.isRequired,
-  icon: PropTypes.object.isRequired,
-  text: PropTypes.string.isRequired,
-};
 
 export default AppHeaderItem;

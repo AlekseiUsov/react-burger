@@ -1,15 +1,14 @@
 import styles from './burger-constructor.module.css';
-import PropTypes from 'prop-types';
-import cardTypes from '../../utils/propsType';
 
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from 'react-redux';
 
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+
 import BurgerConstructorPlug from '../burger-constructor-plug/burger-constructor-plug'
 import BurgerConstructorList from '../burger-constructor-list/burger-constructor-list'
 import BurgerConstructorTotal from '../burger-constructor-total/burger-constructor-total'
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { ADD_INGRIDIENT, ADD_BUN, SET_TOTALPRICE } from '../../services/actions/burger-constructor'
 
@@ -70,10 +69,6 @@ const BurgerConstructor = () => {
         </div >
     )
 }
-
-BurgerConstructor.propTypes = {
-    ingridients: PropTypes.arrayOf(cardTypes.isRequired)
-};
 
 
 export default BurgerConstructor;

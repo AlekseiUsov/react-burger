@@ -10,23 +10,18 @@ import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export const ResetPasswordPage = () => {
-    const [password, setPassword] = useState('');
-    const [token, setToken] = useState('')
+    const [password, setPassword] = useState<string>('');
+    const [token, setToken] = useState<string>('')
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
 
     const handleEmail = () => {
-        if (password === '' || token === '') {
-            return;
-        } else {
-            dispatch(resetPassword(password, token))
-        }
+        dispatch<any>(resetPassword(password, token))
     }
 
     useEffect(() => {
-
         if (!location.state?.resetPassword) {
             navigate('/forgot-password', { state: { resetPassword: false } })
         }
@@ -50,7 +45,10 @@ export const ResetPasswordPage = () => {
                 placeholder={'Введите код из письма'}
                 extraClass="mt-6"
             />
-            <Button htmlType="submit" size="medium" extraClass="mt-6">Сохранить</Button>
+            <Button
+                disabled={!token || !password}
+                htmlType="submit" size="medium" extraClass="mt-6"
+            >Сохранить</Button>
             <div className={styles.block}>
                 <div className={`${styles.inner} mt-4`} >
                     <p className={styles.text} >Вспонили пароль?</p>

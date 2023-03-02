@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './modal-window.module.css'
 
@@ -6,13 +6,17 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay'
 import { useNavigate } from 'react-router-dom';
 
-import PropTypes from 'prop-types';
+
+const modalRoot = (document.getElementById("react-modals") as Element);
 
 
-const modalRoot = document.getElementById("react-modals");
+interface IModalOverlay {
+    title: string;
+    children: React.ReactElement;
+}
 
 
-const Modal = ({ title, children }) => {
+const Modal: FC<IModalOverlay> = ({ title, children }) => {
     const navigate = useNavigate();
 
     const closeModal = () => {
@@ -20,7 +24,7 @@ const Modal = ({ title, children }) => {
     }
 
     React.useEffect(() => {
-        const handleEsc = (e) => {
+        const handleEsc = (e: KeyboardEvent) => {
             e.key === "Escape" && closeModal();
         };
         document.addEventListener("keydown", handleEsc);
@@ -35,8 +39,8 @@ const Modal = ({ title, children }) => {
                 <div className={styles.header}>
                     <p className={styles.text}>{title}</p>
                     <CloseIcon
+                        type="primary"
                         onClick={closeModal}
-                        styles={{ width: '18px', height: '18px' }}
                     />
                 </div>
                 {children}
@@ -45,11 +49,5 @@ const Modal = ({ title, children }) => {
         </>,
         modalRoot);
 }
-
-
-Modal.propTypes = {
-    title: PropTypes.string,
-    children: PropTypes.object.isRequired
-};
 
 export default Modal;

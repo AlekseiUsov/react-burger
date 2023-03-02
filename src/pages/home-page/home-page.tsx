@@ -12,10 +12,10 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 export const HomePage = () => {
     const dispatch = useDispatch();
-    const { ingridients, succes, isLoading } = useSelector(store => store.ingridients);
+    const { ingridients, succes, isLoading } = useSelector((store: any) => store.ingridients);
 
     useEffect(() => {
-        dispatch(getIngredients())
+        dispatch<any>(getIngredients())
     }, [dispatch]);
 
 

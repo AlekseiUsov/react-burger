@@ -1,16 +1,33 @@
+import { ICardTypes } from './propsType';
+import { getCookie, setCookie } from 'typescript-cookie'
+
 const NORMA_API = `https://norma.nomoreparties.space/api`;
 
-export const checkReponse = (res) => {
+export const checkReponse = <T>(res: Response): Promise<T> => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
+type TServerResponce<T> = {
+    success: boolean;
+} & T
+
+type TIngredientsResponce = TServerResponce<{
+    ingredients: Array<ICardTypes>
+}>
+
 export function getIngredientsRequest() {
     return fetch(`${NORMA_API}/ingredients`)
-        .then(checkReponse)
+        .then(res => checkReponse<TIngredientsResponce>(res))
 }
 
-export function postOrder(ingredients) {
-    console.log(ingredients)
+type TOrderResponce = TServerResponce<{
+    name: string;
+    order: {
+        number: number;
+    }
+}>
+
+export function postOrder(ingredients: Array<ICardTypes>) {
     return fetch(`${NORMA_API}/orders`, {
         method: 'POST',
         headers: {
@@ -20,10 +37,22 @@ export function postOrder(ingredients) {
         body: JSON.stringify({
             ingredients,
         }),
-    }).then(checkReponse)
+    }).then(res => checkReponse<TOrderResponce>(res))
 }
 
-export function registrationRequest(email, password, name) {
+type TUserResponce = TServerResponce<{
+    user: {
+        email: string,
+        name: string,
+    },
+}>
+
+type TRegistrationOrAutorizationResponce = TUserResponce & {
+    accessToken: string;
+    refreshToken: string;
+};
+
+export function registrationRequest(email: string, password: string, name: string) {
     return fetch(`${NORMA_API}/auth/register`, {
         method: 'POST',
         headers: {
@@ -34,22 +63,20 @@ export function registrationRequest(email, password, name) {
             email,
             password
         }),
-    }).then(checkReponse)
+    }).then(res => checkReponse<TRegistrationOrAutorizationResponce>(res))
 }
 
-
 export function getUser() {
-    //console.log('Bearer ' + getCookie('accessToken'))
     return fetch(`${NORMA_API}/auth/user`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             Authorization: 'Bearer ' + getCookie('accessToken')
         },
-    }).then(checkReponse)
+    }).then(res => checkReponse<TUserResponce>(res))
 }
 
-export function updateUser(name, email, password) {
+export function updateUser(name: string, email: string, password: string) {
     return fetch(`${NORMA_API}/auth/user`, {
         method: 'PATCH',
         body: JSON.stringify({
@@ -61,10 +88,10 @@ export function updateUser(name, email, password) {
             'Content-Type': 'application/json',
             Authorization: 'Bearer ' + getCookie('accessToken')
         },
-    }).then(checkReponse)
+    }).then(res => checkReponse<TUserResponce>(res))
 }
 
-export function loginRequest(email, password) {
+export function loginRequest(email: string, password: string) {
     return fetch(`${NORMA_API}/auth/login`, {
         method: 'POST',
         headers: {
@@ -74,8 +101,13 @@ export function loginRequest(email, password) {
             email,
             password
         }),
-    }).then(checkReponse)
+    }).then(res => checkReponse<TRegistrationOrAutorizationResponce>(res))
 }
+
+
+type TLogoutAndPasswordResponce = TServerResponce<{
+    message: string;
+}>
 
 export function logoutRequest() {
     const token = localStorage.getItem('refreshToken');
@@ -88,10 +120,10 @@ export function logoutRequest() {
         body: JSON.stringify({
             token
         }),
-    }).then(checkReponse)
+    }).then(res => checkReponse<TLogoutAndPasswordResponce>(res))
 }
 
-export function passwordReset(email) {
+export function passwordReset(email: string) {
     return fetch(`${NORMA_API}/password-reset`, {
         method: 'POST',
         headers: {
@@ -100,11 +132,11 @@ export function passwordReset(email) {
         body: JSON.stringify({
             email,
         }),
-    }).then(checkReponse)
+    }).then(res => checkReponse<TLogoutAndPasswordResponce>(res))
 }
 
 
-export function passwordRecovery(password, token) {
+export function passwordRecovery(password: string, token: string) {
     return fetch(`${NORMA_API}/password-reset/reset`, {
         method: 'POST',
         headers: {
@@ -114,7 +146,7 @@ export function passwordRecovery(password, token) {
             password,
             token
         }),
-    }).then(checkReponse)
+    }).then(res => checkReponse<TLogoutAndPasswordResponce>(res))
 }
 
 
@@ -129,7 +161,7 @@ export function refreshTokens() {
         body: JSON.stringify({
             token
         }),
-    }).then(checkReponse).then(res => {
+    }).then(res => checkReponse<TRegistrationOrAutorizationResponce>(res)).then(res => {
         let accessToken = res.accessToken.split('Bearer ')[1];
         let refreshToken = res.refreshToken;
 
@@ -140,39 +172,3 @@ export function refreshTokens() {
 }
 
 
-export function setCookie(name, value, options = {}) {
-
-    options = {
-        path: '/',
-        ...options
-    };
-
-    if (options.expires instanceof Date) {
-        options.expires = options.expires.toUTCString();
-    }
-
-    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
-
-    for (let optionKey in options) {
-        updatedCookie += "; " + optionKey;
-        let optionValue = options[optionKey];
-        if (optionValue !== true) {
-            updatedCookie += "=" + optionValue;
-        }
-    }
-
-    document.cookie = updatedCookie;
-}
-
-export function getCookie(name) {
-    const matches = document.cookie.match(
-        new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
-    );
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-}
-
-export function deleteCookie(name) {
-    setCookie(name, "", {
-        'max-age': -1
-    })
-}
