@@ -1,7 +1,7 @@
 import {
-    _REQUEST_GET_INGRIDIENTS,
-    _SUCCESS_GET_INGRIDIENTS,
-    _ERROR_GET_INGRIDIENTS
+    GET_INGRIDIENTS_REQUEST,
+    GET_INGRIDIENTS_SUCCESS,
+    GET_INGRIDIENTS_ERROR
 } from '../actions/ingridients';
 
 const initialState = {
@@ -14,13 +14,13 @@ const initialState = {
 export const ingridientsReducer = (state = initialState, action) => {
     const { type, ...rest } = action;
     switch (action.type) {
-        case _REQUEST_GET_INGRIDIENTS: {
+        case GET_INGRIDIENTS_REQUEST: {
             return {
                 ...state,
                 isLoading: true
             };
         }
-        case _SUCCESS_GET_INGRIDIENTS: {
+        case GET_INGRIDIENTS_SUCCESS: {
             return {
                 ...state,
                 isLoading: false,
@@ -28,7 +28,7 @@ export const ingridientsReducer = (state = initialState, action) => {
                 ingridients: rest.ingredients,
             };
         }
-        case _ERROR_GET_INGRIDIENTS: {
+        case GET_INGRIDIENTS_ERROR: {
             return {
                 ...state,
                 ingridients: [],

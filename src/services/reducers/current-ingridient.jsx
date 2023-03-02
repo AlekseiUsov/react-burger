@@ -8,13 +8,12 @@ const initialState = {
 }
 
 export const currentIngridientReducer = (state = initialState, action) => {
-    const { type, ...rest } = action;
-
+    const { type, ...current } = action;
     switch (action.type) {
         case GET_CURRENT_INGRIDIENT:
             return {
                 ...state,
-                currentIngridient: rest.ingridient
+                currentIngridient: current.current
             }
         case REMOVE_CURRENT_INGRIDIENT:
             return {

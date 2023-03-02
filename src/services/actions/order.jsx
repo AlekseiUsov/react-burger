@@ -1,18 +1,18 @@
 import { postOrder } from '../../utils/burger-api';
 
-export const _REQUEST_ORDER = '_REQUEST_ORDER';
-export const _SUCCESS_ORDER = '_SUCCESS_ORDER';
-export const _ERROR_ORDER = '_ERROR_ORDER';
+export const ORDER_REQUEST = 'ORDER_REQUEST';
+export const ORDER_SUCCESS = 'ORDER_SUCCESS';
+export const ORDER_ERROR = 'ORDER_ERROR';
 
 export const getOrderDetails = (ingredients) => {
     return function (dispatch) {
         dispatch({
-            type: _REQUEST_ORDER,
+            type: ORDER_REQUEST,
         })
         postOrder(ingredients).then(res => {
             if (res && res.success) {
                 dispatch({
-                    type: _SUCCESS_ORDER,
+                    type: ORDER_SUCCESS,
                     name: res.name,
                     order: {
                         number: res.order.number
@@ -20,12 +20,12 @@ export const getOrderDetails = (ingredients) => {
                 })
             } else {
                 dispatch({
-                    type: _ERROR_ORDER,
+                    type: ORDER_ERROR,
                 })
             }
         }).catch(err => {
             dispatch({
-                type: _ERROR_ORDER,
+                type: ORDER_ERROR,
             })
         })
     }

@@ -1,15 +1,13 @@
 .container {
     position: relative;
-    flex-basis: 49%;
-}
-
-.wrapper {
+    text-decoration: none;
+    color: #f2f2f3;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.inner {
+.price {
     display: flex;
     align-items: center;
     gap: 5px;

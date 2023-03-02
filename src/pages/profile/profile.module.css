@@ -1,0 +1,25 @@
+.wrapper {
+    display: flex;
+    margin-top: 100px;
+}
+
+.menu {
+    margin-left: 120px;
+}
+
+.inputs {
+    margin-left: 150px;
+    display: flex;
+    flex-direction: column;
+}
+
+.text {
+    text-align: start;
+    color: #8585AD;
+}
+
+.inner {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+}

@@ -48,8 +48,6 @@ export const burgerConstructorReducer = (state = initialState, action) => {
             }
         }
         case SORT_INGRIDIENT: {
-            // const item = state.constructorIngridients.splice(rest.from, 1)[0];
-            // state.constructorIngridients.splice(rest.to, 0, item);
             const prevState = [...state.constructorIngridients];
             const item = prevState[rest.rest.from]
 
