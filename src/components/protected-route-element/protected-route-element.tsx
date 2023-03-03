@@ -21,3 +21,30 @@ export const ProtectedRouteElement: FC<IProtectedRouteElement> = ({ element }) =
     if (hasError || (!isLoading && !isLogedIn)) return <Navigate to="/login" state={{ path: location }} replace />
     return element;
 }
+
+
+// const ProtectedRoute = ({onlyUnAuth = false, children}) => {
+//     const authChecked = useSelector(store => store.auth.authChecked);
+//     const user = useSelector(store => store.auth.user);
+//     const location = useLocation();
+
+//     if (!authChecked) {
+//         // Запрос еще выполняется
+//         return null; // или прелоадер
+//     }
+
+//     if (onlyUnAuth && user) {
+//         // Пользователь авторизован, но запрос предназначен только для неавторизованных пользователей
+//         // Нужно сделать редирект на главную страницу или на тот адрес, что записан в location.state.from
+//     }
+
+
+//     if (!onlyUnAuth && !user) {
+//         // Сервер не ответил
+//         return <Navigate to="/login" state={{ from: location }} />;
+//     }
+
+//     // !onlyUnAuth && user
+
+//     return children;
+// }

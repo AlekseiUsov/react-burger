@@ -1,18 +1,17 @@
 import styles from './burger-constructor-item.module.css';
 
-import { useRef, FC } from 'react';
+import { useRef, FC, PropsWithChildren } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag } from "react-dnd";
 import { useDrop } from "react-dnd";
 import { SORT_INGRIDIENT } from '../../services/actions/burger-constructor';
 
 interface IBurgerConstructorItem {
-    children: Array<React.ReactElement>;
     index: Number;
 }
 
 
-const BurgerConstructorItem: FC<IBurgerConstructorItem> = ({ children, index }) => {
+const BurgerConstructorItem: FC<PropsWithChildren<IBurgerConstructorItem>> = ({ children, index }) => {
     const dispatch = useDispatch();
 
     const ref = useRef<HTMLDivElement>(null);
@@ -44,9 +43,9 @@ const BurgerConstructorItem: FC<IBurgerConstructorItem> = ({ children, index }) 
             const hoverMiddleY =
                 (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
             // Получаем положение курсора
-            const clientOffset: any = monitor.getClientOffset();
+            const clientOffset = monitor.getClientOffset();
             // Получаем положение курсора относительно текущего элемента
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+            const hoverClientY = (clientOffset?.y || 0) - hoverBoundingRect.top;
 
             // Выходим, если перемещаемый элемент ниже, чем 50% от высоты текущего
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {

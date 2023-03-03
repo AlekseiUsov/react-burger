@@ -11,7 +11,7 @@ export const UnProtectedRouteElement: FC<IUnProtectedRouteElement> = ({ element 
     const dispatch = useDispatch();
     const location = useLocation();
 
-    const { isLoading, hasError, user: { isLogedIn } } = useSelector((state: any) => state.auth);
+    const { isLoading, user: { isLogedIn } } = useSelector((state: any) => state.auth);
 
     useEffect(() => {
         dispatch<any>(getUserData())

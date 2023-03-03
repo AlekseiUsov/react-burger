@@ -11,7 +11,7 @@ interface IAppHeaderItem {
 const AppHeaderItem: FC<IAppHeaderItem> = ({ text, icon, path }) => {
 
   return (
-    <NavLink to={path} style={{ textDecoration: 'none' }}
+    <NavLink to={path}
       className={({ isActive }) =>
         `${styles.block} p-4 ${isActive ? styles.active : ''}`
       }>

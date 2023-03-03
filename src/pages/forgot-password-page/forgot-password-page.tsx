@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 
 export const ForgotPasswordPage = () => {
-    const [email, setEmail] = useState<string>('');
+    const [email, setEmail] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
