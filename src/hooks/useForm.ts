@@ -4,7 +4,7 @@ interface IAnswer {
     [name: string]: string;
 }
 
-export const useForm = (inputValues: IAnswer) => {
+export function useForm<T extends IAnswer>(inputValues: T) {
     const [formValues, setFormValues] = useState(inputValues);
 
     const handleInputsChange = (event: React.ChangeEvent<HTMLInputElement>): void => {

@@ -1,4 +1,5 @@
 import styles from './burger-constructor.module.css';
+import { ICardTypes } from '../../utils/propsType';
 
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +10,6 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import BurgerConstructorPlug from '../burger-constructor-plug/burger-constructor-plug'
 import BurgerConstructorList from '../burger-constructor-list/burger-constructor-list'
 import BurgerConstructorTotal from '../burger-constructor-total/burger-constructor-total'
-import { ICardTypes } from '../../utils/propsType';
 
 import { ADD_INGRIDIENT, ADD_BUN, SET_TOTALPRICE } from '../../services/actions/burger-constructor'
 
