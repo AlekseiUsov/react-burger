@@ -1,19 +1,23 @@
 import styles from './burger-constructor-total.module.css';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
+import { ICardTypes } from '../../utils/propsType';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from "react-router-dom";
 import { getOrderDetails } from '../../services/actions/order';
 
+interface IBurgerConstructorTotal {
+    icon: React.ReactElement;
+    text: string;
+}
+const BurgerConstructorTotal: FC<IBurgerConstructorTotal> = ({ text, icon }) => {
+    const [isPopUpOpen, setIsPopUpOpen] = React.useState<boolean>(false);
 
-const BurgerConstructorTotal = ({ text, icon }) => {
-    const [isPopUpOpen, setIsPopUpOpen] = React.useState(false);
+    const { bun, constructorIngridients } = useSelector((state: any) => state.burgerConstrucor);
+    const user = useSelector((state: any) => state.auth.user);
 
-    const { bun, constructorIngridients } = useSelector(state => state.burgerConstrucor);
-    const user = useSelector(state => state.auth.user);
-
-    const ingridientsIds = (constructorIngridients).map((ingridient) => ingridient._id);
+    const ingridientsIds = (constructorIngridients).map((ingridient: ICardTypes) => ingridient._id);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -26,7 +30,7 @@ const BurgerConstructorTotal = ({ text, icon }) => {
         } else {
             if (user.isLogedIn) {
                 navigate('/order', { state: { background: location } })
-                dispatch(getOrderDetails([bun._id, ...ingridientsIds, bun._id]))
+                dispatch<any>(getOrderDetails([bun._id, ...ingridientsIds, bun._id]))
             } else {
                 navigate('/login')
             }
@@ -52,10 +56,5 @@ const BurgerConstructorTotal = ({ text, icon }) => {
         </>
     )
 }
-
-BurgerConstructorTotal.propTypes = {
-    text: PropTypes.string.isRequired,
-    icon: PropTypes.object.isRequired,
-};
 
 export default BurgerConstructorTotal;

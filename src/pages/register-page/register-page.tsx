@@ -15,19 +15,7 @@ export const RegisterPage = () => {
     const dispatch = useDispatch();
 
     const handleEmail = () => {
-        if (
-            formValues.email === '' ||
-            formValues.name === '' ||
-            formValues.password === ''
-        ) {
-            return;
-        } else {
-            dispatch(userRegistration(
-                formValues.email,
-                formValues.name,
-                formValues.password
-            ))
-        }
+        dispatch<any>(userRegistration(formValues))
     }
 
     return (
@@ -55,7 +43,10 @@ export const RegisterPage = () => {
                 extraClass="mt-6"
                 icon={'ShowIcon'}
             />
-            <Button htmlType="submit" size="medium" extraClass="mt-6">Войти</Button>
+            <Button
+                disabled={!formValues.name || !formValues.email || !formValues.password}
+                htmlType="submit" size="medium" extraClass="mt-6"
+            >Войти</Button>
             <div className={styles.block}>
                 <div className={`${styles.inner} mt-4`} >
                     <p className={styles.text}>Уже зарегистрированы?</p>

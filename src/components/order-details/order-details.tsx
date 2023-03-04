@@ -1,5 +1,4 @@
 import styles from './order-details.module.css';
-import PropTypes from 'prop-types';
 import done from '../../images/done.svg';
 import { useSelector } from 'react-redux';
 
@@ -10,7 +9,7 @@ const OrderDetails = () => {
         isLoading,
         name,
         order: { number }
-    } = useSelector(state => state.orderDetails)
+    } = useSelector((state: any) => state.orderDetails)
 
     return (
         <>

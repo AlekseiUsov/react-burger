@@ -1,28 +1,23 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserData } from '../../services/actions/routers/get-profile-data';
 import { Navigate, useLocation } from 'react-router-dom'
-import PropTypes from 'prop-types';
+import { useEffect, FC } from 'react';
 
-import { useEffect } from 'react';
+interface IUnProtectedRouteElement {
+    element: React.ReactElement
+}
 
-
-export const UnProtectedRouteElement = ({ element }) => {
+export const UnProtectedRouteElement: FC<IUnProtectedRouteElement> = ({ element }) => {
     const dispatch = useDispatch();
     const location = useLocation();
 
-    const { isLoading, user: { isLogedIn } } = useSelector(state => state.auth);
-
+    const { isLoading, user: { isLogedIn } } = useSelector((state: any) => state.auth);
 
     useEffect(() => {
-        dispatch(getUserData())
+        dispatch<any>(getUserData())
     }, [dispatch]);
-
 
     if (isLoading) return <h1>Пожайлуста, подождите ...</h1>
     if (!isLoading && isLogedIn) return <Navigate to={location.state?.path || '/'} replace />
     return element;
 }
-
-UnProtectedRouteElement.propTypes = {
-    element: PropTypes.element,
-};

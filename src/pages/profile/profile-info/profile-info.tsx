@@ -6,13 +6,19 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { changeUserData } from '../../../services/actions/routers/change-user-data';
 
+type IFormProfile = {
+    name: string;
+    email: string;
+    password: string;
+};
+
 const ProfileInfo = () => {
-    const [isBottonsOpen, setIsBottonsOpen] = useState(false);
+    const [isBottonsOpen, setIsBottonsOpen] = useState<boolean>(false);
 
-    const user = useSelector((state) => state.auth.user)
-    const { formValues, handleInputsChange, setFormValues } = useForm({ name: user.name, email: user.email, password: "", });
+    const user = useSelector((state: any) => state.auth.user)
+    const { formValues, handleInputsChange, setFormValues } = useForm<IFormProfile>({ name: user.name, email: user.email, password: "", });
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<any>();
 
     const cancelInput = () => {
         setFormValues({
@@ -31,7 +37,7 @@ const ProfileInfo = () => {
         ))
     }
 
-    const changeInputs = (e) => {
+    const changeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleInputsChange(e);
         setIsBottonsOpen(true)
     }
@@ -52,7 +58,7 @@ const ProfileInfo = () => {
                 onChange={(e) => changeInputs(e)}
                 placeholder={'e-mail'}
                 extraClass="mt-6"
-                icon={'EditIcon'}
+                isIcon
             />
             <PasswordInput
                 name="password"

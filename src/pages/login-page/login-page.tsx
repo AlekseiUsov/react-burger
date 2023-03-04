@@ -10,18 +10,14 @@ import { useDispatch } from 'react-redux';
 
 
 export const LoginPage = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
 
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
 
     const dispatch = useDispatch();
 
     const handleEmail = () => {
-        if (email === '' || password === '') {
-            return;
-        } else {
-            dispatch(userLogin(email, password))
-        }
+        dispatch<any>(userLogin(email, password))
     }
 
     return (
@@ -41,7 +37,7 @@ export const LoginPage = () => {
                     extraClass="mt-6"
                     icon={'ShowIcon'}
                 />
-                <Button htmlType="submit" size="medium" extraClass="mt-6">Войти</Button>
+                <Button htmlType="submit" disabled={!email} size="medium" extraClass="mt-6">Войти</Button>
             </form>
             <div className={styles.block}>
                 <div className={`${styles.inner} mt-4`} >

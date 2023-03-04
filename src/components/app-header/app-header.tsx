@@ -14,13 +14,13 @@ function AppHeader() {
         <AppHeaderItem
           path='/'
           text="Конструктор"
-          icon={<BurgerIcon />}
+          icon={<BurgerIcon type="primary" />}
         />
 
         <AppHeaderItem
           path='/orders'
           text="Лента Заказов"
-          icon={<ListIcon />} />
+          icon={<ListIcon type="primary" />} />
 
         <div className={styles.logo}>
           <Logo />
@@ -29,7 +29,7 @@ function AppHeader() {
         <AppHeaderItem
           path='/profile'
           text="Личный кабинет"
-          icon={<ProfileIcon />} />
+          icon={<ProfileIcon type="primary" />} />
       </div>
     </div >
   );

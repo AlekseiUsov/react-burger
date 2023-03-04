@@ -1,4 +1,6 @@
-import { updateAccessToken, setCookie } from '../../../utils/burger-api';
+import { updateAccessToken } from '../../../utils/burger-api';
+import { setCookie } from 'typescript-cookie'
+
 
 export const UPDATE_TOKEN_REQUEST = 'UPDATE_TOKEN_REQUEST';
 export const UPDATE_TOKEN_SUCCESS = 'UPDATE_TOKEN_SUCCESS';

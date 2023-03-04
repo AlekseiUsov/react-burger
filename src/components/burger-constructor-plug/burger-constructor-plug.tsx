@@ -1,17 +1,17 @@
 import styles from './burger-constructor-plug.module.css';
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 
+interface IBurgerConstructorPlug {
+    position: string;
+    text: string;
+}
 
-const BurgerConstructorPlug = ({ text, position }) => {
+const BurgerConstructorPlug: FC<IBurgerConstructorPlug> = ({ text, position }) => {
 
     return (
         <div className={`${styles.wrapper}  ${position ? styles[position] : ''}`} > {text}</div >
     )
 }
 
-BurgerConstructorPlug.propTypes = {
-    text: PropTypes.string.isRequired,
-    position: PropTypes.string.isRequired,
-};
 
 export default BurgerConstructorPlug;

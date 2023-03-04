@@ -1,8 +1,15 @@
 import styles from './profile-link.module.css';
-import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import { FC } from 'react';
 
-const ProfileLink = ({ onClick, text, path }) => {
+interface IProfileLink {
+    onClick?: () => void;
+    text: string;
+    path: string;
+}
+
+
+const ProfileLink: FC<IProfileLink> = ({ onClick, text, path }) => {
 
     return (
         <NavLink
@@ -17,11 +24,5 @@ const ProfileLink = ({ onClick, text, path }) => {
         </NavLink>
     )
 }
-
-ProfileLink.propTypes = {
-    path: PropTypes.string.isRequired,
-    onClick: PropTypes.func,
-    text: PropTypes.string.isRequired,
-};
 
 export default ProfileLink;

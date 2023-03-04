@@ -1,14 +1,18 @@
 import styles from './burger-ingredients.module.css';
-import React from "react";
-import PropTypes from 'prop-types';
-import cardTypes from "../../utils/propsType";
+import React, { FC } from "react";
 
+import { ICardTypes } from '../../utils/propsType';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientsGroup from '../burger-ingredients-group/burger-ingredients-group'
 import { Link } from 'react-scroll'
 
-const BurgerIngredients = ({ title, ingridients }) => {
-  const [current, setCurrent] = React.useState('Булки');
+interface IBurgerIngredients {
+  title: string;
+  ingridients: Array<ICardTypes>
+}
+
+const BurgerIngredients: FC<IBurgerIngredients> = ({ title, ingridients }) => {
+  const [current, setCurrent] = React.useState<string>('Булки');
 
   const bun = React.useMemo(
     () => ingridients.filter((ingridient) => ingridient.type === 'bun')
@@ -47,10 +51,7 @@ const BurgerIngredients = ({ title, ingridients }) => {
   );
 }
 
-BurgerIngredients.propTypes = {
-  title: PropTypes.string.isRequired,
-  ingridients: PropTypes.arrayOf(cardTypes.isRequired).isRequired
-};
+
 
 export default BurgerIngredients;
 
