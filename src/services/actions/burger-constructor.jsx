@@ -1,6 +1,0 @@
-export const ADD_INGRIDIENT = 'ADD_INGRIDIENT';
-export const ADD_BUN = 'ADD_BUN';
-export const REMOVE_INGRIDIENT = 'REMOVE_INGRIDIENT';
-export const SET_TOTALPRICE = 'SET_TOTALPRICE';
-export const SORT_INGRIDIENT = 'SORT_INGRIDIENT';
-

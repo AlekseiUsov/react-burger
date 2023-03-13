@@ -15,7 +15,7 @@ export const RegisterPage = () => {
     const dispatch = useDispatch();
 
     const handleEmail = () => {
-        dispatch<any>(userRegistration(formValues))
+        dispatch(userRegistration(formValues.name, formValues.email, formValues.password))
     }
 
     return (

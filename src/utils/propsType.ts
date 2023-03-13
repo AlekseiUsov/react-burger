@@ -10,4 +10,5 @@ export interface ICardTypes {
     fat: number;
     carbohydrates: number;
     price: number;
+    uniqid?: number;
 }

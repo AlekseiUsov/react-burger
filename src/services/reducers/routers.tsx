@@ -2,47 +2,58 @@ import {
     FORGOT_PASSWORD_REQUEST,
     FORGOT_PASSWORD_SUCCESS,
     FORGOT_PASSWORD_ERROR,
-} from '../../services/actions/routers/forgot-password';
+} from '../constants'
 
 import {
     RESET_PASSWORD_REQUEST,
     RESET_PASSWORD_SUCCESS,
     RESET_PASSWORD_ERROR
-} from '../actions/routers/reset-password';
+} from '../constants';
 
 import {
     USER_REGISTRATION_REQUEST,
     USER_REGISTRATION_SUCCESS,
     USER_REGISTRATION_ERROR
-} from '../actions/routers/user-registration';
+} from '../constants';
 
 
 import {
     GET_PROFILE_DATA_REQUEST,
     GET_PROFILE_DATA_SUCCESS,
     GET_PROFILE_DATA_ERROR
-} from '../actions/routers/get-profile-data';
+} from '../constants';
 
 import {
     USER_LOGIN_REQUEST,
     USER_LOGIN_SUCCESS,
     USER_LOGIN_ERROR
-} from '../actions/routers/user-login';
+} from '../constants';
 
 import {
     USER_LOGOUT_REQUEST,
     USER_LOGOUT_SUCCESS,
     USER_LOGOUT_ERROR
-} from '../actions/routers/user-logout';
+} from '../constants';
 
 import {
     UPDATE_USER_DATA_REQUEST,
     UPDATE_USER_DATA_SUCCESS,
-    UPDATE_USER_DATA_ERROR
-} from '../actions/routers/change-user-data';
+    UPDATE_USER_DATA_ERROR,
+} from '../constants'
 
+import { TRouteType } from '../actions/routers/router-type'
 
-const initialState = {
+interface IRouterType {
+    user: {
+        email: null | string,
+        name: null | string,
+        isLogedIn: boolean,
+    },
+    isLoading: boolean,
+    hasError: boolean
+}
+
+const initialState: IRouterType = {
     user: {
         email: null,
         name: null,
@@ -52,8 +63,7 @@ const initialState = {
     hasError: false,
 }
 
-export const routerReducer = (state = initialState, action) => {
-    const { type, ...rest } = action;
+export const routerReducer = (state = initialState, action: TRouteType) => {
 
     switch (action.type) {
         case USER_REGISTRATION_REQUEST: {
@@ -68,8 +78,8 @@ export const routerReducer = (state = initialState, action) => {
                 isLoading: false,
                 hasError: false,
                 user: {
-                    email: rest.user.email,
-                    name: rest.user.name,
+                    email: action.user.email,
+                    name: action.user.name,
                 },
             };
         }
@@ -99,8 +109,8 @@ export const routerReducer = (state = initialState, action) => {
                 isLoading: false,
                 hasError: false,
                 user: {
-                    email: rest.user.email,
-                    name: rest.user.name,
+                    email: action.user.email,
+                    name: action.user.name,
                     isLogedIn: true,
                 },
             };
@@ -152,8 +162,8 @@ export const routerReducer = (state = initialState, action) => {
                 isLoading: false,
                 hasError: false,
                 user: {
-                    email: rest.user.email,
-                    name: rest.user.name,
+                    email: action.user.email,
+                    name: action.user.name,
                     isLogedIn: true,
                 },
             };
@@ -181,8 +191,8 @@ export const routerReducer = (state = initialState, action) => {
                 isLoading: false,
                 hasError: false,
                 user: {
-                    email: rest.user.email,
-                    name: rest.user.name,
+                    email: action.user.email,
+                    name: action.user.name,
                 },
             };
         }

@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { useDrag } from "react-dnd";
 import { useDrop } from "react-dnd";
 
-import { SORT_INGRIDIENT } from '../../services/actions/burger-constructor';
+import { SORT_INGRIDIENTS } from '../../services/actions/burger-constructor';
 
 interface IBurgerConstructorItem {
     index: number;
@@ -64,7 +64,7 @@ const BurgerConstructorItem: FC<PropsWithChildren<IBurgerConstructorItem>> = ({ 
                     return;
                 }
 
-                dispatch({ type: SORT_INGRIDIENT, rest: { from: dragIndex, to: hoverIndex } });
+                dispatch({ type: SORT_INGRIDIENTS, rest: { from: dragIndex, to: hoverIndex } });
 
                 // Сразу меняем индекс перемещаемого элемента
                 item.index = hoverIndex;

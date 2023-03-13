@@ -12,7 +12,7 @@ import { Link, useLocation } from 'react-router-dom';
 const BurgerIngredientCard: FC<ICardTypes> = (ingridient) => {
     const location = useLocation();
 
-    const { bun, constructorIngridients } = useSelector((state: any) => state.burgerConstrucor);
+    const { bun, constructorIngridients } = useSelector((state: any) => state.burgerConstructor);
 
     const count = React.useMemo(() => {
         const result: number = ingridient.type === 'bun'

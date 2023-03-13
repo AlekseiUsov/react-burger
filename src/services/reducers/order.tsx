@@ -1,6 +1,16 @@
-import { ORDER_REQUEST, ORDER_SUCCESS, ORDER_ERROR } from '../actions/order';
+import { ORDER_REQUEST, ORDER_SUCCESS, ORDER_ERROR } from '../constants';
+import { TOrderActions } from '../actions/order'
 
-const initialState = {
+interface IOrderState {
+    isLoading: boolean,
+    name: null | string,
+    order: {
+        number: null | number
+    }
+    success: boolean,
+}
+
+const initialState: IOrderState = {
     isLoading: false,
     name: null,
     order: {
@@ -9,8 +19,7 @@ const initialState = {
     success: false,
 }
 
-export const orderReducer = (state = initialState, action) => {
-    const { type, ...rest } = action;
+export const orderReducer = (state = initialState, action: TOrderActions) => {
 
     switch (action.type) {
         case ORDER_REQUEST: {
@@ -23,9 +32,9 @@ export const orderReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: false,
-                name: rest.name,
+                name: action.name,
                 order: {
-                    number: rest.order.number,
+                    number: action.order.number,
                 },
                 success: true,
             };

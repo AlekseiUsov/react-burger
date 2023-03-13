@@ -12,7 +12,7 @@ type TServerResponce<T> = {
 } & T
 
 type TIngredientsResponce = TServerResponce<{
-    ingredients: Array<ICardTypes>
+    data: Array<ICardTypes>
 }>
 
 export function getIngredientsRequest() {

@@ -14,7 +14,7 @@ import BurgerConstructorTotal from '../burger-constructor-total/burger-construct
 import { ADD_INGRIDIENT, ADD_BUN, SET_TOTALPRICE } from '../../services/actions/burger-constructor'
 
 const BurgerConstructor = () => {
-    const { bun, constructorIngridients, totalPrice } = useSelector((state: any) => state.burgerConstrucor);
+    const { bun, constructorIngridients, totalPrice } = useSelector(state => state.burgerConstructor);
     const dispatch = useDispatch();
 
     interface IIngridient {

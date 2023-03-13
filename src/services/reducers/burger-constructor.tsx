@@ -3,32 +3,39 @@ import {
     ADD_BUN,
     REMOVE_INGRIDIENT,
     SET_TOTALPRICE,
-    SORT_INGRIDIENT
+    SORT_INGRIDIENTS,
+    TConstructorActions
 } from '../actions/burger-constructor';
+import { ICardTypes } from '../../utils/propsType';
 
 import uniqid from 'uniqid';
 
-const initialState = {
+interface IConsructorType {
+    bun: null | ICardTypes,
+    constructorIngridients: [] | Array<ICardTypes>,
+    totalPrice: number
+}
+
+const initialState: IConsructorType = {
     bun: null,
     constructorIngridients: [],
     totalPrice: 0,
 }
 
-export const burgerConstructorReducer = (state = initialState, action) => {
-    const { type, ...rest } = action;
+export const burgerConstructorReducer = (state = initialState, action: TConstructorActions) => {
 
     switch (action.type) {
         case ADD_BUN:
             return {
                 ...state,
-                bun: rest.ingridient
+                bun: action.ingridient
             }
         case ADD_INGRIDIENT: {
             return {
                 ...state,
                 constructorIngridients: [
                     ...state.constructorIngridients,
-                    { ...rest.ingridient, uniqid: uniqid() }
+                    { ...action.ingridient, uniqid: uniqid() }
                 ]
             }
         }
@@ -36,7 +43,7 @@ export const burgerConstructorReducer = (state = initialState, action) => {
             return {
                 ...state,
                 constructorIngridients: [...state.constructorIngridients]
-                    .filter(ingridient => ingridient.uniqid !== rest.ingridient.uniqid)
+                    .filter(ingridient => ingridient.uniqid !== action.ingridient.uniqid)
             }
         }
         case SET_TOTALPRICE: {
@@ -47,12 +54,12 @@ export const burgerConstructorReducer = (state = initialState, action) => {
                     .reduce((acc, ingridient) => acc + ingridient.price, 0) + bunPrice
             }
         }
-        case SORT_INGRIDIENT: {
+        case SORT_INGRIDIENTS: {
             const prevState = [...state.constructorIngridients];
-            const item = prevState[rest.rest.from]
+            const item = prevState[action.rest.from]
 
-            prevState.splice(rest.rest.from, 1)
-            prevState.splice(rest.rest.to, 0, item)
+            prevState.splice(action.rest.from, 1)
+            prevState.splice(action.rest.to, 0, item)
 
             return {
                 ...state,
@@ -63,4 +70,4 @@ export const burgerConstructorReducer = (state = initialState, action) => {
             return state
     }
 
-} 
+}

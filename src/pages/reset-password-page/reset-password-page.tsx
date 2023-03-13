@@ -18,7 +18,7 @@ export const ResetPasswordPage = () => {
     const location = useLocation();
 
     const handleEmail = () => {
-        dispatch<any>(resetPassword(password, token))
+        dispatch(resetPassword(password, token))
     }
 
     useEffect(() => {

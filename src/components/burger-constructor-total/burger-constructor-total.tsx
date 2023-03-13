@@ -14,7 +14,7 @@ interface IBurgerConstructorTotal {
 const BurgerConstructorTotal: FC<IBurgerConstructorTotal> = ({ text, icon }) => {
     const [isPopUpOpen, setIsPopUpOpen] = React.useState<boolean>(false);
 
-    const { bun, constructorIngridients } = useSelector((state: any) => state.burgerConstrucor);
+    const { bun, constructorIngridients } = useSelector((state: any) => state.burgerConstructor);
     const user = useSelector((state: any) => state.auth.user);
 
     const ingridientsIds = (constructorIngridients).map((ingridient: ICardTypes) => ingridient._id);
@@ -30,7 +30,7 @@ const BurgerConstructorTotal: FC<IBurgerConstructorTotal> = ({ text, icon }) => 
         } else {
             if (user.isLogedIn) {
                 navigate('/order', { state: { background: location } })
-                dispatch<any>(getOrderDetails([bun._id, ...ingridientsIds, bun._id]))
+                dispatch(getOrderDetails([bun._id, ...ingridientsIds, bun._id]))
             } else {
                 navigate('/login')
             }

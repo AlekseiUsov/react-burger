@@ -2,17 +2,24 @@ import {
     GET_INGRIDIENTS_REQUEST,
     GET_INGRIDIENTS_SUCCESS,
     GET_INGRIDIENTS_ERROR
-} from '../actions/ingridients';
+} from '../constants';
+import { ICardTypes } from '../../utils/propsType'
+import { TIngredientsActions } from '../actions/ingridients'
 
-const initialState = {
+interface IIngridientsState {
+    isLoading: boolean
+    succes: boolean,
+    ingridients: Array<ICardTypes>;
+}
+
+const initialState: IIngridientsState = {
     isLoading: false,
     succes: false,
     ingridients: [],
 }
 
 
-export const ingridientsReducer = (state = initialState, action) => {
-    const { type, ...rest } = action;
+export const ingridientsReducer = (state = initialState, action: TIngredientsActions) => {
     switch (action.type) {
         case GET_INGRIDIENTS_REQUEST: {
             return {
@@ -25,13 +32,12 @@ export const ingridientsReducer = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 success: true,
-                ingridients: rest.ingredients,
+                ingridients: action.ingridients,
             };
         }
         case GET_INGRIDIENTS_ERROR: {
             return {
                 ...state,
-                ingridients: [],
                 isLoading: false,
                 success: false,
             };

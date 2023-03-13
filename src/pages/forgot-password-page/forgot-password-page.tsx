@@ -16,7 +16,7 @@ export const ForgotPasswordPage = () => {
     const navigate = useNavigate();
 
     const handleEmail = () => {
-        dispatch<any>(forgotPassword(email))
+        dispatch(forgotPassword(email))
         navigate('/reset-password', { state: { resetPassword: true } })
     }
 

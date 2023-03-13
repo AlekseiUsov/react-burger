@@ -58,6 +58,7 @@
   },
   "devDependencies": {
     "@types/react-scroll": "^1.8.6",
+    "@types/uniqid": "^5.3.2",
     "redux-devtools-extension": "^2.13.9"
   }
 }

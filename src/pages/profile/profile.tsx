@@ -10,7 +10,7 @@ export const ProfilePage = () => {
     const dispatch = useDispatch();
 
     const logOut = () => {
-        dispatch<any>(userLogout())
+        dispatch(userLogout())
     }
 
     return (
