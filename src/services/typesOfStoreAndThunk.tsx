@@ -13,7 +13,7 @@ import { TOrderActions } from './actions/order';
 import { TIngredientsActions } from './actions/ingridients'
 import { TRouteType } from './actions/routers/router-type';
 
-//ваываваы
+
 type TApplicationActions =
     | TConstructorActions
     | TCurrentIngridient
