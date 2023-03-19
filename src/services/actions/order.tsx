@@ -1,6 +1,6 @@
 import { postOrder } from '../../utils/burger-api';
-import { ICardTypes } from '../../utils/propsType'
 import { ORDER_REQUEST, ORDER_SUCCESS, ORDER_ERROR } from '../constants';
+import { AppDispatch, AppThunk } from '../typesOfStoreAndThunk';
 
 interface IGetOrderRequestAction {
     type: typeof ORDER_REQUEST;
@@ -43,8 +43,8 @@ const getOrderErrorAction = (): IGetOrderErrorAction => ({
 });
 
 
-export const getOrderDetails = (ingredients: ICardTypes[]) => {
-    return function (dispatch: any) {
+export const getOrderDetails = (ingredients: string[]): AppThunk => {
+    return function (dispatch: AppDispatch) {
         dispatch(getOrderAction())
         postOrder(ingredients).then(res => {
             if (res && res.success) {

@@ -1,6 +1,7 @@
 import { getIngredientsRequest } from '../../utils/burger-api';
 import { GET_INGRIDIENTS_REQUEST, GET_INGRIDIENTS_SUCCESS, GET_INGRIDIENTS_ERROR } from '../constants';
 import { ICardTypes } from '../../utils/propsType'
+import { AppDispatch, AppThunk } from '../typesOfStoreAndThunk';
 
 interface IGetIngredientsAction {
     type: typeof GET_INGRIDIENTS_REQUEST;
@@ -36,8 +37,8 @@ const getIngredientsFailedAction = (): IGetIngredientsFailedAction => ({
 });
 
 
-export const getIngredients = () => {
-    return function (dispatch: any) {
+export const getIngredients = (): AppThunk => {
+    return function (dispatch: AppDispatch) {
         dispatch(getIngredientsAction())
         getIngredientsRequest().then(res => {
             if (res && res.success) {

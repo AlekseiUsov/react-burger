@@ -2,7 +2,7 @@ import styles from './burger-constructor.module.css';
 import { ICardTypes } from '../../utils/propsType';
 
 import { useDrop } from "react-dnd";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/typesOfStoreAndThunk';
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -12,9 +12,10 @@ import BurgerConstructorList from '../burger-constructor-list/burger-constructor
 import BurgerConstructorTotal from '../burger-constructor-total/burger-constructor-total'
 
 import { ADD_INGRIDIENT, ADD_BUN, SET_TOTALPRICE } from '../../services/actions/burger-constructor'
+import { RootState } from '../../services/typesOfStoreAndThunk';
 
 const BurgerConstructor = () => {
-    const { bun, constructorIngridients, totalPrice } = useSelector(state => state.burgerConstructor);
+    const { bun, constructorIngridients, totalPrice } = useSelector((state: RootState) => state.burgerConstructor);
     const dispatch = useDispatch();
 
     interface IIngridient {

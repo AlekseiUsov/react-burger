@@ -22,7 +22,7 @@ const initialState: IConsructorType = {
     totalPrice: 0,
 }
 
-export const burgerConstructorReducer = (state = initialState, action: TConstructorActions) => {
+export const burgerConstructorReducer = (state = initialState, action: TConstructorActions): IConsructorType => {
 
     switch (action.type) {
         case ADD_BUN:

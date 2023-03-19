@@ -1,5 +1,6 @@
 import { passwordReset } from '../../../utils/burger-api';
 import { FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_ERROR } from '../../constants';
+import { AppDispatch, AppThunk } from '../../typesOfStoreAndThunk';
 
 interface IForgotPasswordRequest {
     type: typeof FORGOT_PASSWORD_REQUEST;
@@ -34,8 +35,8 @@ const forgotPasswordErrorRequest = (): IForgotPasswordErrorRequest => ({
     type: FORGOT_PASSWORD_ERROR
 })
 
-export const forgotPassword = (email: string) => {
-    return function (dispatch: any) {
+export const forgotPassword = (email: string): AppThunk =>
+    (dispatch: AppDispatch) => {
         dispatch(forgotPasswordRequest())
         passwordReset(email).then(res => {
             if (res && res.success) {
@@ -45,4 +46,3 @@ export const forgotPassword = (email: string) => {
             dispatch(forgotPasswordErrorRequest())
         })
     }
-}

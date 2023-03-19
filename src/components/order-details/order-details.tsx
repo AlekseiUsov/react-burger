@@ -1,15 +1,11 @@
 import styles from './order-details.module.css';
 import done from '../../images/done.svg';
-import { useSelector } from 'react-redux';
+import { useSelector, RootState } from '../../services/typesOfStoreAndThunk';
 
 
 const OrderDetails = () => {
 
-    const {
-        isLoading,
-        name,
-        order: { number }
-    } = useSelector((state: any) => state.orderDetails)
+    const { isLoading, name, order: { number } } = useSelector((state: RootState) => state.orderDetails)
 
     return (
         <>

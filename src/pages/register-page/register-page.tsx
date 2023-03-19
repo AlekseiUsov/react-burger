@@ -6,7 +6,7 @@ import { EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/typesOfStoreAndThunk';
 
 
 export const RegisterPage = () => {

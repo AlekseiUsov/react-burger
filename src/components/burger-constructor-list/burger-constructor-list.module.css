@@ -5,3 +5,8 @@
     overflow-y: scroll;
     margin-bottom: 12px;
 }
+
+.cardsContainer::-webkit-scrollbar-track {
+    background-color: none;
+    border-radius: 8px;
+}

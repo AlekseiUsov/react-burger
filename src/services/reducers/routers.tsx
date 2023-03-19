@@ -45,8 +45,8 @@ import { TRouteType } from '../actions/routers/router-type'
 
 interface IRouterType {
     user: {
-        email: null | string,
-        name: null | string,
+        email: string,
+        name: string,
         isLogedIn: boolean,
     },
     isLoading: boolean,
@@ -55,15 +55,15 @@ interface IRouterType {
 
 const initialState: IRouterType = {
     user: {
-        email: null,
-        name: null,
+        email: '',
+        name: '',
         isLogedIn: false,
     },
     isLoading: false,
     hasError: false,
 }
 
-export const routerReducer = (state = initialState, action: TRouteType) => {
+export const routerReducer = (state = initialState, action: TRouteType): IRouterType => {
 
     switch (action.type) {
         case USER_REGISTRATION_REQUEST: {
@@ -78,6 +78,7 @@ export const routerReducer = (state = initialState, action: TRouteType) => {
                 isLoading: false,
                 hasError: false,
                 user: {
+                    ...state.user,
                     email: action.user.email,
                     name: action.user.name,
                 },
@@ -97,8 +98,9 @@ export const routerReducer = (state = initialState, action: TRouteType) => {
                 isLoading: true,
                 hasError: false,
                 user: {
-                    email: null,
-                    name: null,
+                    ...state.user,
+                    email: '',
+                    name: '',
                     isLogedIn: false,
                 },
             };
@@ -109,6 +111,7 @@ export const routerReducer = (state = initialState, action: TRouteType) => {
                 isLoading: false,
                 hasError: false,
                 user: {
+                    ...state.user,
                     email: action.user.email,
                     name: action.user.name,
                     isLogedIn: true,
@@ -136,8 +139,9 @@ export const routerReducer = (state = initialState, action: TRouteType) => {
                 isLoading: false,
                 hasError: false,
                 user: {
-                    email: null,
-                    name: null,
+                    ...state.user,
+                    email: '',
+                    name: '',
                     isLogedIn: false,
                 },
             };
@@ -162,6 +166,7 @@ export const routerReducer = (state = initialState, action: TRouteType) => {
                 isLoading: false,
                 hasError: false,
                 user: {
+                    ...state.user,
                     email: action.user.email,
                     name: action.user.name,
                     isLogedIn: true,
@@ -174,6 +179,7 @@ export const routerReducer = (state = initialState, action: TRouteType) => {
                 isLoading: false,
                 hasError: true,
                 user: {
+                    ...state.user,
                     isLogedIn: false,
                 },
             };
@@ -191,6 +197,7 @@ export const routerReducer = (state = initialState, action: TRouteType) => {
                 isLoading: false,
                 hasError: false,
                 user: {
+                    ...state.user,
                     email: action.user.email,
                     name: action.user.name,
                 },
@@ -215,7 +222,7 @@ export const routerReducer = (state = initialState, action: TRouteType) => {
                 ...state,
                 isLoading: false,
                 user: {
-                    password: null,
+                    ...state.user,
                 },
             };
         }
@@ -223,7 +230,7 @@ export const routerReducer = (state = initialState, action: TRouteType) => {
             return {
                 ...state,
                 user: {
-                    password: null,
+                    ...state.user,
                 },
                 isLoading: false,
                 hasError: true,

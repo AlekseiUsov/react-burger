@@ -1,6 +1,7 @@
 import { refreshTokens } from '../../../utils/burger-api';
 import { setCookie } from 'typescript-cookie'
 import { UPDATE_TOKEN_REQUEST, UPDATE_TOKEN_SUCCESS, UPDATE_TOKEN_ERROR } from '../../constants'
+import { AppDispatch, AppThunk } from '../../typesOfStoreAndThunk';
 
 interface IUpdateTokenRequest {
     type: typeof UPDATE_TOKEN_REQUEST;
@@ -35,8 +36,8 @@ const updateTokenErrorRequest = (): IUpdateTokenErrorRequest => ({
     type: UPDATE_TOKEN_ERROR
 })
 
-export const updateToken = () => {
-    return function (dispatch: any) {
+export const updateToken = (): AppThunk => {
+    return function (dispatch: AppDispatch) {
         dispatch(updateTokenRequest())
         refreshTokens().then(res => {
             if (res && res.success) {

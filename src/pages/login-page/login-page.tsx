@@ -6,7 +6,7 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/typesOfStoreAndThunk';
 
 
 export const LoginPage = () => {
@@ -17,7 +17,7 @@ export const LoginPage = () => {
     const dispatch = useDispatch();
 
     const handleEmail = () => {
-        dispatch<any>(userLogin(email, password))
+        dispatch(userLogin(email, password))
     }
 
     return (

@@ -1,6 +1,7 @@
 import { logoutRequest } from '../../../utils/burger-api';
 import { removeCookie } from 'typescript-cookie'
 import { USER_LOGOUT_REQUEST, USER_LOGOUT_SUCCESS, USER_LOGOUT_ERROR } from '../../constants'
+import { AppDispatch, AppThunk } from '../../typesOfStoreAndThunk';
 
 interface IUserLogoutRequest {
     type: typeof USER_LOGOUT_REQUEST;
@@ -32,8 +33,8 @@ const userLogoutErrorRequest = (): IUserLogoutErrorRequest => ({
 })
 
 
-export const userLogout = () => {
-    return function (dispatch: any) {
+export const userLogout = (): AppThunk => {
+    return function (dispatch: AppDispatch) {
         dispatch(userLogoutRequest())
         logoutRequest().then(res => {
             dispatch(userLoginSuccessRequest())

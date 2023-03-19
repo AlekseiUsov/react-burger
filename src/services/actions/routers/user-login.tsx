@@ -1,6 +1,7 @@
 import { loginRequest } from '../../../utils/burger-api';
 import { setCookie } from 'typescript-cookie'
 import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR } from '../../constants'
+import { AppDispatch, AppThunk } from '../../typesOfStoreAndThunk';
 
 interface IUserLoginRequest {
     type: typeof USER_LOGIN_REQUEST;
@@ -42,8 +43,8 @@ const userLoginErrorRequest = (): IUserLoginErrorRequest => ({
 })
 
 
-export const userLogin = (email: string, password: string) => {
-    return function (dispatch: any) {
+export const userLogin = (email: string, password: string): AppThunk => {
+    return function (dispatch: AppDispatch) {
         dispatch(userLoginRequest())
         loginRequest(email, password).then(res => {
             let accessToken = res.accessToken.split('Bearer ')[1];

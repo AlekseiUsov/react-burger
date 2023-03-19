@@ -3,7 +3,7 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { FC } from 'react';
 import { ICardTypes } from '../../utils/propsType';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { RootState, useDispatch, useSelector } from '../../services/typesOfStoreAndThunk';
 import { useLocation, useNavigate } from "react-router-dom";
 import { getOrderDetails } from '../../services/actions/order';
 
@@ -14,8 +14,8 @@ interface IBurgerConstructorTotal {
 const BurgerConstructorTotal: FC<IBurgerConstructorTotal> = ({ text, icon }) => {
     const [isPopUpOpen, setIsPopUpOpen] = React.useState<boolean>(false);
 
-    const { bun, constructorIngridients } = useSelector((state: any) => state.burgerConstructor);
-    const user = useSelector((state: any) => state.auth.user);
+    const { bun, constructorIngridients } = useSelector((state: RootState) => state.burgerConstructor);
+    const user = useSelector((state: RootState) => state.auth.user);
 
     const ingridientsIds = (constructorIngridients).map((ingridient: ICardTypes) => ingridient._id);
 

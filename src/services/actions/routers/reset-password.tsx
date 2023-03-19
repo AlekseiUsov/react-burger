@@ -1,5 +1,6 @@
 import { passwordRecovery } from '../../../utils/burger-api';
 import { RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_ERROR } from '../../constants';
+import { AppDispatch, AppThunk } from '../../typesOfStoreAndThunk';
 
 interface IResetPasswordRequest {
     type: typeof RESET_PASSWORD_REQUEST;
@@ -34,8 +35,8 @@ const resetPasswordErrorRequest = (): IResetPasswordErrorRequest => ({
     type: RESET_PASSWORD_ERROR
 })
 
-export const resetPassword = (password: string, token: string) => {
-    return function (dispatch: any) {
+export const resetPassword = (password: string, token: string): AppThunk => {
+    return function (dispatch: AppDispatch) {
         dispatch(resetPasswordRequest())
         passwordRecovery(password, token).then(res => {
             if (res && res.success) {

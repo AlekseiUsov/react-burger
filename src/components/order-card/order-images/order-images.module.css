@@ -1,0 +1,32 @@
+.icons_wrapper {
+    display: flex;
+    position: relative;
+    height: 70px;
+}
+
+.icon {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    background-color: black;
+    border-radius: 100%;
+    border: 2px solid rgba(128, 26, 178, 1);
+}
+
+.last_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 270px;
+    position: relative;
+}
+
+.number {
+    font-size: large;
+    font-weight: 500;
+    right: 0;
+    position: absolute;
+}

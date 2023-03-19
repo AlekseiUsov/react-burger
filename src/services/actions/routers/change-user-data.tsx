@@ -1,5 +1,6 @@
 import { updateUser, refreshTokens } from '../../../utils/burger-api';
 import { UPDATE_USER_DATA_REQUEST, UPDATE_USER_DATA_SUCCESS, UPDATE_USER_DATA_ERROR } from '../../constants'
+import { AppDispatch, AppThunk } from '../../typesOfStoreAndThunk';
 
 interface IUpdateUserDataRequest {
     type: typeof UPDATE_USER_DATA_REQUEST;
@@ -40,8 +41,8 @@ const updateUserDataError = (): IUpdateUserDataErrorRequest => ({
     type: UPDATE_USER_DATA_ERROR
 })
 
-export const changeUserData = (name: string, email: string, password: string) => {
-    return function (dispatch: any) {
+export const changeUserData = (name: string, email: string, password: string): AppThunk => {
+    return (dispatch: AppDispatch) => {
         dispatch(updateUserData())
         updateUser(name, email, password).then(res => {
             dispatch(updateUserDataSuccess(res.user))
@@ -54,5 +55,4 @@ export const changeUserData = (name: string, email: string, password: string) =>
         })
     }
 }
-
 

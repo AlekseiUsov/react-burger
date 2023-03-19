@@ -1,4 +1,4 @@
-import { ICardTypes } from './propsType';
+import { ICardTypes, IOrderTypes } from './propsType';
 import { getCookie, setCookie } from 'typescript-cookie'
 
 const NORMA_API = `https://norma.nomoreparties.space/api`;
@@ -27,7 +27,7 @@ type TOrderResponce = TServerResponce<{
     }
 }>
 
-export function postOrder(ingredients: Array<ICardTypes>) {
+export function postOrder(ingredients: string[]) {
     return fetch(`${NORMA_API}/orders`, {
         method: 'POST',
         headers: {
@@ -46,6 +46,7 @@ type TUserResponce = TServerResponce<{
         name: string,
     },
 }>
+
 
 type TRegistrationOrAutorizationResponce = TUserResponce & {
     accessToken: string;
@@ -74,6 +75,21 @@ export function getUser() {
             Authorization: 'Bearer ' + getCookie('accessToken')
         },
     }).then(res => checkReponse<TUserResponce>(res))
+}
+
+
+type TOrdersResponce = TServerResponce<{
+    orders: Array<IOrderTypes>
+}>
+
+export function getCurrentOrderRequest(orderNumber: string) {
+    return fetch(`${NORMA_API}/orders/${orderNumber}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + getCookie('accessToken')
+        },
+    }).then(res => checkReponse<TOrdersResponce>(res))
 }
 
 export function updateUser(name: string, email: string, password: string) {

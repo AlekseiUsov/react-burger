@@ -1,5 +1,6 @@
 import { getUser, refreshTokens } from '../../../utils/burger-api';
 import { GET_PROFILE_DATA_REQUEST, GET_PROFILE_DATA_SUCCESS, GET_PROFILE_DATA_ERROR } from '../../constants';
+import { AppDispatch, AppThunk } from '../../typesOfStoreAndThunk';
 
 interface IGetProfileDataRequest {
     type: typeof GET_PROFILE_DATA_REQUEST;
@@ -41,8 +42,8 @@ const getProfileDataErrorRequest = (): IGetProfileDataErrorRequest => ({
 })
 
 
-export const getUserData = () => {
-    return function (dispatch: any) {
+export const getUserData = (): AppThunk => {
+    return function (dispatch: AppDispatch) {
         dispatch(getProfileDataRequest())
         getUser().then(res => {
             dispatch(getProfileDataSuccessRequest(res.user))

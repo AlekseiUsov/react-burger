@@ -18,7 +18,7 @@ function AppHeader() {
         />
 
         <AppHeaderItem
-          path='/orders'
+          path='/feed'
           text="Лента Заказов"
           icon={<ListIcon type="primary" />} />
 

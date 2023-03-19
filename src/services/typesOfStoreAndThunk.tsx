@@ -1,5 +1,4 @@
-import { ThunkAction } from 'redux-thunk';
-import { Action, ActionCreator } from 'redux';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import {
     TypedUseSelectorHook,
     useDispatch as dispatchHook,
@@ -12,20 +11,21 @@ import { TCurrentIngridient } from './actions/current-ingridient';
 import { TOrderActions } from './actions/order';
 import { TIngredientsActions } from './actions/ingridients'
 import { TRouteType } from './actions/routers/router-type';
+import { TIGetAllOrdersActions } from './actions/ws-get-all-orders';
+import { TCurrentOrderActions } from './actions/current-order';
 
 
-type TApplicationActions =
+export type TApplicationActions =
     | TConstructorActions
     | TCurrentIngridient
     | TOrderActions
     | TIngredientsActions
     | TRouteType
+    | TIGetAllOrdersActions
+    | TCurrentOrderActions
 
 export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-export type AppThunk<ReturnType = void> = ActionCreator<
-    ThunkAction<ReturnType, Action, RootState, TApplicationActions>
->;
-
+export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, never, TApplicationActions>
 export const useDispatch = () => dispatchHook<AppDispatch>()
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import { resetPassword } from '../../services/actions/routers/reset-password'
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/typesOfStoreAndThunk';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export const ResetPasswordPage = () => {

@@ -17,10 +17,19 @@ import { UnProtectedRouteElement } from './components/unprotected-route-element/
 import ProfileInfo from './pages/profile/profile-info/profile-info';
 import Modal from './components/modal-window/modal-window';
 import OrderDetails from './components/order-details/order-details';
+import { OrderCardModal } from './components/order-card/order-card-modal/order-card-modal';
+import { useEffect } from 'react';
+import { useDispatch } from './services/typesOfStoreAndThunk';
+import { getIngredients } from './services/actions/ingridients';
 
 const App = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const background = location.state && location.state.background;
+
+  useEffect(() => {
+    dispatch(getIngredients())
+  }, [dispatch])
 
   return (
     <div className="App">
@@ -34,11 +43,15 @@ const App = () => {
         } />}
         />
 
+        <Route path="/feed" element={<OrdersPage />} />
+        <Route path="/feed/:number" element={<Modal />} />
+
+
         <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />} />}>
           <Route path="/profile" element={<ProfileInfo />} />
           <Route path=":orders" element={<ProfileOrdersPage />} />
         </Route>
-        <Route path="/orders" element={<OrdersPage />} />
+
 
         <Route path="/login" element={<UnProtectedRouteElement element={<LoginPage />} />} />
         <Route path="/register" element={<UnProtectedRouteElement element={<RegisterPage />} />} />
@@ -53,6 +66,9 @@ const App = () => {
           </Modal>
           } />}
           />
+          <Route path="/feed/:number" element={<Modal >
+            <OrderCardModal />
+          </Modal>} />
           <Route path="ingridients/:id" element={<Modal title={'Детали ингридиента'}>
             <IngredientDetailsCard />
           </Modal>}

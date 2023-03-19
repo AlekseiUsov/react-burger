@@ -13,7 +13,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 export const HomePage = () => {
     const dispatch = useDispatch();
-    const { ingridients, succes, isLoading } = useSelector((store: RootState) => store.ingridients);
+    const { ingridients, success, isLoading } = useSelector((store: RootState) => store.ingridients);
 
     useEffect(() => {
         dispatch(getIngredients())
@@ -31,7 +31,7 @@ export const HomePage = () => {
                         <BurgerConstructor />
                     </DndProvider>
                 </div >
-            ) : !succes && (
+            ) : !success && (
                 <h1>Извините, произошла ошибка...</h1>
             )}
         </div>

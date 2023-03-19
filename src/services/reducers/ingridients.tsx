@@ -8,13 +8,13 @@ import { TIngredientsActions } from '../actions/ingridients'
 
 interface IIngridientsState {
     isLoading: boolean
-    succes: boolean,
+    success: boolean,
     ingridients: Array<ICardTypes>;
 }
 
 const initialState: IIngridientsState = {
     isLoading: false,
-    succes: false,
+    success: false,
     ingridients: [],
 }
 

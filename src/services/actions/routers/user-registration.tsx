@@ -1,6 +1,7 @@
 import { registrationRequest } from '../../../utils/burger-api';
 import { setCookie } from 'typescript-cookie'
 import { USER_REGISTRATION_REQUEST, USER_REGISTRATION_SUCCESS, USER_REGISTRATION_ERROR } from '../../constants'
+import { AppDispatch, AppThunk } from '../../typesOfStoreAndThunk';
 
 
 interface IUserRegistrationRequest {
@@ -51,8 +52,8 @@ const userRegistrationErrorRequest = (): IUserRegistrationErrorRequest => ({
     type: USER_REGISTRATION_ERROR
 })
 
-export const userRegistration = (email: string, password: string, name: string) => {
-    return function (dispatch: any) {
+export const userRegistration = (email: string, password: string, name: string): AppThunk => {
+    return function (dispatch: AppDispatch) {
         dispatch(userRegistrationRequest())
         registrationRequest(email, password, name).then(res => {
             if (res && res.success) {

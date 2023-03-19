@@ -7,12 +7,13 @@ import { ICardTypes } from '../../utils/propsType';
 import { useDrag } from "react-dnd";
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { RootState } from '../../services/typesOfStoreAndThunk';
 
 
 const BurgerIngredientCard: FC<ICardTypes> = (ingridient) => {
     const location = useLocation();
 
-    const { bun, constructorIngridients } = useSelector((state: any) => state.burgerConstructor);
+    const { bun, constructorIngridients } = useSelector((state: RootState) => state.burgerConstructor);
 
     const count = React.useMemo(() => {
         const result: number = ingridient.type === 'bun'
