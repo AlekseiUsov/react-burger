@@ -10,7 +10,7 @@ import { ForgotPasswordPage } from './pages/forgot-password-page/forgot-password
 import { ProfilePage } from './pages/profile/profile';
 import { ProfileOrdersPage } from './pages/profile/profile-orders/profile-orders';
 
-import { OrdersPage } from './pages/orders-page/orders-page';
+import { FeedPage } from './pages/orders-page/feed-page';
 import IngredientDetailsCard from './components/ingredient-details-card/ingredient-details-card';
 import { ProtectedRouteElement } from './components/protected-route-element/protected-route-element';
 import { UnProtectedRouteElement } from './components/unprotected-route-element/unprotected-route-element';
@@ -43,7 +43,7 @@ const App = () => {
         } />}
         />
 
-        <Route path="/feed" element={<OrdersPage />} />
+        <Route path="/feed" element={<FeedPage />} />
         <Route path="/feed/:number" element={<Modal />} />
 
 
@@ -66,9 +66,9 @@ const App = () => {
           </Modal>
           } />}
           />
-          <Route path="/feed/:number" element={<Modal >
+          <Route path="/feed/:number" element={
             <OrderCardModal />
-          </Modal>} />
+          } />
           <Route path="ingridients/:id" element={<Modal title={'Детали ингридиента'}>
             <IngredientDetailsCard />
           </Modal>}

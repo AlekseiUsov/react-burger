@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import styles from './order-page.module.css';
+import styles from './feed-page.module.css';
 import { RootState, useDispatch, useSelector } from '../../services/typesOfStoreAndThunk';
 import { getAllOrdersConnect } from "../../services/actions/ws-get-all-orders";
 import { getIngredients } from '../../services/actions/ingridients'
@@ -8,7 +8,7 @@ import { OrderCard } from "../../components/order-card/order-card";
 const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
 let ws: WebSocket;
 
-export const OrdersPage = () => {
+export const FeedPage = () => {
     const { wsConnected, orders, total, totalToday } = useSelector((store: RootState) => store.allOrders);
     const doneOrdersNumber = orders
         .filter((order) => order.status === 'done')

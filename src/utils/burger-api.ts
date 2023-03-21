@@ -87,7 +87,6 @@ export function getCurrentOrderRequest(orderNumber: string) {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + getCookie('accessToken')
         },
     }).then(res => checkReponse<TOrdersResponce>(res))
 }

@@ -9,7 +9,7 @@ interface IGetCurrentOrderAction {
 
 interface IGetCurrentOrderSuccessAction {
     type: typeof GET_CURRENT_ORDER_SUCCESS;
-    orders: Array<IOrderTypes>;
+    order: IOrderTypes;
 }
 
 interface IGetCurrentOrderFailedAction {
@@ -26,10 +26,10 @@ const getCurrentOrderAction = (): IGetCurrentOrderAction => ({
 });
 
 const getCurrentOrderSuccessAction = (
-    orders: Array<IOrderTypes>,
+    order: IOrderTypes,
 ): IGetCurrentOrderSuccessAction => ({
     type: GET_CURRENT_ORDER_SUCCESS,
-    orders
+    order
 });
 
 const getCurrentOrderErrorAction = (): IGetCurrentOrderFailedAction => ({
@@ -42,7 +42,7 @@ export const getCurrentOrder = (pathname: string): AppThunk => {
         dispatch(getCurrentOrderAction())
         getCurrentOrderRequest(pathname).then(res => {
             if (res && res.success) {
-                dispatch(getCurrentOrderSuccessAction(res.orders))
+                dispatch(getCurrentOrderSuccessAction(res.orders[0]))
             } else {
                 dispatch(getCurrentOrderErrorAction())
             }

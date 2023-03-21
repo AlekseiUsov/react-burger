@@ -8,12 +8,12 @@ import { TCurrentOrderActions } from '../actions/current-order';
 
 interface ICurrentOrder {
     isLoading: boolean,
-    orders: [] | Array<IOrderTypes>;
+    order: null | IOrderTypes;
 }
 
 const initialState: ICurrentOrder = {
     isLoading: false,
-    orders: []
+    order: null,
 }
 
 export const currentOrderReducer = (state = initialState, action: TCurrentOrderActions) => {
@@ -27,7 +27,7 @@ export const currentOrderReducer = (state = initialState, action: TCurrentOrderA
             return {
                 ...state,
                 isLoading: false,
-                orders: action.orders
+                order: action.order
             }
         case GET_CURRENT_ORDER_ERROR:
             return initialState

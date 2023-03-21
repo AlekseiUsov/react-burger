@@ -1,43 +1,31 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getCurrentOrder } from '../../../services/actions/current-order';
-import { getIngredients } from '../../../services/actions/ingridients';
 import { RootState, useDispatch, useSelector } from '../../../services/typesOfStoreAndThunk';
+import Modal from '../../modal-window/modal-window';
+import { OrderCardDetails } from '../order-card-details/order-card-datails';
 
 
 
-export const OrderCardModal = (num: object) => {
+export const OrderCardModal = () => {
     const dispatch = useDispatch();
-    const location = useLocation();
-    const orderNumber = (location.pathname).split('/')[2];
-
-    const { isLoading, orders } = useSelector((store: RootState) => store.currentOrder);
-    const { ingridients } = useSelector((store: RootState) => store.ingridients);
-
-    const currentOrder = orders[0];
-    // num = {
-    //     num: currentOrder.number
-    // }
-
-    // console.log(num)
-    //const currentOrderIngridients = ingridients.filter((ingridient) => currentOrder.ingredients.includes(ingridient._id));
-    // const totalPrice = orderIngridients.reduce((acc, ingridient) => acc + ingridient.price, 0);
-    // const data = convertData(order.createdAt)
+    const { number = '' } = useParams();
+    const { order } = useSelector((store: RootState) => store.currentOrder);
 
 
     useEffect(() => {
-        dispatch(getCurrentOrder(orderNumber))
-    }, [dispatch]);
-
-
+        dispatch(getCurrentOrder(number))
+    }, [dispatch, number]);
 
     return (
-        <div>
-            {isLoading ? (
+        <>
+            {!order ? (
                 <h1>Пожайлуста подождите...</h1>
             ) : (
-                <h1>Все нормально</h1>
+                <Modal style={{ fontFamily: 'Iceland' }} title={`#${number}`} >
+                    <OrderCardDetails order={order} />
+                </Modal>
             )}
-        </div>
+        </>
     )
 }
