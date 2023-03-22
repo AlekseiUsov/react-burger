@@ -17,6 +17,7 @@ export const LoginPage = () => {
     const dispatch = useDispatch();
 
     const handleEmail = () => {
+        console.log(email, password)
         dispatch(userLogin(email, password))
     }
 

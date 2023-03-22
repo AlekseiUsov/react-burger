@@ -6,7 +6,8 @@ import { currentOrderReducer } from './current-order';
 
 import { orderReducer } from './order';
 import { routerReducer } from './routers'
-import { wsReducer } from './get-all-orders'
+import { wsReducerGetAllOrders } from './get-all-orders'
+import { wsReducerGetUserOrders } from './get-user-orders';
 
 export const rootReducer = combineReducers({
     currentIngridient: currentIngridientReducer,
@@ -14,7 +15,8 @@ export const rootReducer = combineReducers({
     burgerConstructor: burgerConstructorReducer,
     orderDetails: orderReducer,
     auth: routerReducer,
-    allOrders: wsReducer,
+    allOrders: wsReducerGetAllOrders,
+    userOrders: wsReducerGetUserOrders,
     currentOrder: currentOrderReducer,
 });
 

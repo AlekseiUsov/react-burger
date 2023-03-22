@@ -1,5 +1,7 @@
 .wrapper {
     width: 700px;
+    text-align: start;
+    margin: 0 auto;
 }
 
 .name,
@@ -28,7 +30,7 @@
 
 .list {
     overflow: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     max-height: 200px;
     list-style: none;
     padding: 0;

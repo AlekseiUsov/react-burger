@@ -11,8 +11,9 @@ import { TCurrentIngridient } from './actions/current-ingridient';
 import { TOrderActions } from './actions/order';
 import { TIngredientsActions } from './actions/ingridients'
 import { TRouteType } from './actions/routers/router-type';
-import { TIGetAllOrdersActions } from './actions/ws-get-all-orders';
+import { TGetAllOrdersActions } from './actions/ws-get-all-orders';
 import { TCurrentOrderActions } from './actions/current-order';
+import { TGetUserOrdersActions } from './actions/ws-get-user-orders';
 
 
 export type TApplicationActions =
@@ -21,7 +22,8 @@ export type TApplicationActions =
     | TOrderActions
     | TIngredientsActions
     | TRouteType
-    | TIGetAllOrdersActions
+    | TGetAllOrdersActions
+    | TGetUserOrdersActions
     | TCurrentOrderActions
 
 export type RootState = ReturnType<typeof store.getState>;

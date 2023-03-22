@@ -3,14 +3,14 @@ import { FC } from 'react'
 import styles from './order-card-ingridient.module.css'
 
 interface IOrderCardIngridient {
-    type: 'bun' | 'main' | 'sauce',
     name: string,
     image_mobile: string,
     count: number,
     price: number,
+    type: string,
 }
 
-export const OrderCardIngridient: FC<IOrderCardIngridient> = ({ name, image_mobile, count, price }) => {
+export const OrderCardIngridient: FC<IOrderCardIngridient> = ({ name, image_mobile, count, price, type }) => {
 
     return (
         <li
@@ -21,7 +21,10 @@ export const OrderCardIngridient: FC<IOrderCardIngridient> = ({ name, image_mobi
             </div>
             <p className={styles.name}>{name}</p>
             <div className={styles.price}>
-                <span>{count} x</span>
+                {type === 'bun' && count === 1
+                    ? <span>{count * 2} x</span>
+                    : <span>{count} x</span>
+                }
                 <span>{price}</span>
                 <CurrencyIcon type="primary" />
             </div>

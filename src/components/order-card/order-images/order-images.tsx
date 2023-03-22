@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import styles from './order-images.module.css';
 
 
@@ -5,7 +6,7 @@ interface IOrderImages {
     icons: Array<string>
 }
 
-export const OrderImages = (data: IOrderImages) => {
+export const OrderImages: FC<IOrderImages> = (data) => {
     const { icons } = data;
     const flag = icons.length > 5;
     const difference = icons.length - 5;
@@ -13,7 +14,7 @@ export const OrderImages = (data: IOrderImages) => {
     return (
         <div className={styles.icons_wrapper}>
             {icons
-                .map((icon: string, index: number) => (
+                .map((icon, index) => (
                     index < 5 ?
                         <div
                             key={index}

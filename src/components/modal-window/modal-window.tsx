@@ -12,7 +12,7 @@ const modalRoot = (document.getElementById("react-modals") as Element);
 
 interface IModal {
     style?: React.CSSProperties;
-    title: string;
+    title?: string;
     children: React.ReactElement;
 }
 

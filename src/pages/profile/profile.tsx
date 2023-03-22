@@ -5,6 +5,7 @@ import { Outlet } from 'react-router-dom';
 import { userLogout } from '../../services/actions/routers/user-logout'
 
 import { useDispatch } from '../../services/typesOfStoreAndThunk'
+import { useEffect } from 'react';
 
 export const ProfilePage = () => {
     const dispatch = useDispatch();
@@ -12,6 +13,10 @@ export const ProfilePage = () => {
     const logOut = () => {
         dispatch(userLogout())
     }
+
+    useEffect(() => {
+
+    }, [dispatch])
 
     return (
         <div>

@@ -20,6 +20,7 @@ const initialState: IIngridientsState = {
 
 
 export const ingridientsReducer = (state = initialState, action: TIngredientsActions) => {
+    console.log(action)
     switch (action.type) {
         case GET_INGRIDIENTS_REQUEST: {
             return {

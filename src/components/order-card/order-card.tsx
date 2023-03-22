@@ -9,11 +9,12 @@ import { FC } from 'react';
 import { getElement } from '../../utils/getElement';
 
 export const OrderCard: FC<IOrderTypes> = ({ ingredients, createdAt, name, number }) => {
-    const location = useLocation();
 
+    const location = useLocation();
 
     const { ingridients } = useSelector((store: RootState) => store.ingridients);
     const orderIngridients = ingredients.reduce((acc: ICardTypes[], ingredient) => {
+        //console.log(ingredient === null, ingredient)
         const current = getElement(ingredient, ingridients);
         return [...acc, current];
     }, []);

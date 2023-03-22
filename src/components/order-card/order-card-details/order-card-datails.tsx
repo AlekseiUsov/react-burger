@@ -13,6 +13,7 @@ interface IOrderCardDetails {
 }
 
 interface IItem {
+    name: string,
     type: 'bun' | 'main' | 'sauce',
     count: number,
     price: number,
@@ -20,7 +21,7 @@ interface IItem {
 }
 
 interface IObject {
-    [name: string]: IItem
+    [_id: string]: IItem
 }
 
 
@@ -34,13 +35,13 @@ export const OrderCardDetails: FC<IOrderCardDetails> = ({ order }) => {
 
     let totalPrice: number = 0;
     const totalPriceDetails = ingredients.reduce((acc: IObject, number) => {
-        const { name, price, image_mobile, type } = getElement(number, ingridients);
+        const { _id, name, price, image_mobile, type } = getElement(number, ingridients);
         totalPrice += price;
 
         if (!acc.hasOwnProperty(name)) {
-            acc[name] = { count: 1, price, image_mobile, type }
+            acc[_id] = { name, count: 1, price, image_mobile, type }
         } else {
-            acc[name] = { count: acc[name].count + 1, price, image_mobile, type }
+            acc[_id] = { name, count: acc[name].count + 1, price, image_mobile, type }
         }
         return acc;
     }, {})
@@ -56,11 +57,7 @@ export const OrderCardDetails: FC<IOrderCardDetails> = ({ order }) => {
                     .map((ingridient, index) => (
                         <OrderCardIngridient
                             key={index}
-                            type={ingridient[1].type}
-                            name={ingridient[0]}
-                            count={ingridient[1].count}
-                            price={ingridient[1].price}
-                            image_mobile={ingridient[1].image_mobile}
+                            {...ingridient[1]}
                         />
                     ))}
             </ul>

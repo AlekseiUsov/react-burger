@@ -47,8 +47,8 @@ export const userLogin = (email: string, password: string): AppThunk => {
     return function (dispatch: AppDispatch) {
         dispatch(userLoginRequest())
         loginRequest(email, password).then(res => {
-            let accessToken = res.accessToken.split('Bearer ')[1];
-            let refreshToken = res.refreshToken;
+            const accessToken = res.accessToken.split('Bearer ')[1];
+            const refreshToken = res.refreshToken;
 
             setCookie('accessToken', accessToken)
             localStorage.setItem('refreshToken', refreshToken);

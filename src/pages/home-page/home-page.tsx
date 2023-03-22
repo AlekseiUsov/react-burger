@@ -5,20 +5,14 @@ import BurgerIngredients from '../../components/burger-ingredients/burger-ingred
 import BurgerConstructor from '../../components/burger-constructor/burger-constructor'
 
 import { getIngredients } from '../../services/actions/ingridients'
-import { useDispatch, useSelector } from '../../services/typesOfStoreAndThunk';
+import { useSelector } from '../../services/typesOfStoreAndThunk';
 import { RootState } from '../../services/typesOfStoreAndThunk'
 
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 export const HomePage = () => {
-    const dispatch = useDispatch();
     const { ingridients, success, isLoading } = useSelector((store: RootState) => store.ingridients);
-
-    useEffect(() => {
-        dispatch(getIngredients())
-    }, [dispatch]);
-
 
     return (
         <div>
@@ -31,7 +25,7 @@ export const HomePage = () => {
                         <BurgerConstructor />
                     </DndProvider>
                 </div >
-            ) : !success && (
+            ) : !isLoading && !success && (
                 <h1>Извините, произошла ошибка...</h1>
             )}
         </div>

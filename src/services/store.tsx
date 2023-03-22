@@ -1,7 +1,8 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { rootReducer } from './reducers/index';
-import { WSgetAllOrdersMiddleware } from './middlewares/get-all-orders-middleware'
+import { WSMiddleware } from './middlewares/WSMiddleware'
+import { allOrdersTypes, userOrdersTypes } from './middlewares/middlewaresTypes';
 
 declare global {
     interface Window {
@@ -12,6 +13,10 @@ declare global {
 const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-const enhancer = composeEnhancers(applyMiddleware(thunk, WSgetAllOrdersMiddleware()));
+const enhancer = composeEnhancers(applyMiddleware(
+    thunk,
+    WSMiddleware(allOrdersTypes),
+    WSMiddleware(userOrdersTypes),
+));
 
 export const store = createStore(rootReducer, enhancer);

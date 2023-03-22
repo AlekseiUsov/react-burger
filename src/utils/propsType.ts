@@ -23,3 +23,13 @@ export interface IOrderTypes {
     createdAt: string;
 }
 
+export interface IOrderTypes {
+    _id: string;
+    name: string;
+    ingredients: Array<string>;
+    number: number;
+    status: string;
+    updatedAt: string;
+    createdAt: string;
+}
+
