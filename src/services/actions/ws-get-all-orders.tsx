@@ -1,6 +1,7 @@
 import { IOrderTypes } from '../../utils/propsType';
 import {
     WS_CONNECTION_ALL_ORDERS_START,
+    WS_CONNECTION_ALL_ORDERS_STOP,
     WS_CONNECTION__ALL_ORDERS_SUCCESS,
     WS_CONNECTION__ALL_ORDERS_ERROR,
     WS_CONNECTION__ALL_ORDERS_CLOSED,
@@ -10,6 +11,11 @@ import {
 export interface IGetAllOrdersConnect {
     type: typeof WS_CONNECTION_ALL_ORDERS_START
     payload: string
+}
+
+export interface ICloseAllOrdersConnect {
+    type: typeof WS_CONNECTION_ALL_ORDERS_STOP,
+
 }
 export interface IGetAllOrdersSuccess {
     type: typeof WS_CONNECTION__ALL_ORDERS_SUCCESS
@@ -25,7 +31,7 @@ export interface IGetAllOrdersDisconnect {
 }
 
 export interface IGetAllOrders {
-    type: typeof WS_GET_ALL_ORDERS
+    type: typeof WS_GET_ALL_ORDERS,
     payload: {
         orders: Array<IOrderTypes>
         total: number,
@@ -35,6 +41,7 @@ export interface IGetAllOrders {
 
 export type TGetAllOrdersActions =
     | IGetAllOrdersConnect
+    | ICloseAllOrdersConnect
     | IGetAllOrdersSuccess
     | IGetAllOrdersError
     | IGetAllOrdersDisconnect
@@ -66,6 +73,10 @@ export const getAllOrdersDisconnect = (
 ): IGetAllOrdersDisconnect => ({
     type: WS_CONNECTION__ALL_ORDERS_CLOSED,
     payload: event,
+})
+
+export const closeAllOrders = (): ICloseAllOrdersConnect => ({
+    type: WS_CONNECTION_ALL_ORDERS_STOP,
 })
 
 export const getAllOrders = (

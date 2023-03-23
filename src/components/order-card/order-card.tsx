@@ -1,28 +1,24 @@
 import styles from './order-card.module.css';
 import { RootState, useSelector } from '../../services/typesOfStoreAndThunk';
-import { convertData } from '../../utils/convert-data';
 import { OrderImages } from './order-images/order-images'
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation } from 'react-router-dom';
 import { ICardTypes, IOrderTypes } from '../../utils/propsType';
 import { FC } from 'react';
-import { getElement } from '../../utils/getElement';
+import { convertStatus } from '../../utils/convert-status';
+import { getOrderIngridients } from '../../utils/getOrderIngridients';
 
-export const OrderCard: FC<IOrderTypes> = ({ ingredients, createdAt, name, number }) => {
+export const OrderCard: FC<IOrderTypes> = ({ ingredients, createdAt, name, number, status, visibleStatus }) => {
 
     const location = useLocation();
+    const translatedStatus = convertStatus(status);
 
     const { ingridients } = useSelector((store: RootState) => store.ingridients);
-    const orderIngridients = ingredients.reduce((acc: ICardTypes[], ingredient) => {
-        //console.log(ingredient === null, ingredient)
-        const current = getElement(ingredient, ingridients);
-        return [...acc, current];
-    }, []);
-
+    const orderIngridients = getOrderIngridients(ingredients, ingridients)
     const allIcons = orderIngridients.map((ingridient) => ingridient.image_mobile);
     const sortedIcons = allIcons.filter((x, i) => allIcons.indexOf(x) === i);
     const totalPrice = orderIngridients.reduce((acc: number, ingridient: ICardTypes) => acc + ingridient.price, 0);
-    const data = convertData(createdAt)
+    const data = FormattedDate({ date: new Date(createdAt) })
 
 
     return (
@@ -35,6 +31,9 @@ export const OrderCard: FC<IOrderTypes> = ({ ingredients, createdAt, name, numbe
                 <p className={styles.title}>#{number}</p>
                 <p className={styles.data}>{data}</p>
             </div>
+            {visibleStatus &&
+                <p className={translatedStatus === 'Выполнен' ? styles.success : ''}>{translatedStatus}</p>
+            }
             <p className={styles.name}>{name}</p>
             <div className={styles.inner}>
                 <OrderImages icons={sortedIcons} />

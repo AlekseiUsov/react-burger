@@ -1,12 +1,10 @@
 import { useEffect } from "react"
 import styles from './feed-page.module.css';
 import { RootState, useDispatch, useSelector } from '../../services/typesOfStoreAndThunk';
-import { getAllOrdersConnect } from "../../services/actions/ws-get-all-orders";
-import { getIngredients } from '../../services/actions/ingridients'
+import { closeAllOrders, getAllOrdersConnect } from "../../services/actions/ws-get-all-orders";
 import { OrderCard } from "../../components/order-card/order-card";
 
 const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
-let ws: WebSocket;
 
 export const FeedPage = () => {
     const { wsConnected, orders, total, totalToday } = useSelector((store: RootState) => store.allOrders);
@@ -24,8 +22,8 @@ export const FeedPage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getIngredients())
         dispatch(getAllOrdersConnect(wsUrl))
+        return () => { dispatch(closeAllOrders()) }
     }, [dispatch]);
 
     return (
@@ -41,6 +39,7 @@ export const FeedPage = () => {
                                 .map((ingridient) => (
                                     <OrderCard
                                         key={ingridient._id}
+                                        visibleStatus={false}
                                         {...ingridient}
                                     />
                                 ))}

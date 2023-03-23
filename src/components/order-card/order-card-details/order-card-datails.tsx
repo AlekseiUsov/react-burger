@@ -1,7 +1,6 @@
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC } from 'react';
 import { RootState, useSelector } from '../../../services/typesOfStoreAndThunk';
-import { convertData } from '../../../utils/convert-data';
 import { convertStatus } from '../../../utils/convert-status';
 import { getElement } from '../../../utils/getElement';
 import { IOrderTypes } from '../../../utils/propsType';
@@ -28,7 +27,8 @@ interface IObject {
 export const OrderCardDetails: FC<IOrderCardDetails> = ({ order }) => {
 
     const { name, status, ingredients, createdAt } = order;
-    const data = convertData(createdAt)
+    const data = FormattedDate({ date: new Date(createdAt) })
+
     const translatedStatus = convertStatus(status);
 
     const { ingridients } = useSelector((store: RootState) => store.ingridients);
@@ -41,7 +41,7 @@ export const OrderCardDetails: FC<IOrderCardDetails> = ({ order }) => {
         if (!acc.hasOwnProperty(name)) {
             acc[_id] = { name, count: 1, price, image_mobile, type }
         } else {
-            acc[_id] = { name, count: acc[name].count + 1, price, image_mobile, type }
+            acc[_id].count += 1
         }
         return acc;
     }, {})

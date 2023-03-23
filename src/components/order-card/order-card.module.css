@@ -29,6 +29,18 @@
     color: #8585AD;
 }
 
+.status {
+    display: block;
+}
+
+.success {
+    color: #00CCCC;
+}
+
+.hidden {
+    display: none;
+}
+
 .orderInfo {
     display: flex;
 }

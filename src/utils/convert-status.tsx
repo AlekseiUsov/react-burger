@@ -5,8 +5,8 @@ export const convertStatus = (status: string) => {
         translatedStatus = 'Выполнен'
     } else if (status === 'pending') {
         translatedStatus = 'Готовится'
-    } else if (status === 'cancelled') {
-        translatedStatus = 'Отменен'
+    } else if (status === 'created') {
+        translatedStatus = 'Создан'
     }
 
     return translatedStatus;

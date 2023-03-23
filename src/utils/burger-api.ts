@@ -1,5 +1,5 @@
 import { ICardTypes, IOrderTypes } from './propsType';
-import { getCookie, setCookie } from 'typescript-cookie'
+import { getCookie, removeCookie, setCookie } from 'typescript-cookie'
 
 const NORMA_API = `https://norma.nomoreparties.space/api`;
 
@@ -182,8 +182,15 @@ export function refreshTokens() {
 
         setCookie('accessToken', accessToken)
         localStorage.setItem('refreshToken', refreshToken);
-        return res
-    }).catch((err) => console.log(err))
+        return res;
+    }).catch((err) => {
+        if (err.message === 'Invalid token') {
+            removeCookie('accessToken')
+            localStorage.removeItem('refreshToken')
+        } else {
+            console.log(err)
+        }
+    })
 }
 
 

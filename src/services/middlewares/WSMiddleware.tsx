@@ -24,18 +24,20 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
 
             if (action.type === WSActions.wsStart) {
                 wsUrl = (action as { payload: string }).payload
-                console.log(wsUrl)
 
                 socket = new WebSocket(wsUrl)
+                console.log('сокет старт')
             }
             if (socket) {
                 socket.onopen = event => {
                     dispatch(WSActions.onOpen(event));
+                    console.log('открыли соеденение')
                 };
 
                 socket.onerror = event => {
+                    console.log('Возникла ошибка')
+                    console.log(event)
                     dispatch(WSActions.onError(event));
-                    console.log('Соединение прекращено из-за ошибки')
                 };
 
                 socket.onclose = event => {
@@ -45,10 +47,12 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
 
                 socket.onmessage = event => {
                     dispatch(WSActions.onMessage(event));
+                    console.log('Идет обмен данными')
                 };
 
                 if (action.type === WSActions.wsStop) {
                     socket.close();
+                    console.log('сокет стоп')
                 }
             };
             next(action);

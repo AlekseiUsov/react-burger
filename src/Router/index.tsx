@@ -36,7 +36,7 @@ export const Router = () => {
                 />
 
                 <Route path="/feed" element={<FeedPage />} />
-                <Route path="/feed/:number" element={<OrderCardModal />} />
+                <Route path="/feed/:number" element={<ProtectedRouteElement element={<OrderCardModal />} />} />
 
 
                 <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />} />}>

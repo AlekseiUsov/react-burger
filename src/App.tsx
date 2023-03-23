@@ -11,7 +11,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getIngredients())
-  }, [dispatch])
+  }, [useDispatch])
 
   return (
     <div className="App">
