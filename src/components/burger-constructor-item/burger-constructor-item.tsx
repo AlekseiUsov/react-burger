@@ -2,12 +2,13 @@ import styles from './burger-constructor-item.module.css';
 import type { Identifier } from "dnd-core";
 
 import { useRef, FC, PropsWithChildren } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { useDrag } from "react-dnd";
 import { useDrop } from "react-dnd";
 
 import { SORT_INGRIDIENTS } from '../../services/actions/burger-constructor';
+import { useDispatch } from '../../services/typesOfStoreAndThunk';
+import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 interface IBurgerConstructorItem {
     index: number;
@@ -85,7 +86,7 @@ const BurgerConstructorItem: FC<PropsWithChildren<IBurgerConstructorItem>> = ({ 
     drag(drop(ref));
 
     return (
-        <div ref={ref} data-handler-id={handlerId} className={`${styles.item}`}>
+        <div ref={ref} data-handler-id={handlerId} className={styles.item}>
             {children}
         </div>
     )

@@ -1,13 +1,14 @@
 import { useEffect } from "react"
 import styles from './feed-page.module.css';
-import { RootState, useDispatch, useSelector } from '../../services/typesOfStoreAndThunk';
+import { useDispatch, useSelector } from '../../services/typesOfStoreAndThunk';
 import { closeAllOrders, getAllOrdersConnect } from "../../services/actions/ws-get-all-orders";
 import { OrderCard } from "../../components/order-card/order-card";
+import { ListOrders } from "../../components/orders-list/orders-list";
 
 const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
 
 export const FeedPage = () => {
-    const { wsConnected, orders, total, totalToday } = useSelector((store: RootState) => store.allOrders);
+    const { wsConnected, orders, total, totalToday } = useSelector((store) => store.allOrders);
     const doneOrdersNumber = orders
         .filter((order) => order.status === 'done')
         .map((order) => order.number)
@@ -34,16 +35,12 @@ export const FeedPage = () => {
                 <div className={styles.wrapper} >
                     <div className={styles.orders}>
                         <h1 className={styles.title}>Лента заказов</h1>
-                        <div className={`${styles.list} custom-scroll`}>
-                            {orders
-                                .map((ingridient) => (
-                                    <OrderCard
-                                        key={ingridient._id}
-                                        visibleStatus={false}
-                                        {...ingridient}
-                                    />
-                                ))}
-                        </div>
+                        <ListOrders
+                            userOrders={orders}
+                            succession={false}
+                            visibleStatus={false}
+                            page={'feed'}
+                        />
                     </div>
                     <div className={`${styles.main} custom-scroll`}>
                         <div className={styles.container}>

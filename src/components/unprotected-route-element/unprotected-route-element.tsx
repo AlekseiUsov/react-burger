@@ -17,7 +17,7 @@ export const UnProtectedRouteElement: FC<IUnProtectedRouteElement> = ({ element 
         dispatch(getUserData())
     }, [dispatch]);
 
-    if (isLoading) return <h1>Пожайлуста, подождите ...</h1>
+    if (isLoading) return <h1 style={{ textAlign: 'center' }}>Пожайлуста, подождите ...</h1>
     if (!isLoading && isLogedIn) return <Navigate to={location.state?.path || '/'} replace />
     return element;
 }

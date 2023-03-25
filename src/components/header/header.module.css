@@ -9,5 +9,8 @@
 }
 
 .logo {
+    display: flex;
+    justify-content: center;
+    margin-right: 120px;
     flex-grow: 1;
 }

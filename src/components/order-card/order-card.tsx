@@ -1,5 +1,5 @@
 import styles from './order-card.module.css';
-import { RootState, useSelector } from '../../services/typesOfStoreAndThunk';
+import { useSelector } from '../../services/typesOfStoreAndThunk';
 import { OrderImages } from './order-images/order-images'
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation } from 'react-router-dom';
@@ -8,12 +8,12 @@ import { FC } from 'react';
 import { convertStatus } from '../../utils/convert-status';
 import { getOrderIngridients } from '../../utils/getOrderIngridients';
 
-export const OrderCard: FC<IOrderTypes> = ({ ingredients, createdAt, name, number, status, visibleStatus }) => {
+export const OrderCard: FC<IOrderTypes> = ({ ingredients, createdAt, name, number, status, visibleStatus, page }) => {
 
     const location = useLocation();
     const translatedStatus = convertStatus(status);
 
-    const { ingridients } = useSelector((store: RootState) => store.ingridients);
+    const { ingridients } = useSelector((store) => store.ingridients);
     const orderIngridients = getOrderIngridients(ingredients, ingridients)
     const allIcons = orderIngridients.map((ingridient) => ingridient.image_mobile);
     const sortedIcons = allIcons.filter((x, i) => allIcons.indexOf(x) === i);
@@ -23,7 +23,7 @@ export const OrderCard: FC<IOrderTypes> = ({ ingredients, createdAt, name, numbe
 
     return (
         <Link
-            to={`/feed/${number}`}
+            to={`/${page}/${number}`}
             state={{ background: location }}
             className={styles.order}
         >

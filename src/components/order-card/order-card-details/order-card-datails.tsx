@@ -1,6 +1,6 @@
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC } from 'react';
-import { RootState, useSelector } from '../../../services/typesOfStoreAndThunk';
+import { useSelector } from '../../../services/typesOfStoreAndThunk';
 import { convertStatus } from '../../../utils/convert-status';
 import { getElement } from '../../../utils/getElement';
 import { IOrderTypes } from '../../../utils/propsType';
@@ -31,7 +31,7 @@ export const OrderCardDetails: FC<IOrderCardDetails> = ({ order }) => {
 
     const translatedStatus = convertStatus(status);
 
-    const { ingridients } = useSelector((store: RootState) => store.ingridients);
+    const { ingridients } = useSelector((store) => store.ingridients);
 
     let totalPrice: number = 0;
     const totalPriceDetails = ingredients.reduce((acc: IObject, number) => {

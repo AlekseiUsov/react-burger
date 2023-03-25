@@ -60,6 +60,7 @@
 
 .priceWrapper {
     display: flex;
+    align-items: center;
 }
 
 .totalPrice {

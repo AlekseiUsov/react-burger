@@ -22,5 +22,6 @@ export interface IOrderTypes {
     visibleStatus?: boolean;
     updatedAt: string;
     createdAt: string;
+    page?: string;
 }
 

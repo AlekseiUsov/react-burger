@@ -2,6 +2,7 @@ import { getCurrentOrderRequest, refreshTokens } from '../../utils/burger-api';
 import { GET_CURRENT_ORDER_REQUEST, GET_CURRENT_ORDER_SUCCESS, GET_CURRENT_ORDER_ERROR } from '../constants';
 import { IOrderTypes } from '../../utils/propsType'
 import { AppDispatch, AppThunk } from '../typesOfStoreAndThunk';
+import { getCookie } from 'typescript-cookie';
 
 interface IGetCurrentOrderAction {
     type: typeof GET_CURRENT_ORDER_REQUEST;
@@ -37,16 +38,20 @@ const getCurrentOrderErrorAction = (): IGetCurrentOrderFailedAction => ({
 });
 
 
+interface IAuthorization {
+    [key: string]: string,
+}
+
+
 export const getCurrentOrder = (pathname: string): AppThunk => {
     return function (dispatch: AppDispatch) {
         dispatch(getCurrentOrderAction())
         getCurrentOrderRequest(pathname).then(res => {
             if (res && res.success) {
                 dispatch(getCurrentOrderSuccessAction(res.orders[0]))
-            } else {
-                dispatch(getCurrentOrderErrorAction())
             }
         }).catch(err => {
+            console.log(err)
             if (err.message === 'jwt expired') {
                 refreshTokens().then(() => dispatch(getCurrentOrder(pathname)))
             }

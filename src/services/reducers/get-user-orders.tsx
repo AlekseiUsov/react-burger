@@ -10,14 +10,14 @@ import { TGetUserOrdersActions } from '../actions/ws-get-user-orders'
 
 interface IGetUserOrdersState {
     wsConnected: boolean,
-    orders: Array<IOrderTypes>,
+    orders: null | IOrderTypes[],
     total: number,
     totalToday: number,
 }
 
 const initialState: IGetUserOrdersState = {
     wsConnected: false,
-    orders: [],
+    orders: null,
     total: 0,
     totalToday: 0,
 };

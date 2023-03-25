@@ -1,12 +1,6 @@
 .title {
     font-family: 'Iceland';
-}
-
-.number {
     font-size: 28px;
-    font-family: 'Iceland';
-}
-
-.wrapper {
+    text-align: center;
     margin-top: 50px;
 }

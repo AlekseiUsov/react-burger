@@ -1,9 +1,10 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 
-import AppHeader from '../components/app-header/app-header';
+import AppHeader from '../components/header/header';
 import IngredientDetailsCard from '../components/ingredient-details-card/ingredient-details-card';
 import Modal from '../components/modal-window/modal-window';
 import { OrderCardModal } from '../components/order-card/order-card-modal/order-card-modal';
+import { OrderCardPage } from '../components/order-card/order-card-page/order-card-page';
 import OrderDetails from '../components/order-details/order-details';
 import { ProtectedRouteElement } from '../components/protected-route-element/protected-route-element';
 import { UnProtectedRouteElement } from '../components/unprotected-route-element/unprotected-route-element';
@@ -36,13 +37,17 @@ export const Router = () => {
                 />
 
                 <Route path="/feed" element={<FeedPage />} />
-                <Route path="/feed/:number" element={<ProtectedRouteElement element={<OrderCardModal />} />} />
+                <Route path="/feed/:number" element={<ProtectedRouteElement element={<OrderCardPage />} />} />
 
 
                 <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />} />}>
                     <Route path="/profile" element={<ProfileInfo />} />
                     <Route path=":orders" element={<ProfileOrdersPage />} />
                 </Route>
+
+                <Route path="/profile/orders/:number" element={<ProtectedRouteElement element={
+                    <OrderCardPage />} />}
+                />
 
 
                 <Route path="/login" element={<UnProtectedRouteElement element={<LoginPage />} />} />
@@ -61,6 +66,10 @@ export const Router = () => {
                     <Route path="/feed/:number" element={
                         <OrderCardModal />
                     } />
+
+                    <Route path="/profile/orders/:number" element={<ProtectedRouteElement element={
+                        <OrderCardModal />} />}
+                    />
                     <Route path="ingridients/:id" element={<Modal title={'Детали ингридиента'}>
                         <IngredientDetailsCard />
                     </Modal>}

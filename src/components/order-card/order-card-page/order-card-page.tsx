@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCurrentOrder } from '../../../services/actions/current-order';
 import { useDispatch, useSelector } from '../../../services/typesOfStoreAndThunk';
-import Modal from '../../modal-window/modal-window';
 import { OrderCardDetails } from '../order-card-details/order-card-datails';
+import styles from './order-card-page.module.css';
 
 
-export const OrderCardModal = () => {
+export const OrderCardPage = () => {
     const dispatch = useDispatch();
     const { number = '' } = useParams();
     const { order } = useSelector((store) => store.currentOrder);
@@ -18,10 +18,11 @@ export const OrderCardModal = () => {
     return (
         <>
             {!order
-                ? null
-                : <Modal style={{ fontFamily: 'Iceland' }} title={`# ${order.number}`} >
+                ? <h1 style={{ textAlign: 'center' }}>Идет загрузка ...</h1>
+                : <div className={styles.wrapper}>
+                    <p className={styles.title}>{`# ${order.number}`}</p>
                     <OrderCardDetails order={order} />
-                </Modal>
+                </div>
             }
         </>
     )

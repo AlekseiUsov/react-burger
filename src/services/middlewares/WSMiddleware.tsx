@@ -1,4 +1,5 @@
 import { Middleware, MiddlewareAPI } from "redux";
+import { refreshTokens } from "../../utils/burger-api";
 import { AppDispatch, RootState, TApplicationActions } from "../typesOfStoreAndThunk";
 
 
@@ -16,7 +17,7 @@ interface IWSActions {
 export const WSMiddleware = (WSActions: IWSActions): Middleware => {
     return (store: MiddlewareAPI<AppDispatch, RootState>) => {
         let socket: WebSocket | null = null;
-        let wsUrl = null;
+        let wsUrl: string | null = null;
 
         return next => (action: TApplicationActions) => {
 
@@ -28,6 +29,7 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
                 socket = new WebSocket(wsUrl)
                 console.log('сокет старт')
             }
+
             if (socket) {
                 socket.onopen = event => {
                     dispatch(WSActions.onOpen(event));
@@ -36,7 +38,6 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
 
                 socket.onerror = event => {
                     console.log('Возникла ошибка')
-                    console.log(event)
                     dispatch(WSActions.onError(event));
                 };
 
@@ -45,15 +46,32 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
                     console.log('Соединение закрыто')
                 };
 
-                socket.onmessage = event => {
-                    dispatch(WSActions.onMessage(event));
-                    console.log('Идет обмен данными')
-                };
+                socket.onmessage = (event) => {
+                    const { data } = event;
+                    const parsedData = JSON.parse(data);
+
+                    if (parsedData.message === 'Invalid or missing token') {
+                        dispatch(WSActions.onClose(event));
+                        console.log('да, эта ошибка');
+
+                        refreshTokens()
+                            .then(() =>
+                                dispatch({
+                                    type: action.type,
+                                    payload: wsUrl,
+                                } as TApplicationActions),
+                            )
+                    } else {
+                        dispatch(WSActions.onMessage(event));
+                        console.log('Идет обмен данными')
+                    }
+                }
 
                 if (action.type === WSActions.wsStop) {
-                    socket.close();
+                    socket?.close();
                     console.log('сокет стоп')
                 }
+
             };
             next(action);
         }

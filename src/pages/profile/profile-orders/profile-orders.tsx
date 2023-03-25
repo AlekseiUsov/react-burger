@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { getCookie } from 'typescript-cookie';
-import { OrderCard } from '../../../components/order-card/order-card';
+import { ListOrders } from '../../../components/orders-list/orders-list';
 import { closeUserOrders, getUserOrdersConnect } from '../../../services/actions/ws-get-user-orders';
-import { RootState, useDispatch, useSelector } from '../../../services/typesOfStoreAndThunk'
+import { useDispatch, useSelector } from '../../../services/typesOfStoreAndThunk'
 import styles from './profile-orders.module.css'
 
 const token = getCookie('accessToken');
@@ -10,9 +10,7 @@ const wsUrl = `wss://norma.nomoreparties.space/orders`;
 
 export const ProfileOrdersPage = () => {
     const dispatch = useDispatch();
-    const { orders } = useSelector((store: RootState) => store.userOrders);
-    const reverse = [...orders].reverse().slice(0, 50);
-    console.log(reverse)
+    const { orders } = useSelector((store) => store.userOrders);
 
     useEffect(() => {
         dispatch(getUserOrdersConnect(`${wsUrl}?token=${token}`))
@@ -21,18 +19,9 @@ export const ProfileOrdersPage = () => {
 
     return (
         <div className={styles.wrapper}>
-            {!orders
-                ? <h1>Здесь будут ваши заказы</h1>
-                : <div className={`${styles.list} custom-scroll`}>
-                    {reverse
-                        .map((ingridient) => (
-                            <OrderCard
-                                key={ingridient._id}
-                                visibleStatus={true}
-                                {...ingridient}
-                            />
-                        ))}
-                </div>
+            {orders
+                ? <ListOrders userOrders={orders} succession={true} visibleStatus={true} page={'profile/orders'} />
+                : <h1 className={styles.title}>Здесь будут ваши заказы</h1>
             }
         </div>
     )

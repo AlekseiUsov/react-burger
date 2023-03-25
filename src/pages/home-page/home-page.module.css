@@ -1,5 +1,10 @@
 .wrapper {
     display: flex;
     justify-content: space-around;
-    padding: 0 100px;
+    padding: 0 120px 0 100px;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
 }
