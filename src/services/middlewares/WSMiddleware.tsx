@@ -20,14 +20,15 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
         let wsUrl: string | null = null;
 
         return next => (action: TApplicationActions) => {
-
             const { dispatch } = store;
+
 
             if (action.type === WSActions.wsStart) {
                 wsUrl = (action as { payload: string }).payload
 
                 socket = new WebSocket(wsUrl)
                 console.log('сокет старт')
+                console.log(action.type)
             }
 
             if (socket) {
@@ -37,13 +38,8 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
                 };
 
                 socket.onerror = event => {
-                    console.log('Возникла ошибка')
                     dispatch(WSActions.onError(event));
-                };
-
-                socket.onclose = event => {
-                    dispatch(WSActions.onClose(event));
-                    console.log('Соединение закрыто')
+                    console.log('Возникла ошибка')
                 };
 
                 socket.onmessage = (event) => {
@@ -51,26 +47,31 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
                     const parsedData = JSON.parse(data);
 
                     if (parsedData.message === 'Invalid or missing token') {
-                        dispatch(WSActions.onClose(event));
                         console.log('да, эта ошибка');
+                        socket?.close();
 
-                        refreshTokens()
-                            .then(() =>
-                                dispatch(WSActions.onOpen(event))
-                            )
+                        refreshTokens().then(() => dispatch({
+                            type: action.type,
+                            payload: wsUrl
+                        } as TApplicationActions))
+
                     } else {
                         dispatch(WSActions.onMessage(event));
                         console.log('Идет обмен данными')
                     }
                 }
-
-                if (action.type === WSActions.wsStop) {
-                    socket.close();
-                    console.log('сокет стоп')
+                socket.onclose = event => {
+                    socket?.close();
+                    dispatch(WSActions.onClose(event));
+                    console.log('Соединение закрыто')
                 }
 
-            };
+                if (action.type === WSActions.wsStop) {
+                    socket?.close();
+                    console.log('сокет стоп')
+                }
+            }
             next(action);
         }
-    };
+    }
 }

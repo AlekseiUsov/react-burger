@@ -23,3 +23,22 @@
     justify-content: end;
     gap: 10px;
 }
+
+button {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.button {
+    display: block;
+    text-align: start;
+    text-shadow: none;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    color: #8585AD;
+}

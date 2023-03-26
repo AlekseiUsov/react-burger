@@ -30,7 +30,7 @@ export const FeedPage = () => {
     return (
         <div>
             {!wsConnected ? (
-                <h1 className={styles.loader}>Пожайлуста подождите...</h1>
+                <h1 className={styles.loader}>Пожайлуста, подождите ...</h1>
             ) : (
                 <div className={styles.wrapper} >
                     <div className={styles.orders}>

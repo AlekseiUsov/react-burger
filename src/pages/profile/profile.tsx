@@ -26,11 +26,9 @@ export const ProfilePage = () => {
                         path='/profile/orders'
                         text="История заказов"
                     />
-                    <ProfileLink
-                        path='/login'
-                        text="Выход"
+                    <button className={styles.button}
                         onClick={logOut}
-                    />
+                    > Выход</button>
                     <p className={`${styles.text} mt-30`}>
                         В этом разделе вы можете
                         <br />
