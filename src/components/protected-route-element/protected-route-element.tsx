@@ -4,21 +4,26 @@ import { Navigate, useLocation } from 'react-router-dom'
 import { useEffect, FC } from 'react';
 
 interface IProtectedRouteElement {
-    element: React.ReactElement
+    element: React.ReactElement,
+    unAuth?: boolean
 }
 
-export const ProtectedRouteElement: FC<IProtectedRouteElement> = ({ element }) => {
+export const ProtectedRouteElement: FC<IProtectedRouteElement> = ({ element, unAuth = false }) => {
     const dispatch = useDispatch();
     const location = useLocation();
 
-    const { isLoading, hasError, user: { isLogedIn } } = useSelector((store) => store.auth);
+    const { isLoading, user: { isLogedIn } } = useSelector((store) => store.auth);
 
     useEffect(() => {
         dispatch(getUserData())
     }, [dispatch]);
 
     if (isLoading) return <h1 style={{ textAlign: 'center' }}>Пожайлуста, подождите ...</h1>
-    if (hasError || (!isLoading && !isLogedIn)) return <Navigate to="/login" state={{ path: location }} replace />
+
+    if (unAuth && isLogedIn) return <Navigate to={location.state?.path || '/'} replace />
+
+    if (!unAuth && !isLogedIn) return <Navigate to='/login' state={{ path: location }} replace />
+
     return element;
 }
 

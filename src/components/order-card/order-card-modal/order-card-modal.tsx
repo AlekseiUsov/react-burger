@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { getCurrentOrder } from '../../../services/actions/current-order';
 import { useDispatch, useSelector } from '../../../services/typesOfStoreAndThunk';
 import Modal from '../../modal-window/modal-window';
@@ -10,6 +10,7 @@ export const OrderCardModal = () => {
     const dispatch = useDispatch();
     const { number = '' } = useParams();
     const { order } = useSelector((store) => store.currentOrder);
+    const location = useLocation();
 
     useEffect(() => {
         dispatch(getCurrentOrder(number))

@@ -40,7 +40,12 @@ export const LoginPage = () => {
                     extraClass="mt-6"
                     icon={'ShowIcon'}
                 />
-                <Button htmlType="submit" disabled={!formValues.email} size="medium" extraClass="mt-6">Войти</Button>
+                <Button
+                    htmlType="submit"
+                    disabled={!formValues.email}
+                    size="medium"
+                    extraClass="mt-6"
+                >Войти</Button>
             </form>
             <div className={styles.block}>
                 <div className={`${styles.inner} mt-4`} >

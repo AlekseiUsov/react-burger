@@ -7,7 +7,6 @@ import { OrderCardModal } from '../components/order-card/order-card-modal/order-
 import { OrderCardPage } from '../components/order-card/order-card-page/order-card-page';
 import OrderDetails from '../components/order-details/order-details';
 import { ProtectedRouteElement } from '../components/protected-route-element/protected-route-element';
-import { UnProtectedRouteElement } from '../components/unprotected-route-element/unprotected-route-element';
 import { FeedPage } from '../pages/feed-page/feed-page';
 import { ForgotPasswordPage } from '../pages/forgot-password-page/forgot-password-page';
 import { HomePage } from '../pages/home-page/home-page';
@@ -39,7 +38,6 @@ export const Router = () => {
                 <Route path="/feed" element={<FeedPage />} />
                 <Route path="/feed/:number" element={<ProtectedRouteElement element={<OrderCardPage />} />} />
 
-
                 <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />} />}>
                     <Route path="/profile" element={<ProfileInfo />} />
                     <Route path=":orders" element={<ProfileOrdersPage />} />
@@ -50,10 +48,10 @@ export const Router = () => {
                 />
 
 
-                <Route path="/login" element={<UnProtectedRouteElement element={<LoginPage />} />} />
-                <Route path="/register" element={<UnProtectedRouteElement element={<RegisterPage />} />} />
-                <Route path="/forgot-password" element={<UnProtectedRouteElement element={<ForgotPasswordPage />} />} />
-                <Route path="/reset-password" element={<UnProtectedRouteElement element={<ResetPasswordPage />} />} />
+                <Route path="/login" element={<ProtectedRouteElement unAuth element={<LoginPage />} />} />
+                <Route path="/register" element={<ProtectedRouteElement unAuth element={<RegisterPage />} />} />
+                <Route path="/forgot-password" element={<ProtectedRouteElement unAuth element={<ForgotPasswordPage />} />} />
+                <Route path="/reset-password" element={<ProtectedRouteElement unAuth element={<ResetPasswordPage />} />} />
 
             </Routes>
             {background &&
@@ -67,8 +65,8 @@ export const Router = () => {
                         <OrderCardModal />
                     } />
 
-                    <Route path="/profile/orders/:number" element={<ProtectedRouteElement element={
-                        <OrderCardModal />} />}
+                    <Route path="/profile/orders/:number" element={
+                        <OrderCardModal />}
                     />
                     <Route path="ingridients/:id" element={<Modal title={'Детали ингридиента'}>
                         <IngredientDetailsCard />
