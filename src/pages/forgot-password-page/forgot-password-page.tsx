@@ -15,7 +15,8 @@ export const ForgotPasswordPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleEmail = () => {
+    const handleEmail = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         dispatch(forgotPassword(formValues.email))
         navigate('/reset-password', { state: { resetPassword: true } })
     }

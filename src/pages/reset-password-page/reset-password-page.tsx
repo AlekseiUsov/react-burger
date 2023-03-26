@@ -16,7 +16,7 @@ export const ResetPasswordPage = () => {
     const location = useLocation();
     console.log((!location.state?.resetPassword))
 
-    const handleEmail = (e: React.FormEvent) => {
+    const handleEmail = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         passwordRecovery(formValues.password, formValues.token)
             .then(res => {

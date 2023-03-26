@@ -5,7 +5,6 @@ import { EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 
-import { useState } from 'react';
 import { useDispatch } from '../../services/typesOfStoreAndThunk';
 import { useForm } from '../../hooks/useForm';
 
@@ -17,7 +16,8 @@ export const LoginPage = () => {
 
     const dispatch = useDispatch();
 
-    const handleEmail = () => {
+    const handleEmail = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         dispatch(userLogin(formValues.email, formValues.password))
     }
 

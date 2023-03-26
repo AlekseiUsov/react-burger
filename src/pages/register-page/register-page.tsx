@@ -14,7 +14,8 @@ export const RegisterPage = () => {
 
     const dispatch = useDispatch();
 
-    const handleEmail = () => {
+    const handleEmail = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         dispatch(userRegistration(formValues.name, formValues.email, formValues.password))
     }
 

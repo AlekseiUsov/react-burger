@@ -1,3 +1,4 @@
+import { removeCookie } from 'typescript-cookie';
 import { getUser, refreshTokens } from '../../../utils/burger-api';
 import { GET_PROFILE_DATA_REQUEST, GET_PROFILE_DATA_SUCCESS, GET_PROFILE_DATA_ERROR } from '../../constants';
 import { AppDispatch, AppThunk } from '../../typesOfStoreAndThunk';

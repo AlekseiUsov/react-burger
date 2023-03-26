@@ -12,17 +12,20 @@ export const ProtectedRouteElement: FC<IProtectedRouteElement> = ({ element, unA
     const dispatch = useDispatch();
     const location = useLocation();
 
-    const { isLoading, user: { isLogedIn } } = useSelector((store) => store.auth);
+    const { isUserLoaded, user: { isLogedIn } } = useSelector((store) => store.auth);
 
     useEffect(() => {
-        dispatch(getUserData())
-    }, [dispatch]);
+        if (!isUserLoaded) {
+            dispatch(getUserData())
+        }
+    }, [dispatch, isUserLoaded]);
 
-    if (isLoading) return <h1 style={{ textAlign: 'center' }}>Пожайлуста, подождите ...</h1>
-
-    if (unAuth && isLogedIn) return <Navigate to={location.state?.path || '/'} replace />
+    if (!isUserLoaded) return <h1 style={{ textAlign: 'center' }}>Пожайлуста, подождите ...</h1>
 
     if (!unAuth && !isLogedIn) return <Navigate to='/login' state={{ path: location }} replace />
+
+
+    if (unAuth && isLogedIn) return <Navigate to={location.state?.path || '/'} replace />
 
     return element;
 }

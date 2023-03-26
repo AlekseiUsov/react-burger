@@ -40,7 +40,7 @@ const BurgerConstructorTotal: FC<IBurgerConstructorTotal> = ({ text, icon }) => 
 
     return (
         <>
-            <div className={`${styles.wrapper} pt-10 mr-10`}>
+            <div className={`${styles.wrapper} mt-5 mr-10`}>
                 {isPopUpOpen &&
                     <p className={styles.popUp}>Выберите булки и хотя бы 1 ингридиент</p>
                 }

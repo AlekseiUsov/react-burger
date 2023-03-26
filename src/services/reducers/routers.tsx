@@ -50,6 +50,7 @@ interface IRouterType {
         isLogedIn: boolean,
     },
     isLoading: boolean,
+    isUserLoaded: boolean,
     hasError: boolean
 }
 
@@ -60,6 +61,7 @@ const initialState: IRouterType = {
         isLogedIn: false,
     },
     isLoading: false,
+    isUserLoaded: false,
     hasError: false,
 }
 
@@ -76,6 +78,7 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
             return {
                 ...state,
                 isLoading: false,
+                isUserLoaded: true,
                 hasError: false,
                 user: {
                     ...state.user,
@@ -88,6 +91,7 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
             return {
                 ...state,
                 isLoading: false,
+                isUserLoaded: true,
                 hasError: true,
             };
         }
@@ -96,19 +100,13 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
             return {
                 ...state,
                 isLoading: true,
-                hasError: false,
-                user: {
-                    ...state.user,
-                    email: '',
-                    name: '',
-                    isLogedIn: false,
-                },
             };
         }
         case USER_LOGIN_SUCCESS: {
             return {
                 ...state,
                 isLoading: false,
+                isUserLoaded: true,
                 hasError: false,
                 user: {
                     ...state.user,
@@ -122,6 +120,7 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
             return {
                 ...state,
                 isLoading: false,
+                isUserLoaded: true,
                 hasError: true,
             };
         }
@@ -131,12 +130,14 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
             return {
                 ...state,
                 isLoading: true,
+
             };
         }
         case USER_LOGOUT_SUCCESS: {
             return {
                 ...state,
                 isLoading: false,
+                isUserLoaded: true,
                 hasError: false,
                 user: {
                     ...state.user,
@@ -150,6 +151,7 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
             return {
                 ...state,
                 isLoading: false,
+                isUserLoaded: true,
                 hasError: true,
             };
         }
@@ -164,6 +166,7 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
             return {
                 ...state,
                 isLoading: false,
+                isUserLoaded: true,
                 hasError: false,
                 user: {
                     ...state.user,
@@ -175,13 +178,9 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
         }
         case GET_PROFILE_DATA_ERROR: {
             return {
-                ...state,
-                isLoading: false,
+                ...initialState,
+                isUserLoaded: true,
                 hasError: true,
-                user: {
-                    ...state.user,
-                    isLogedIn: false,
-                },
             };
         }
 
@@ -195,6 +194,7 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
             return {
                 ...state,
                 isLoading: false,
+                isUserLoaded: true,
                 hasError: false,
                 user: {
                     ...state.user,
@@ -207,6 +207,7 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
             return {
                 ...state,
                 isLoading: false,
+                isUserLoaded: true,
                 hasError: true,
             };
         }
@@ -221,6 +222,7 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
             return {
                 ...state,
                 isLoading: false,
+                isUserLoaded: true,
                 user: {
                     ...state.user,
                 },
@@ -228,11 +230,8 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
         }
         case FORGOT_PASSWORD_ERROR: {
             return {
-                ...state,
-                user: {
-                    ...state.user,
-                },
-                isLoading: false,
+                ...initialState,
+                isUserLoaded: true,
                 hasError: true,
             };
         }
@@ -247,12 +246,13 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
             return {
                 ...state,
                 isLoading: false,
+                isUserLoaded: true,
             };
         }
         case RESET_PASSWORD_ERROR: {
             return {
-                ...state,
-                isLoading: false,
+                ...initialState,
+                isUserLoaded: true,
                 hasError: true,
             };
         }

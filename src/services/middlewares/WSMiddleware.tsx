@@ -56,10 +56,7 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
 
                         refreshTokens()
                             .then(() =>
-                                dispatch({
-                                    type: action.type,
-                                    payload: wsUrl,
-                                } as TApplicationActions),
+                                dispatch(WSActions.onOpen(event))
                             )
                     } else {
                         dispatch(WSActions.onMessage(event));
@@ -68,7 +65,7 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
                 }
 
                 if (action.type === WSActions.wsStop) {
-                    socket?.close();
+                    socket.close();
                     console.log('сокет стоп')
                 }
 
