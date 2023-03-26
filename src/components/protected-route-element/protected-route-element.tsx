@@ -22,7 +22,7 @@ export const ProtectedRouteElement: FC<IProtectedRouteElement> = ({ element, unA
 
     if (unAuth && isLogedIn) return <Navigate to={location.state?.path || '/'} replace />
 
-    if (!unAuth && !isLogedIn) return <Navigate to={location.state?.path || '/login'} state={{ path: location }} replace />
+    if (!unAuth && !isLogedIn) return <Navigate to='/login' state={{ path: location }} replace />
 
     return element;
 }
