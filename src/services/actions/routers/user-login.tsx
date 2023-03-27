@@ -1,5 +1,5 @@
 import { loginRequest } from '../../../utils/burger-api';
-import { getCookie, setCookie } from 'typescript-cookie'
+import { setCookie } from 'typescript-cookie'
 import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR } from '../../constants'
 import { AppDispatch, AppThunk } from '../../typesOfStoreAndThunk';
 
@@ -53,7 +53,6 @@ export const userLogin = (email: string, password: string): AppThunk => {
             setCookie('accessToken', accessToken)
             localStorage.setItem('refreshToken', refreshToken);
             dispatch(userLoginSuccessRequest(res.user))
-            console.log(getCookie('accessToken'))
         }).catch(err => {
             dispatch(userLoginErrorRequest())
         })

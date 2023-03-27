@@ -1,7 +1,6 @@
-import { useDispatch, useSelector } from '../../services/typesOfStoreAndThunk';
-import { getUserData } from '../../services/actions/routers/get-profile-data';
+import { useSelector } from '../../services/typesOfStoreAndThunk';
 import { Navigate, useLocation } from 'react-router-dom'
-import { useEffect, FC } from 'react';
+import { FC } from 'react';
 
 interface IProtectedRouteElement {
     element: React.ReactElement,
@@ -9,21 +8,13 @@ interface IProtectedRouteElement {
 }
 
 export const ProtectedRouteElement: FC<IProtectedRouteElement> = ({ element, unAuth = false }) => {
-    const dispatch = useDispatch();
     const location = useLocation();
 
-    const { isUserLoaded, user: { isLogedIn } } = useSelector((store) => store.auth);
+    const { isUserDataLoaded, isLogedIn } = useSelector((store) => store.auth);
 
-    useEffect(() => {
-        if (!isUserLoaded) {
-            dispatch(getUserData())
-        }
-    }, [dispatch, isUserLoaded]);
-
-    if (!isUserLoaded) return <h1 style={{ textAlign: 'center' }}>Пожайлуста, подождите ...</h1>
+    if (!isUserDataLoaded) return <h1 style={{ textAlign: 'center' }}>Пожайлуста, подождите ...</h1>
 
     if (!unAuth && !isLogedIn) return <Navigate to='/login' state={{ path: location }} replace />
-
 
     if (unAuth && isLogedIn) return <Navigate to={location.state?.path || '/'} replace />
 

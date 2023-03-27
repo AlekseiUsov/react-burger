@@ -1,9 +1,8 @@
 import styles from './burger-constructor-total.module.css';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { FC } from 'react';
-import { ICardTypes } from '../../utils/propsType';
 
-import { RootState, useDispatch, useSelector } from '../../services/typesOfStoreAndThunk';
+import { useDispatch, useSelector } from '../../services/typesOfStoreAndThunk';
 import { useLocation, useNavigate } from "react-router-dom";
 import { getOrderDetails } from '../../services/actions/order';
 
@@ -14,10 +13,10 @@ interface IBurgerConstructorTotal {
 const BurgerConstructorTotal: FC<IBurgerConstructorTotal> = ({ text, icon }) => {
     const [isPopUpOpen, setIsPopUpOpen] = React.useState<boolean>(false);
 
-    const { bun, constructorIngridients } = useSelector((state: RootState) => state.burgerConstructor);
-    const user = useSelector((state: RootState) => state.auth.user);
+    const { bun, constructorIngridients } = useSelector(state => state.burgerConstructor);
+    const isLogedIn = useSelector(state => state.auth);
 
-    const ingridientsIds = (constructorIngridients).map((ingridient: ICardTypes) => ingridient._id);
+    const ingridientsIds = (constructorIngridients).map((ingridient) => ingridient._id);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -28,7 +27,7 @@ const BurgerConstructorTotal: FC<IBurgerConstructorTotal> = ({ text, icon }) => 
             setIsPopUpOpen(true)
             setTimeout(() => setIsPopUpOpen(false), 3000)
         } else {
-            if (user.isLogedIn) {
+            if (isLogedIn) {
                 navigate('/order', { state: { background: location } })
                 dispatch(getOrderDetails([bun._id, ...ingridientsIds, bun._id]))
             } else {

@@ -7,10 +7,9 @@ interface IOrderCardIngridient {
     image_mobile: string,
     count: number,
     price: number,
-    type: string,
 }
 
-export const OrderCardIngridient: FC<IOrderCardIngridient> = ({ name, image_mobile, count, price, type }) => {
+export const OrderCardIngridient: FC<IOrderCardIngridient> = ({ name, image_mobile, count, price }) => {
 
     return (
         <li
@@ -21,10 +20,7 @@ export const OrderCardIngridient: FC<IOrderCardIngridient> = ({ name, image_mobi
             </div>
             <p className={styles.name}>{name}</p>
             <div className={styles.price}>
-                {type === 'bun' && count === 1
-                    ? <span>{count * 2} x</span>
-                    : <span>{count} x</span>
-                }
+                <span>{count} x</span>
                 <span>{price}</span>
                 <CurrencyIcon type="primary" />
             </div>

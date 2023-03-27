@@ -1,14 +1,3 @@
-import {
-    FORGOT_PASSWORD_REQUEST,
-    FORGOT_PASSWORD_SUCCESS,
-    FORGOT_PASSWORD_ERROR,
-} from '../constants'
-
-import {
-    RESET_PASSWORD_REQUEST,
-    RESET_PASSWORD_SUCCESS,
-    RESET_PASSWORD_ERROR
-} from '../constants';
 
 import {
     USER_REGISTRATION_REQUEST,
@@ -47,10 +36,10 @@ interface IRouterType {
     user: {
         email: string,
         name: string,
-        isLogedIn: boolean,
     },
+    isLogedIn: boolean,
+    isUserDataLoaded: boolean,
     isLoading: boolean,
-    isUserLoaded: boolean,
     hasError: boolean
 }
 
@@ -58,10 +47,10 @@ const initialState: IRouterType = {
     user: {
         email: '',
         name: '',
-        isLogedIn: false,
     },
+    isLogedIn: false,
+    isUserDataLoaded: false,
     isLoading: false,
-    isUserLoaded: false,
     hasError: false,
 }
 
@@ -76,12 +65,11 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
         }
         case USER_REGISTRATION_SUCCESS: {
             return {
-                ...state,
                 isLoading: false,
-                isUserLoaded: true,
+                isUserDataLoaded: true,
                 hasError: false,
+                isLogedIn: true,
                 user: {
-                    ...state.user,
                     email: action.user.email,
                     name: action.user.name,
                 },
@@ -90,41 +78,35 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
         case USER_REGISTRATION_ERROR: {
             return {
                 ...state,
-                isLoading: false,
-                isUserLoaded: true,
                 hasError: true,
             };
         }
 
         case USER_LOGIN_REQUEST: {
             return {
-                ...state,
+                ...initialState,
                 isLoading: true,
             };
         }
         case USER_LOGIN_SUCCESS: {
             return {
-                ...state,
                 isLoading: false,
-                isUserLoaded: true,
+                isUserDataLoaded: true,
                 hasError: false,
+                isLogedIn: true,
                 user: {
-                    ...state.user,
                     email: action.user.email,
                     name: action.user.name,
-                    isLogedIn: true,
                 },
             };
         }
         case USER_LOGIN_ERROR: {
             return {
                 ...state,
-                isLoading: false,
-                isUserLoaded: true,
+                isUserDataLoaded: true,
                 hasError: true,
             };
         }
-
 
         case USER_LOGOUT_REQUEST: {
             return {
@@ -135,23 +117,13 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
         }
         case USER_LOGOUT_SUCCESS: {
             return {
-                ...state,
-                isLoading: false,
-                isUserLoaded: true,
-                hasError: false,
-                user: {
-                    ...state.user,
-                    email: '',
-                    name: '',
-                    isLogedIn: false,
-                },
+                ...initialState,
             };
         }
         case USER_LOGOUT_ERROR: {
             return {
                 ...state,
                 isLoading: false,
-                isUserLoaded: true,
                 hasError: true,
             };
         }
@@ -164,22 +136,20 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
         }
         case GET_PROFILE_DATA_SUCCESS: {
             return {
-                ...state,
                 isLoading: false,
-                isUserLoaded: true,
                 hasError: false,
+                isUserDataLoaded: true,
+                isLogedIn: true,
                 user: {
-                    ...state.user,
                     email: action.user.email,
                     name: action.user.name,
-                    isLogedIn: true,
                 },
             };
         }
         case GET_PROFILE_DATA_ERROR: {
             return {
-                ...initialState,
-                isUserLoaded: true,
+                ...state,
+                isUserDataLoaded: true,
                 hasError: true,
             };
         }
@@ -192,12 +162,11 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
         }
         case UPDATE_USER_DATA_SUCCESS: {
             return {
-                ...state,
                 isLoading: false,
-                isUserLoaded: true,
                 hasError: false,
+                isUserDataLoaded: true,
+                isLogedIn: true,
                 user: {
-                    ...state.user,
                     email: action.user.email,
                     name: action.user.name,
                 },
@@ -205,54 +174,8 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
         }
         case UPDATE_USER_DATA_ERROR: {
             return {
-                ...state,
-                isLoading: false,
-                isUserLoaded: true,
-                hasError: true,
-            };
-        }
-
-        case FORGOT_PASSWORD_REQUEST: {
-            return {
-                ...state,
-                isLoading: true,
-            };
-        }
-        case FORGOT_PASSWORD_SUCCESS: {
-            return {
-                ...state,
-                isLoading: false,
-                isUserLoaded: true,
-                user: {
-                    ...state.user,
-                },
-            };
-        }
-        case FORGOT_PASSWORD_ERROR: {
-            return {
                 ...initialState,
-                isUserLoaded: true,
-                hasError: true,
-            };
-        }
-
-        case RESET_PASSWORD_REQUEST: {
-            return {
-                ...state,
-                isLoading: true,
-            };
-        }
-        case RESET_PASSWORD_SUCCESS: {
-            return {
-                ...state,
-                isLoading: false,
-                isUserLoaded: true,
-            };
-        }
-        case RESET_PASSWORD_ERROR: {
-            return {
-                ...initialState,
-                isUserLoaded: true,
+                isUserDataLoaded: true,
                 hasError: true,
             };
         }

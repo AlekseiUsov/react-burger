@@ -10,7 +10,6 @@ export const OrderCardModal = () => {
     const dispatch = useDispatch();
     const { number = '' } = useParams();
     const { order } = useSelector((store) => store.currentOrder);
-    const location = useLocation();
 
     useEffect(() => {
         dispatch(getCurrentOrder(number))

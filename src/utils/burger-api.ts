@@ -1,6 +1,5 @@
 import { ICardTypes, IOrderTypes } from './propsType';
 import { getCookie, removeCookie, setCookie } from 'typescript-cookie'
-import { isToken } from 'typescript';
 
 const NORMA_API = `https://norma.nomoreparties.space/api`;
 
@@ -149,6 +148,7 @@ export function passwordReset(email: string) {
             email,
         }),
     }).then(res => checkReponse<TLogoutAndPasswordResponce>(res))
+
 }
 
 
@@ -177,21 +177,22 @@ export function refreshTokens() {
         body: JSON.stringify({
             token
         }),
-    }).then(res => checkReponse<TRegistrationOrAutorizationResponce>(res)).then(res => {
-        let accessToken = res.accessToken.split('Bearer ')[1];
-        let refreshToken = res.refreshToken;
+    }).then(res => checkReponse<TRegistrationOrAutorizationResponce>(res))
+        .then(res => {
+            let accessToken = res.accessToken.split('Bearer ')[1];
+            let refreshToken = res.refreshToken;
 
-        setCookie('accessToken', accessToken)
-        localStorage.setItem('refreshToken', refreshToken);
-        return res;
-    }).catch((err) => {
-        if (err.message === 'Token is invalid') {
-            removeCookie('accessToken')
-            localStorage.removeItem('refreshToken')
-        } else {
-            console.log(err)
-        }
-    })
+            setCookie('accessToken', accessToken)
+            localStorage.setItem('refreshToken', refreshToken);
+            return res;
+        }).catch((err) => {
+            if (err.message === 'Token is invalid') {
+                removeCookie('accessToken')
+                localStorage.removeItem('refreshToken')
+            } else {
+                console.log(err)
+            }
+        })
 }
 
 

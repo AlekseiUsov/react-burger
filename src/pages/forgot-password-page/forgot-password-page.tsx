@@ -27,7 +27,7 @@ export const ForgotPasswordPage = () => {
             <EmailInput
                 name='email'
                 value={formValues.email}
-                onChange={e => handleInputsChange(e)}
+                onChange={handleInputsChange}
                 placeholder={'Укажите e-mail'}
                 extraClass="mt-6"
                 isIcon={false}

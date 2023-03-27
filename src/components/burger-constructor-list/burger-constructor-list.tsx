@@ -7,7 +7,7 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { REMOVE_INGRIDIENT, SET_TOTALPRICE } from '../../services/actions/burger-constructor'
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/typesOfStoreAndThunk';
 
 
 interface IBurgerConstructorlist {

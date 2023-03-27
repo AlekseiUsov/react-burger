@@ -29,7 +29,6 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
                 socket = new WebSocket(wsUrl)
                 console.log('сокет старт')
             }
-            console.log(socket)
 
             if (socket) {
                 socket.onopen = event => {
@@ -48,13 +47,12 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
 
                     if (parsedData.message === 'Invalid or missing token') {
                         socket?.close();
-
-                        refreshTokens()
-                            .then(() => dispatch({
+                        dispatch(
+                            {
                                 type: action.type,
                                 payload: wsUrl
-                            } as TApplicationActions))
-
+                            } as TApplicationActions
+                        )
                     } else {
                         dispatch(WSActions.onMessage(event));
                         console.log('Идет обмен данными')

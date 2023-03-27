@@ -4,8 +4,7 @@ import ProfileLink from './profile-link/profile-link'
 import { Outlet } from 'react-router-dom';
 import { userLogout } from '../../services/actions/routers/user-logout'
 
-import { useDispatch, useSelector } from '../../services/typesOfStoreAndThunk'
-import { getUserData } from '../../services/actions/routers/get-profile-data';
+import { useDispatch } from '../../services/typesOfStoreAndThunk'
 
 export const ProfilePage = () => {
     const dispatch = useDispatch();

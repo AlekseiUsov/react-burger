@@ -5,17 +5,17 @@ import { closeUserOrders, getUserOrdersConnect } from '../../../services/actions
 import { useDispatch, useSelector } from '../../../services/typesOfStoreAndThunk'
 import styles from './profile-orders.module.css'
 
-const token = getCookie('accessToken');
-const wsUrl = `wss://norma.nomoreparties.space/orders`;
-
 export const ProfileOrdersPage = () => {
     const dispatch = useDispatch();
     const { orders } = useSelector((store) => store.userOrders);
 
+    const token = getCookie('accessToken');
+    const wsUrl = `wss://norma.nomoreparties.space/orders`;
+
     useEffect(() => {
         dispatch(getUserOrdersConnect(`${wsUrl}?token=${token}`))
         return () => { dispatch(closeUserOrders()) }
-    }, [dispatch, token])
+    }, [dispatch, token, wsUrl])
 
     return (
         <div className={styles.wrapper}>

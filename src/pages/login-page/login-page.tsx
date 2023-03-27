@@ -16,7 +16,7 @@ export const LoginPage = () => {
 
     const dispatch = useDispatch();
 
-    const handleEmail = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         dispatch(userLogin(formValues.email, formValues.password))
     }
@@ -24,7 +24,7 @@ export const LoginPage = () => {
     return (
         <div className={`${styles.wrapper} pl-2`}>
             <h1>Вход</h1>
-            <form onSubmit={handleEmail} className={styles.form}>
+            <form onSubmit={handleLogin} className={styles.form}>
                 <EmailInput
                     name='email'
                     value={formValues.email}
