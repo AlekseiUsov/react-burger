@@ -1,4 +1,5 @@
 import { Middleware, MiddlewareAPI } from "redux";
+import { getCookie } from "typescript-cookie";
 import { refreshTokens } from "../../utils/burger-api";
 import { AppDispatch, RootState, TApplicationActions } from "../typesOfStoreAndThunk";
 
@@ -44,15 +45,20 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
                 socket.onmessage = (event) => {
                     const { data } = event;
                     const parsedData = JSON.parse(data);
+                    console.log(getCookie('accessToken'))
+
 
                     if (parsedData.message === 'Invalid or missing token') {
+                        console.log(parsedData.message)
                         socket?.close();
-                        dispatch(
-                            {
-                                type: action.type,
-                                payload: wsUrl
-                            } as TApplicationActions
-                        )
+                        refreshTokens()
+                            .then(() => console.log(getCookie('accessToken')))
+                            .then(() => dispatch(
+                                {
+                                    type: action.type,
+                                    payload: wsUrl
+                                } as TApplicationActions
+                            ))
                     } else {
                         dispatch(WSActions.onMessage(event));
                         console.log('Идет обмен данными')

@@ -138,7 +138,7 @@ export function logoutRequest() {
     }).then(res => checkReponse<TLogoutAndPasswordResponce>(res))
 }
 
-export function passwordReset(email: string) {
+export function forgotPassword(email: string) {
     return fetch(`${NORMA_API}/password-reset`, {
         method: 'POST',
         headers: {
@@ -148,6 +148,7 @@ export function passwordReset(email: string) {
             email,
         }),
     }).then(res => checkReponse<TLogoutAndPasswordResponce>(res))
+        .catch((err) => console.log(err))
 
 }
 

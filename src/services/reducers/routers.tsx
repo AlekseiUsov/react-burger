@@ -1,10 +1,8 @@
-
 import {
     USER_REGISTRATION_REQUEST,
     USER_REGISTRATION_SUCCESS,
     USER_REGISTRATION_ERROR
 } from '../constants';
-
 
 import {
     GET_PROFILE_DATA_REQUEST,
@@ -118,12 +116,14 @@ export const routerReducer = (state = initialState, action: TRouteType): IRouter
         case USER_LOGOUT_SUCCESS: {
             return {
                 ...initialState,
+                isUserDataLoaded: true,
             };
         }
         case USER_LOGOUT_ERROR: {
             return {
                 ...state,
                 isLoading: false,
+                isUserDataLoaded: true,
                 hasError: true,
             };
         }

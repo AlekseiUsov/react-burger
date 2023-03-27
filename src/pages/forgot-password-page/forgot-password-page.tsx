@@ -1,23 +1,21 @@
 import styles from './forgot-password-page.module.css';
-import { forgotPassword } from '../../services/actions/routers/forgot-password'
 
 import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 
-import { useDispatch } from '../../services/typesOfStoreAndThunk';
 import { useNavigate } from "react-router-dom";
 import { useForm } from '../../hooks/useForm';
+import { forgotPassword } from '../../utils/burger-api';
 
 
 export const ForgotPasswordPage = () => {
     const { formValues, handleInputsChange } = useForm({ email: "" });
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleEmail = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(forgotPassword(formValues.email))
+        forgotPassword(formValues.email)
         navigate('/reset-password', { state: { resetPassword: true } })
     }
 
