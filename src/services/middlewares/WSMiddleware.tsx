@@ -1,4 +1,5 @@
 import { Middleware, MiddlewareAPI } from "redux";
+import { getCookie } from "typescript-cookie";
 import { refreshTokens } from "../../utils/burger-api";
 import { AppDispatch, RootState, TApplicationActions } from "../typesOfStoreAndThunk";
 
@@ -28,8 +29,8 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
 
                 socket = new WebSocket(wsUrl)
                 console.log('сокет старт')
-                console.log(action.type)
             }
+            console.log(socket)
 
             if (socket) {
                 socket.onopen = event => {
@@ -47,13 +48,13 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
                     const parsedData = JSON.parse(data);
 
                     if (parsedData.message === 'Invalid or missing token') {
-                        console.log('да, эта ошибка');
                         socket?.close();
 
-                        refreshTokens().then(() => dispatch({
-                            type: action.type,
-                            payload: wsUrl
-                        } as TApplicationActions))
+                        refreshTokens()
+                            .then(() => dispatch({
+                                type: WSActions.wsStart,
+                                payload: wsUrl
+                            } as TApplicationActions))
 
                     } else {
                         dispatch(WSActions.onMessage(event));
@@ -67,7 +68,7 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
                 }
 
                 if (action.type === WSActions.wsStop) {
-                    socket?.close();
+                    socket.close();
                     console.log('сокет стоп')
                 }
             }
@@ -75,3 +76,4 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
         }
     }
 }
+

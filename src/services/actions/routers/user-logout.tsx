@@ -1,5 +1,5 @@
 import { logoutRequest } from '../../../utils/burger-api';
-import { removeCookie } from 'typescript-cookie'
+import { getCookie, removeCookie } from 'typescript-cookie'
 import { USER_LOGOUT_REQUEST, USER_LOGOUT_SUCCESS, USER_LOGOUT_ERROR } from '../../constants'
 import { AppDispatch, AppThunk } from '../../typesOfStoreAndThunk';
 
@@ -43,5 +43,6 @@ export const userLogout = (): AppThunk => {
         })
         removeCookie('accessToken')
         localStorage.removeItem('refreshToken')
+        console.log(getCookie('accessToken'))
     }
 }
