@@ -1,5 +1,4 @@
 import { Middleware, MiddlewareAPI } from "redux";
-import { getCookie } from "typescript-cookie";
 import { refreshTokens } from "../../utils/burger-api";
 import { AppDispatch, RootState, TApplicationActions } from "../typesOfStoreAndThunk";
 
@@ -52,7 +51,7 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
 
                         refreshTokens()
                             .then(() => dispatch({
-                                type: WSActions.wsStart,
+                                type: action.type,
                                 payload: wsUrl
                             } as TApplicationActions))
 
