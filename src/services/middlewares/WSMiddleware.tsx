@@ -65,7 +65,6 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
                     }
                 }
                 socket.onclose = event => {
-                    console.log(event)
                     socket?.close();
                     dispatch(WSActions.onClose(event));
                     console.log('Соединение закрыто')
