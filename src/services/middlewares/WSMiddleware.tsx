@@ -1,5 +1,5 @@
 import { Middleware, MiddlewareAPI } from "redux";
-import { getCookie, getCookies } from "typescript-cookie";
+import { getCookie } from "typescript-cookie";
 import { refreshTokens } from "../../utils/burger-api";
 import { AppDispatch, RootState, TApplicationActions } from "../typesOfStoreAndThunk";
 
@@ -39,7 +39,6 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
 
                 socket.onerror = event => {
                     dispatch(WSActions.onError(event));
-                    console.log(event)
                     console.log('Возникла ошибка')
                 };
 
@@ -60,11 +59,13 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
                                     payload: newWsUrl,
                                 } as TApplicationActions);
                             })
+                    } else {
+                        dispatch(WSActions.onMessage(event));
+                        console.log('Идет обмен данными')
                     }
-                    dispatch(WSActions.onMessage(event));
-                    console.log('Идет обмен данными')
                 }
                 socket.onclose = event => {
+                    console.log(event)
                     socket?.close();
                     dispatch(WSActions.onClose(event));
                     console.log('Соединение закрыто')

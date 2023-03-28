@@ -1,4 +1,4 @@
-import { postOrder } from '../../utils/burger-api';
+import { postOrder, refreshTokens } from '../../utils/burger-api';
 import { ORDER_REQUEST, ORDER_SUCCESS, ORDER_ERROR } from '../constants';
 import { AppDispatch, AppThunk } from '../typesOfStoreAndThunk';
 
@@ -53,7 +53,11 @@ export const getOrderDetails = (ingredients: string[]): AppThunk => {
                 dispatch(getOrderErrorAction())
             }
         }).catch(err => {
-            dispatch(getOrderErrorAction())
+            if (err.message === 'jwt expired') {
+                refreshTokens().then(() => dispatch(getOrderDetails(ingredients)))
+            } else {
+                dispatch(getOrderErrorAction())
+            }
         })
     }
 }

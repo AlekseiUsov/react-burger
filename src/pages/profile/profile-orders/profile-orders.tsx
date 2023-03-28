@@ -9,13 +9,14 @@ export const ProfileOrdersPage = () => {
     const dispatch = useDispatch();
     const { orders } = useSelector((store) => store.userOrders);
 
-    const token = getCookie('accessToken');
-    const wsUrl = `wss://norma.nomoreparties.space/orders`;
+
 
     useEffect(() => {
+        const token = getCookie('accessToken');
+        const wsUrl = `wss://norma.nomoreparties.space/orders`;
         dispatch(getUserOrdersConnect(`${wsUrl}?token=${token}`))
         return () => { dispatch(closeUserOrders()) }
-    }, [dispatch, token, wsUrl])
+    }, [dispatch])
 
     return (
         <div className={styles.wrapper}>
