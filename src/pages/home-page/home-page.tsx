@@ -9,7 +9,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 export const HomePage = () => {
-    const { ingridients, isLoading } = useSelector((store) => store.ingridients);
+    const { ingridients, isLoading } = useSelector(store => store.ingridients);
 
     return (
         <div>

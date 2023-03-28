@@ -10,8 +10,8 @@ const IngredientDetailsCard = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
 
-    const { ingridients, isLoading } = useSelector((store) => store.ingridients);
-    const { currentIngridient } = useSelector((store) => store.currentIngridient);
+    const { ingridients, isLoading } = useSelector(store => store.ingridients);
+    const { currentIngridient } = useSelector(store => store.currentIngridient);
     const current = ingridients.find((ingredient: ICardTypes) => ingredient._id === id)
 
     React.useEffect(() => {

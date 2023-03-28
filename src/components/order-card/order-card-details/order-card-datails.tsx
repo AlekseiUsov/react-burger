@@ -30,7 +30,7 @@ export const OrderCardDetails: FC<IOrderCardDetails> = ({ order }) => {
 
     const translatedStatus = convertStatus(status);
 
-    const { ingridients } = useSelector((store) => store.ingridients);
+    const { ingridients } = useSelector(store => store.ingridients);
 
     let totalPrice: number = 0;
     const totalPriceDetails = ingredients.reduce((acc: IObject, number) => {

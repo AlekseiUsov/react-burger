@@ -7,7 +7,7 @@ import styles from './profile-orders.module.css'
 
 export const ProfileOrdersPage = () => {
     const dispatch = useDispatch();
-    const { orders } = useSelector((store) => store.userOrders);
+    const { orders } = useSelector(store => store.userOrders);
 
 
 
