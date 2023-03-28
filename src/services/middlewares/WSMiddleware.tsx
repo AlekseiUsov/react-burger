@@ -1,5 +1,5 @@
 import { Middleware, MiddlewareAPI } from "redux";
-import { getCookie } from "typescript-cookie";
+import { getCookie, getCookies } from "typescript-cookie";
 import { refreshTokens } from "../../utils/burger-api";
 import { AppDispatch, RootState, TApplicationActions } from "../typesOfStoreAndThunk";
 
@@ -39,30 +39,30 @@ export const WSMiddleware = (WSActions: IWSActions): Middleware => {
 
                 socket.onerror = event => {
                     dispatch(WSActions.onError(event));
+                    console.log(event)
                     console.log('Возникла ошибка')
                 };
 
                 socket.onmessage = (event) => {
                     const { data } = event;
                     const parsedData = JSON.parse(data);
-                    console.log(getCookie('accessToken'))
-
 
                     if (parsedData.message === 'Invalid or missing token') {
                         console.log(parsedData.message)
-                        socket?.close();
+                        socket?.close()
                         refreshTokens()
-                            .then(() => console.log(getCookie('accessToken')))
-                            .then(() => dispatch(
-                                {
-                                    type: action.type,
-                                    payload: wsUrl
-                                } as TApplicationActions
-                            ))
-                    } else {
-                        dispatch(WSActions.onMessage(event));
-                        console.log('Идет обмен данными')
+                            .then(() => {
+                                const newToken = getCookie('accessToken');
+                                const soketUrl = wsUrl?.split('?')[0];
+                                const newWsUrl = `${soketUrl}?token=${newToken}`;
+                                dispatch({
+                                    type: WSActions.wsStart,
+                                    payload: newWsUrl,
+                                } as TApplicationActions);
+                            })
                     }
+                    dispatch(WSActions.onMessage(event));
+                    console.log('Идет обмен данными')
                 }
                 socket.onclose = event => {
                     socket?.close();
