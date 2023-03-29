@@ -29,11 +29,7 @@ export const Router = () => {
             <Routes location={background || location}>
                 <Route path="/" element={<HomePage />} />
                 <Route path="ingridients/:id" element={<IngredientDetailsCard />} />
-                <Route path="/order" element={<ProtectedRouteElement element={<Modal>
-                    <OrderDetails />
-                </Modal>
-                } />}
-                />
+
 
                 <Route path="/feed" element={<FeedPage />} />
                 <Route path="/feed/:number" element={<OrderCardPage />} />
@@ -56,11 +52,10 @@ export const Router = () => {
             </Routes>
             {background &&
                 <Routes>
-                    <Route path="/order" element={<ProtectedRouteElement element={<Modal>
+                    <Route path="/order" element={<Modal>
                         <OrderDetails />
                     </Modal>
-                    } />}
-                    />
+                    } />
                     <Route path="/feed/:number" element={
                         <OrderCardModal />
                     } />

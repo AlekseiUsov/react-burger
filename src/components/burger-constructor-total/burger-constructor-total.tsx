@@ -14,7 +14,7 @@ const BurgerConstructorTotal: FC<IBurgerConstructorTotal> = ({ text, icon }) => 
     const [isPopUpOpen, setIsPopUpOpen] = React.useState<boolean>(false);
 
     const { bun, constructorIngridients } = useSelector(state => state.burgerConstructor);
-    const isLogedIn = useSelector(state => state.auth);
+    const { isLogedIn } = useSelector(state => state.auth);
 
     const ingridientsIds = (constructorIngridients).map((ingridient) => ingridient._id);
 
@@ -23,6 +23,7 @@ const BurgerConstructorTotal: FC<IBurgerConstructorTotal> = ({ text, icon }) => 
     const location = useLocation();
 
     const getOrder = () => {
+
         if (bun === null || ingridientsIds.length === 0) {
             setIsPopUpOpen(true)
             setTimeout(() => setIsPopUpOpen(false), 3000)
@@ -35,7 +36,6 @@ const BurgerConstructorTotal: FC<IBurgerConstructorTotal> = ({ text, icon }) => 
             }
         }
     }
-
 
     return (
         <>
