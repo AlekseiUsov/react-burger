@@ -1,0 +1,62 @@
+.wrapper {
+    width: 700px;
+    text-align: start;
+    margin: 0 auto;
+}
+
+.name,
+.content {
+    font-size: 24px;
+    line-height: 30px;
+    margin-right: 50px;
+}
+
+.name {
+    margin-top: 40px;
+}
+
+.success {
+    color: #00CCCC;
+}
+
+.content {
+    margin-top: 60px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+}
+
+.list {
+    overflow: hidden;
+    overflow-y: auto;
+    max-height: 200px;
+    list-style: none;
+    padding: 0;
+}
+
+.list::-webkit-scrollbar-track {
+    background-color: none;
+    border-radius: 8px;
+}
+
+.orderDetails {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.data {
+    font-weight: 400;
+    color: #8585AD;
+}
+
+.inner {
+    display: flex;
+    gap: 5px;
+    font-family: 'Iceland';
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 24px;
+}

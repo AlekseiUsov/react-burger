@@ -1,5 +1,5 @@
-import { ICardTypes } from './propsType';
-import { getCookie, setCookie } from 'typescript-cookie'
+import { ICardTypes, IOrderTypes } from './propsType';
+import { getCookie, removeCookie, setCookie } from 'typescript-cookie'
 
 const NORMA_API = `https://norma.nomoreparties.space/api`;
 
@@ -12,7 +12,7 @@ type TServerResponce<T> = {
 } & T
 
 type TIngredientsResponce = TServerResponce<{
-    ingredients: Array<ICardTypes>
+    data: Array<ICardTypes>
 }>
 
 export function getIngredientsRequest() {
@@ -27,7 +27,7 @@ type TOrderResponce = TServerResponce<{
     }
 }>
 
-export function postOrder(ingredients: Array<ICardTypes>) {
+export function postOrder(ingredients: string[]) {
     return fetch(`${NORMA_API}/orders`, {
         method: 'POST',
         headers: {
@@ -46,6 +46,7 @@ type TUserResponce = TServerResponce<{
         name: string,
     },
 }>
+
 
 type TRegistrationOrAutorizationResponce = TUserResponce & {
     accessToken: string;
@@ -74,6 +75,20 @@ export function getUser() {
             Authorization: 'Bearer ' + getCookie('accessToken')
         },
     }).then(res => checkReponse<TUserResponce>(res))
+}
+
+
+type TOrdersResponce = TServerResponce<{
+    orders: Array<IOrderTypes>
+}>
+
+export function getCurrentOrderRequest(orderNumber: string) {
+    return fetch(`${NORMA_API}/orders/${orderNumber}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(res => checkReponse<TOrdersResponce>(res))
 }
 
 export function updateUser(name: string, email: string, password: string) {
@@ -123,7 +138,7 @@ export function logoutRequest() {
     }).then(res => checkReponse<TLogoutAndPasswordResponce>(res))
 }
 
-export function passwordReset(email: string) {
+export function forgotPassword(email: string) {
     return fetch(`${NORMA_API}/password-reset`, {
         method: 'POST',
         headers: {
@@ -133,6 +148,8 @@ export function passwordReset(email: string) {
             email,
         }),
     }).then(res => checkReponse<TLogoutAndPasswordResponce>(res))
+        .catch((err) => console.log(err))
+
 }
 
 
@@ -161,14 +178,22 @@ export function refreshTokens() {
         body: JSON.stringify({
             token
         }),
-    }).then(res => checkReponse<TRegistrationOrAutorizationResponce>(res)).then(res => {
-        let accessToken = res.accessToken.split('Bearer ')[1];
-        let refreshToken = res.refreshToken;
+    }).then(res => checkReponse<TRegistrationOrAutorizationResponce>(res))
+        .then(res => {
+            let accessToken = res.accessToken.split('Bearer ')[1];
+            let refreshToken = res.refreshToken;
 
-        setCookie('accessToken', accessToken)
-        localStorage.setItem('refreshToken', refreshToken);
-        return res
-    }).catch((err) => console.log(err))
+            setCookie('accessToken', accessToken)
+            localStorage.setItem('refreshToken', refreshToken);
+            return res;
+        }).catch((err) => {
+            if (err.message === 'Token is invalid') {
+                removeCookie('accessToken')
+                localStorage.removeItem('refreshToken')
+            } else {
+                console.log(err)
+            }
+        })
 }
 
 

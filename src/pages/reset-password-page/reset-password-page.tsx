@@ -4,49 +4,54 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 
-import { resetPassword } from '../../services/actions/routers/reset-password'
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useForm } from '../../hooks/useForm';
+import { passwordRecovery } from '../../utils/burger-api';
 
 export const ResetPasswordPage = () => {
-    const [password, setPassword] = useState<string>('');
-    const [token, setToken] = useState<string>('')
+    const { formValues, handleInputsChange } = useForm({ password: "", token: "", });
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+    console.log((!location.state?.resetPassword))
 
-    const handleEmail = () => {
-        dispatch<any>(resetPassword(password, token))
+    const handleEmail = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        passwordRecovery(formValues.password, formValues.token)
+            .then(res => {
+                if (res && res.success) {
+                    navigate('/login')
+                }
+            }).catch((err) => console.log(err))
     }
 
     useEffect(() => {
         if (!location.state?.resetPassword) {
             navigate('/forgot-password', { state: { resetPassword: false } })
         }
-
     }, [location.state, navigate])
-
 
     return (
         <form onSubmit={handleEmail} className={`${styles.wrapper} pl-2`}>
             <h1>Восстановление пароля</h1>
             <Input
-                value={password}
-                onChange={e => setPassword(e.target.value)}
+                name='password'
+                value={formValues.password}
+                onChange={(e) => handleInputsChange(e)}
                 placeholder={'Введите новый пароль'}
                 extraClass="mt-6"
                 icon={'ShowIcon'}
             />
             <Input
-                value={token}
-                onChange={e => setToken(e.target.value)}
+                name='token'
+                value={formValues.token}
+                onChange={(e) => handleInputsChange(e)}
                 placeholder={'Введите код из письма'}
                 extraClass="mt-6"
             />
             <Button
-                disabled={!token || !password}
+                disabled={!formValues.token || !formValues.password}
                 htmlType="submit" size="medium" extraClass="mt-6"
             >Сохранить</Button>
             <div className={styles.block}>

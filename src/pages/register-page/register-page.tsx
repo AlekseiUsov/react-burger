@@ -6,7 +6,7 @@ import { EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/typesOfStoreAndThunk';
 
 
 export const RegisterPage = () => {
@@ -14,8 +14,9 @@ export const RegisterPage = () => {
 
     const dispatch = useDispatch();
 
-    const handleEmail = () => {
-        dispatch<any>(userRegistration(formValues))
+    const handleEmail = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        dispatch(userRegistration(formValues.name, formValues.email, formValues.password))
     }
 
     return (

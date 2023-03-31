@@ -7,14 +7,11 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { REMOVE_INGRIDIENT, SET_TOTALPRICE } from '../../services/actions/burger-constructor'
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/typesOfStoreAndThunk';
 
-interface IConstructorElementType extends ICardTypes {
-    uniqid: string
-}
 
 interface IBurgerConstructorlist {
-    ingridients: Array<IConstructorElementType>
+    ingridients: Array<ICardTypes>
 }
 
 const BurgerConstructorlist: FC<IBurgerConstructorlist> = ({ ingridients }) => {
@@ -26,7 +23,7 @@ const BurgerConstructorlist: FC<IBurgerConstructorlist> = ({ ingridients }) => {
 
     const dispatch = useDispatch();
 
-    const removeIngridient = (ingridient: IConstructorElementType) => {
+    const removeIngridient = (ingridient: ICardTypes) => {
         dispatch({ type: REMOVE_INGRIDIENT, ingridient })
         dispatch({ type: SET_TOTALPRICE, ingridient })
     }

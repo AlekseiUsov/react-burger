@@ -1,0 +1,21 @@
+.wrapper {
+    margin-left: 50px;
+}
+
+.title {
+    margin-left: 150px;
+}
+
+.list {
+    max-width: 650px;
+    margin-left: 60px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+
+.list::-webkit-scrollbar-track {
+    background-color: none;
+    margin-bottom: 50px;
+    border-radius: 8px;
+}

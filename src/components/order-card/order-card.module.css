@@ -1,0 +1,69 @@
+.order {
+    background-color: #1c1c21;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    margin-top: 16px;
+    padding: 16px;
+    border-radius: 30px;
+    text-decoration: none;
+    color: #f2f2f3;
+}
+
+.order:first-child {
+    margin-top: 0;
+}
+
+.header {
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    font-family: 'Iceland';
+    font-size: 28px;
+}
+
+.data {
+    color: #8585AD;
+}
+
+.status {
+    display: block;
+}
+
+.success {
+    color: #00CCCC;
+}
+
+.hidden {
+    display: none;
+}
+
+.orderInfo {
+    display: flex;
+}
+
+.name {
+    font-weight: 700;
+    font-size: 24px;
+    padding-top: 24px;
+}
+
+.inner {
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.priceWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.totalPrice {
+    font-size: 28px;
+    margin-right: 5px;
+}

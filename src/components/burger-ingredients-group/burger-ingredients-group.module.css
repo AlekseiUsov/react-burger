@@ -4,7 +4,8 @@
 }
 
 .cards {
+    margin-right: 16px;
     display: grid;
-    padding: 0 16px;
+    grid-gap: 16px;
     grid-template-columns: 1fr 1fr;
 }

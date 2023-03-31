@@ -5,14 +5,14 @@ import styles from './burger-ingredient-card.module.css';
 import { ICardTypes } from '../../utils/propsType';
 
 import { useDrag } from "react-dnd";
-import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from '../../services/typesOfStoreAndThunk';
 
 
 const BurgerIngredientCard: FC<ICardTypes> = (ingridient) => {
     const location = useLocation();
 
-    const { bun, constructorIngridients } = useSelector((state: any) => state.burgerConstrucor);
+    const { bun, constructorIngridients } = useSelector(state => state.burgerConstructor);
 
     const count = React.useMemo(() => {
         const result: number = ingridient.type === 'bun'

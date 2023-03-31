@@ -4,24 +4,26 @@ import styles from './modal-window.module.css'
 
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 const modalRoot = (document.getElementById("react-modals") as Element);
 
 
-interface IModalOverlay {
-    title: string;
+interface IModal {
+    style?: React.CSSProperties;
+    title?: string;
     children: React.ReactElement;
 }
 
 
-const Modal: FC<IModalOverlay> = ({ title, children }) => {
-    const navigate = useNavigate();
+const Modal: FC<IModal> = ({ title, children, style }) => {
+    const navigate = useNavigate()
+    const location = useLocation()
 
-    const closeModal = () => {
-        navigate('/')
-    }
+    const closeModal = React.useCallback(() => {
+        location?.state?.background && navigate(location.state.background)
+    }, [location.state, navigate])
 
     React.useEffect(() => {
         const handleEsc = (e: KeyboardEvent) => {
@@ -37,7 +39,7 @@ const Modal: FC<IModalOverlay> = ({ title, children }) => {
         <>
             <div className={styles.window} >
                 <div className={styles.header}>
-                    <p className={styles.text}>{title}</p>
+                    <p className={styles.text} style={style}>{title}</p>
                     <CloseIcon
                         type="primary"
                         onClick={closeModal}

@@ -1,7 +1,15 @@
 .cardsContainer {
-    padding-right: 20px;
+    display: flex;
+    width: 600px;
+    flex-direction: column;
     height: 295px;
     overflow: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     margin-bottom: 12px;
+}
+
+.cardsContainer::-webkit-scrollbar-track {
+    padding-right: 20px;
+    background-color: none;
+    border-radius: 8px;
 }

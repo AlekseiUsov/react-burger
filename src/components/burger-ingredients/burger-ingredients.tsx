@@ -8,21 +8,21 @@ import { Link } from 'react-scroll'
 
 interface IBurgerIngredients {
   title: string;
-  ingridients: Array<ICardTypes>
+  ingredients: Array<ICardTypes>
 }
 
-const BurgerIngredients: FC<IBurgerIngredients> = ({ title, ingridients }) => {
+const BurgerIngredients: FC<IBurgerIngredients> = ({ title, ingredients }) => {
   const [current, setCurrent] = React.useState<string>('Булки');
 
   const bun = React.useMemo(
-    () => ingridients.filter((ingridient) => ingridient.type === 'bun')
-    , [ingridients]);
+    () => ingredients.filter((ingridient) => ingridient.type === 'bun')
+    , [ingredients]);
   const main = React.useMemo(
-    () => ingridients.filter((ingridient) => ingridient.type === 'main')
-    , [ingridients]);
+    () => ingredients.filter((ingridient) => ingridient.type === 'main')
+    , [ingredients]);
   const sauces = React.useMemo(
-    () => ingridients.filter((ingridient) => ingridient.type === 'sauce')
-    , [ingridients]);
+    () => ingredients.filter((ingridient) => ingridient.type === 'sauce')
+    , [ingredients]);
 
 
   return (

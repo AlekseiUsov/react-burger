@@ -3,22 +3,17 @@ import { useForm } from '../../../hooks/useForm'
 import { Input, EmailInput, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from '../../../services/typesOfStoreAndThunk';
 import { changeUserData } from '../../../services/actions/routers/change-user-data';
 
-type IFormProfile = {
-    name: string;
-    email: string;
-    password: string;
-};
 
 const ProfileInfo = () => {
     const [isBottonsOpen, setIsBottonsOpen] = useState<boolean>(false);
 
-    const user = useSelector((state: any) => state.auth.user)
-    const { formValues, handleInputsChange, setFormValues } = useForm<IFormProfile>({ name: user.name, email: user.email, password: "", });
+    const user = useSelector(state => state.auth.user)
+    const { formValues, handleInputsChange, setFormValues } = useForm({ name: user.name, email: user.email, password: "", });
 
-    const dispatch = useDispatch<any>();
+    const dispatch = useDispatch();
 
     const cancelInput = () => {
         setFormValues({

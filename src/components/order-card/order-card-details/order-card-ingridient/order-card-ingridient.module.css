@@ -1,0 +1,36 @@
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-right: 24px;
+}
+
+.icon {
+    overflow: hidden;
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    background-color: black;
+    border-radius: 100%;
+    border: 2px solid rgba(128, 26, 178, 1);
+}
+
+.name {
+    flex-grow: 1;
+    justify-self: start;
+    font-weight: 400;
+    margin-left: 16px;
+    line-height: 24px;
+}
+
+.price {
+    display: flex;
+    gap: 5px;
+    font-family: 'Iceland';
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 24px;
+}

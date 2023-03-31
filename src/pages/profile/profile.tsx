@@ -4,13 +4,13 @@ import ProfileLink from './profile-link/profile-link'
 import { Outlet } from 'react-router-dom';
 import { userLogout } from '../../services/actions/routers/user-logout'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch } from '../../services/typesOfStoreAndThunk'
 
 export const ProfilePage = () => {
     const dispatch = useDispatch();
 
     const logOut = () => {
-        dispatch<any>(userLogout())
+        dispatch(userLogout())
     }
 
     return (
@@ -25,11 +25,9 @@ export const ProfilePage = () => {
                         path='/profile/orders'
                         text="История заказов"
                     />
-                    <ProfileLink
-                        path='/login'
-                        text="Выход"
+                    <button className={styles.button}
                         onClick={logOut}
-                    />
+                    > Выход</button>
                     <p className={`${styles.text} mt-30`}>
                         В этом разделе вы можете
                         <br />

@@ -3,7 +3,12 @@
     flex-direction: column;
     align-items: center;
     margin-top: 100px;
-    margin-left: 135px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .block {

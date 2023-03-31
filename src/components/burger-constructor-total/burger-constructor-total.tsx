@@ -1,9 +1,8 @@
 import styles from './burger-constructor-total.module.css';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { FC } from 'react';
-import { ICardTypes } from '../../utils/propsType';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/typesOfStoreAndThunk';
 import { useLocation, useNavigate } from "react-router-dom";
 import { getOrderDetails } from '../../services/actions/order';
 
@@ -14,33 +13,33 @@ interface IBurgerConstructorTotal {
 const BurgerConstructorTotal: FC<IBurgerConstructorTotal> = ({ text, icon }) => {
     const [isPopUpOpen, setIsPopUpOpen] = React.useState<boolean>(false);
 
-    const { bun, constructorIngridients } = useSelector((state: any) => state.burgerConstrucor);
-    const user = useSelector((state: any) => state.auth.user);
+    const { bun, constructorIngridients } = useSelector(state => state.burgerConstructor);
+    const { isLogedIn } = useSelector(state => state.auth);
 
-    const ingridientsIds = (constructorIngridients).map((ingridient: ICardTypes) => ingridient._id);
+    const ingridientsIds = (constructorIngridients).map((ingridient) => ingridient._id);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
 
     const getOrder = () => {
+
         if (bun === null || ingridientsIds.length === 0) {
             setIsPopUpOpen(true)
             setTimeout(() => setIsPopUpOpen(false), 3000)
         } else {
-            if (user.isLogedIn) {
+            if (isLogedIn) {
                 navigate('/order', { state: { background: location } })
-                dispatch<any>(getOrderDetails([bun._id, ...ingridientsIds, bun._id]))
+                dispatch(getOrderDetails([bun._id, ...ingridientsIds, bun._id]))
             } else {
                 navigate('/login')
             }
         }
     }
 
-
     return (
         <>
-            <div className={`${styles.wrapper} pt-10 mr-10`}>
+            <div className={`${styles.wrapper} mt-5 mr-10`}>
                 {isPopUpOpen &&
                     <p className={styles.popUp}>Выберите булки и хотя бы 1 ингридиент</p>
                 }

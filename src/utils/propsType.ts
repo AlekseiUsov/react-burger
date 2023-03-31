@@ -10,4 +10,18 @@ export interface ICardTypes {
     fat: number;
     carbohydrates: number;
     price: number;
+    uniqid?: string;
 }
+
+export interface IOrderTypes {
+    _id: string;
+    name: string;
+    ingredients: Array<string>;
+    number: number;
+    status: string;
+    visibleStatus?: boolean;
+    updatedAt: string;
+    createdAt: string;
+    page?: string;
+}
+
