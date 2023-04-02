@@ -13,7 +13,7 @@ interface IListOrder {
 
 
 export const ListOrders: FC<IListOrder> = ({ userOrders, succession, visibleStatus, page }) => {
-    const array = succession ? [...userOrders].reverse().slice(0, 50) : userOrders;
+    const array = succession ? [...userOrders].reverse().slice(0, 12) : userOrders;
 
     return (
         <div>

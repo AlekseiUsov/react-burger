@@ -10,6 +10,8 @@ export const OrderCardModal = () => {
     const dispatch = useDispatch();
     const { number = '' } = useParams();
     const { order } = useSelector(store => store.currentOrder);
+    const { isLoading } = useSelector(store => store.ingridients);
+
 
     useEffect(() => {
         dispatch(getCurrentOrder(number))
@@ -17,7 +19,7 @@ export const OrderCardModal = () => {
 
     return (
         <>
-            {!order
+            {!order || isLoading
                 ? null
                 : <Modal style={{ fontFamily: 'Iceland' }} title={`# ${order.number}`} >
                     <OrderCardDetails order={order} />

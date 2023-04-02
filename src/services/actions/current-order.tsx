@@ -2,7 +2,6 @@ import { getCurrentOrderRequest, refreshTokens } from '../../utils/burger-api';
 import { GET_CURRENT_ORDER_REQUEST, GET_CURRENT_ORDER_SUCCESS, GET_CURRENT_ORDER_ERROR } from '../constants';
 import { IOrderTypes } from '../../utils/propsType'
 import { AppDispatch, AppThunk } from '../typesOfStoreAndThunk';
-import { getCookie } from 'typescript-cookie';
 
 interface IGetCurrentOrderAction {
     type: typeof GET_CURRENT_ORDER_REQUEST;
