@@ -8,7 +8,6 @@ import { useDrop } from "react-dnd";
 
 import { SORT_INGRIDIENTS } from '../../services/actions/burger-constructor';
 import { useDispatch } from '../../services/typesOfStoreAndThunk';
-import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 interface IBurgerConstructorItem {
     index: number;

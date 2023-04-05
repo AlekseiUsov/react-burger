@@ -8,6 +8,7 @@ import { getUserData } from '../../services/actions/routers/get-profile-data';
 const App = () => {
     const dispatch = useDispatch();
     const { ingridients } = useSelector(store => store.ingridients);
+    console.log(ingridients)
 
     useEffect(() => {
         dispatch(getIngredients())

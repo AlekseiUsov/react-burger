@@ -42,11 +42,6 @@ export const orderReducer = (state = initialState, action: TOrderActions) => {
         case ORDER_ERROR: {
             return {
                 ...state,
-                name: null,
-                order: {
-                    number: null,
-                },
-                success: false,
             };
         }
         default: {
