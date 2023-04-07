@@ -61,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "@4tw/cypress-drag-drop": "^2.2.3",
     "@testing-library/react": "^14.0.0",
     "@types/react-scroll": "^1.8.6",
     "@types/uniqid": "^5.3.2",
