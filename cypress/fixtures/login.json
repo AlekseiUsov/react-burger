@@ -1,4 +1,9 @@
 {
-    "email": "test@mail.ru",
-    "password": "1234"
+    "success": true,
+    "accessToken": "accessToken",
+    "refreshToken": "refreshToken",
+    "user": {
+        "email": "test@mail.ru",
+        "password": "1234"
+    }
 }

@@ -1,5 +1,5 @@
 import '@4tw/cypress-drag-drop'
-import { email, password } from '../fixtures/login.json'
+import { ingredients } from '../fixtures/order.json'
 
 describe('constructor', () => {
 
@@ -57,10 +57,17 @@ describe('constructor', () => {
         cy.get('button').contains('Оформить заказ').click()
 
 
-        cy.get('input[name=email]').type(`${email}`)
-        cy.get('input[name=password]').type(`${password}`)
-        cy.get('button').click()
-        cy.intercept("POST", "api/login", { fixture: "login.json" })
+        cy.get('input[name=email]').type(`${"test@yandex.ru"}`)
+        cy.get('input[name=password]').type(`${"1234"}`)
+        cy.get('Button').click()
+        cy.intercept("POST", "api/auth/login", { fixture: "login.json" })
+
+        cy.get('button').contains('Оформить заказ').click()
+        cy.intercept("POST", "api/orders", { fixture: "order.json" }).as('order')
+
+
+        cy.get('h1[class^=order-details_title]').contains('777')
+        cy.get('[class^=order-details_subtitle]').contains('Ингридиент 1 бургер')
 
     })
 
