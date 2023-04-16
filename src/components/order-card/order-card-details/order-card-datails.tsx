@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { useSelector } from '../../../services/typesOfStoreAndThunk';
 import { convertStatus } from '../../../utils/convert-status';
 import { getElement } from '../../../utils/getElement';
+import { getOrderIngridients } from '../../../utils/getOrderIngridients';
 import { IOrderTypes } from '../../../utils/propsType';
 import styles from './order-card-details.module.css'
 import { OrderCardIngridient } from './order-card-ingridient/order-card-ingridient';
@@ -33,15 +34,20 @@ export const OrderCardDetails: FC<IOrderCardDetails> = ({ order }) => {
     const { ingridients } = useSelector(store => store.ingridients);
 
     let totalPrice: number = 0;
-    const totalPriceDetails = ingredients.reduce((acc: IObject, number) => {
-        const { _id, name, price, image_mobile } = getElement(number, ingridients);
-        totalPrice += price;
 
-        if (!acc.hasOwnProperty(_id)) {
-            acc[_id] = { name, count: 1, price, image_mobile }
-        } else {
-            acc[_id] = { ...acc[_id], count: acc[_id].count + 1, price: acc[_id].count * acc[_id].price }
+    const totalPriceDetails = ingredients.reduce((acc: IObject, ingredient) => {
+
+        if (typeof ingredient === 'string') {
+            const { _id, name, price, image_mobile } = getElement(ingredient, ingridients);
+            totalPrice += price;
+
+            if (!acc.hasOwnProperty(_id)) {
+                acc[_id] = { name, count: 1, price, image_mobile }
+            } else {
+                acc[_id] = { ...acc[_id], count: acc[_id].count + 1, price: acc[_id].count * acc[_id].price }
+            }
         }
+
         return acc;
     }, {})
 

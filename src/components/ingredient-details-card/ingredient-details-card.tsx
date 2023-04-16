@@ -14,7 +14,6 @@ const IngredientDetailsCard = () => {
     const { currentIngridient } = useSelector(store => store.currentIngridient);
     const current = ingridients.find((ingredient: ICardTypes) => ingredient._id === id)
 
-    console.log(current)
 
     React.useEffect(() => {
         if (current) {

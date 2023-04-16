@@ -10,6 +10,7 @@ export const OrderCardPage = () => {
     const dispatch = useDispatch();
     const { number = '' } = useParams();
     const { order } = useSelector((store) => store.currentOrder);
+    const { isLoading, ingridients } = useSelector(store => store.ingridients);
 
     useEffect(() => {
         dispatch(getCurrentOrder(number))
@@ -17,7 +18,7 @@ export const OrderCardPage = () => {
 
     return (
         <>
-            {!order
+            {!order || isLoading
                 ? <h1 style={{ textAlign: 'center' }}>Идет загрузка ...</h1>
                 : <div className={styles.wrapper}>
                     <p className={styles.title}>{`# ${order.number}`}</p>
