@@ -14,6 +14,7 @@ export const OrderCard: FC<IOrderTypes> = ({ ingredients, createdAt, name, numbe
     const translatedStatus = convertStatus(status);
 
     const { ingridients } = useSelector(store => store.ingridients);
+
     const orderIngridients = getOrderIngridients(ingredients, ingridients)
 
     const allIcons = orderIngridients.map((ingridient) => ingridient.image_mobile);

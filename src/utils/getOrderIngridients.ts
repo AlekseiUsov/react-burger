@@ -7,8 +7,8 @@ export const getOrderIngridients = (ids: Array<string | null>, ingridients: ICar
         return [...acc, current];
     }, []);
 
-    const bun = ingridientsList.find(el => el?.type === 'bun')
-    const others = ingridientsList.filter(el => el?.type !== 'bun')
+    const bun = ingridientsList.filter(el => el !== undefined && el.type === 'bun')[0];
+    const others = ingridientsList.filter(el => el !== undefined && el.type !== 'bun')
 
     const totalIngredientsList = bun ? [bun, ...others] : [...others];
 
