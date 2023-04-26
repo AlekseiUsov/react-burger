@@ -1,4 +1,4 @@
-### Link: 
+### Ссылка: 
 https://alekseiusov.github.io/react-burger/
 
 ### Описание:
