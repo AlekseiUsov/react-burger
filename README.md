@@ -1,4 +1,4 @@
-### Stellar burgers
+## Stellar burgers
 
 
 https://alekseiusov.github.io/react-burger/
@@ -38,4 +38,20 @@ https://alekseiusov.github.io/react-burger/
 ### Модальные окна 
 
 В проекте выполнен роутинг с помощью библиотеки react routing dom. При открытии модального окна в браузерной строке появится уникальная ссылка. Если скопировать эту ссылку из браузерной строки и вставить ее в браузерную строку, но в новой вкладке, откроется отдельная страница с информацией из модального окна, которая будет немного по-другому оформлена. 
+
+
+#### Технологический стек:
+
+- HTML
+- SCSS
+- React (FC, custom hooks, HOC)
+- React-router-dom
+- Redux (Thunk)
+- TypeScript
+- WebSocket
+- Drag and Drop
+- React-scroll
+- JWT Tokens (login, logout, register, reset password)
+- Tests (Jest, Cypress)
+- EsLint, Prettier
 
