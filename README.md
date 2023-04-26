@@ -1,6 +1,9 @@
 ## Stellar burgers
 
 
+
+### Ссылка:
+
 https://alekseiusov.github.io/react-burger/
 
 ### Описание:
@@ -43,15 +46,14 @@ https://alekseiusov.github.io/react-burger/
 #### Технологический стек:
 
 - HTML
-- SCSS
+- CSS
 - React (FC, custom hooks, HOC)
 - React-router-dom
-- Redux (Thunk)
+- Redux(Thunk)
 - TypeScript
 - WebSocket
 - Drag and Drop
 - React-scroll
 - JWT Tokens (login, logout, register, reset password)
 - Tests (Jest, Cypress)
-- EsLint, Prettier
 
