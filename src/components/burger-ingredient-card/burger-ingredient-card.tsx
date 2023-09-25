@@ -37,7 +37,7 @@ const BurgerIngredientCard: FC<ICardTypes> = (ingridient) => {
             className={styles.container}
         >
             <div ref={dragRef}>
-                <img src={ingridient.image} />
+                <img src={ingridient.image} alt={ingridient.name} />
             </div>
             <div className={styles.price}>
                 <span>{ingridient.price}</span>
