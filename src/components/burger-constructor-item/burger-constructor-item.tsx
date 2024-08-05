@@ -1,95 +1,99 @@
-import styles from './burger-constructor-item.module.css';
+import styles from "./burger-constructor-item.module.css";
 import type { Identifier } from "dnd-core";
 
-import { useRef, FC, PropsWithChildren } from 'react';
+import { useRef, FC, PropsWithChildren } from "react";
 
 import { useDrag } from "react-dnd";
 import { useDrop } from "react-dnd";
 
-import { SORT_INGRIDIENTS } from '../../services/actions/burger-constructor';
-import { useDispatch } from '../../services/typesOfStoreAndThunk';
+import { SORT_INGRIDIENTS } from "../../services/actions/burger-constructor";
+import { useDispatch } from "../../services/typesOfStoreAndThunk";
 
 interface IBurgerConstructorItem {
-    index: number;
+  index: number;
 }
 
-const BurgerConstructorItem: FC<PropsWithChildren<IBurgerConstructorItem>> = ({ children, index }) => {
-    const dispatch = useDispatch();
+const BurgerConstructorItem: FC<PropsWithChildren<IBurgerConstructorItem>> = ({
+  children,
+  index,
+}) => {
+  const dispatch = useDispatch();
 
-    const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
-    const [{ handlerId }, drop] = useDrop<
-        IBurgerConstructorItem,
-        { handlerId: Identifier | null },
-        { handlerId: Identifier | null }
-    >
-        ({
-            accept: 'innerIngridient',
-            collect(monitor) {
-                return {
-                    handlerId: monitor.getHandlerId()
-                };
-            },
-            hover(item, monitor) {
-                if (!ref.current) {
-                    return;
-                }
-                // Индекс перемещаемого элемента
-                const dragIndex = item.index;
-                // Индекс текущего элемента (над которым находится курсор при dnd)
-                const hoverIndex = index;
+  const [{ handlerId }, drop] = useDrop<
+    IBurgerConstructorItem,
+    { handlerId: Identifier | null },
+    { handlerId: Identifier | null }
+  >({
+    accept: "innerIngridient",
+    collect(monitor) {
+      return {
+        handlerId: monitor.getHandlerId(),
+      };
+    },
+    hover(item, monitor) {
+      if (!ref.current) {
+        return;
+      }
+      // Индекс перемещаемого элемента
+      const dragIndex = item.index;
+      // Индекс текущего элемента (над которым находится курсор при dnd)
+      const hoverIndex = index;
 
-                // Выходим, если индексы сопадают
-                if (dragIndex === hoverIndex) {
-                    return;
-                }
+      // Выходим, если индексы сопадают
+      if (dragIndex === hoverIndex) {
+        return;
+      }
 
-                // Получаем положение текущего элемента относительно экрана
-                const hoverBoundingRect = ref.current?.getBoundingClientRect();
-                // Получаем центр текущего элемента по вертикали
-                const hoverMiddleY =
-                    (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-                // Получаем положение курсора
-                const clientOffset = monitor.getClientOffset();
-                // Получаем положение курсора относительно текущего элемента
-                const hoverClientY = (clientOffset?.y || 0) - hoverBoundingRect.top;
+      // Получаем положение текущего элемента относительно экрана
+      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      // Получаем центр текущего элемента по вертикали
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      // Получаем положение курсора
+      const clientOffset = monitor.getClientOffset();
+      // Получаем положение курсора относительно текущего элемента
+      const hoverClientY = (clientOffset?.y || 0) - hoverBoundingRect.top;
 
-                // Выходим, если перемещаемый элемент ниже, чем 50% от высоты текущего
-                if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-                    return;
-                }
+      // Выходим, если перемещаемый элемент ниже, чем 50% от высоты текущего
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return;
+      }
 
-                // Выходим, если перемещаемый элемент выше, чем 50% от высоты текущего
-                if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-                    return;
-                }
+      // Выходим, если перемещаемый элемент выше, чем 50% от высоты текущего
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        return;
+      }
 
-                dispatch({ type: SORT_INGRIDIENTS, rest: { from: dragIndex, to: hoverIndex } });
+      dispatch({
+        type: SORT_INGRIDIENTS,
+        rest: { from: dragIndex, to: hoverIndex },
+      });
 
-                // Сразу меняем индекс перемещаемого элемента
-                item.index = hoverIndex;
-            }
-        });
+      // Сразу меняем индекс перемещаемого элемента
+      item.index = hoverIndex;
+    },
+  });
 
-    const [{ isDragging }, drag] = useDrag({
-        type: 'innerIngridient',
-        item: () => {
-            // Определяем элемент
-            return { index };
-        },
-        collect: (monitor) => ({
-            isDragging: monitor.isDragging()
-        })
-    });
+  const [, drag] = useDrag({
+    type: "innerIngridient",
+    item: () => {
+      // Определяем элемент
+      return { index };
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
 
-    drag(drop(ref));
+  drag(drop(ref));
 
-    return (
-        <div ref={ref} data-handler-id={handlerId} className={styles.item}>
-            {children}
-        </div>
-    )
-}
-
+  return (
+    <div ref={ref} data-handler-id={handlerId} className={styles.item}>
+      {children}
+    </div>
+  );
+};
 
 export default BurgerConstructorItem;
